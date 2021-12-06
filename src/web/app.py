@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session
 from flask import render_template, redirect
 
 from sqlalchemy import create_engine
@@ -15,19 +15,25 @@ Account.__table__.create(bind=engine, checkfirst=True)
 
 from sqlalchemy.orm import sessionmaker
 Session = sessionmaker(bind=engine)
-session = Session()
+db_session = Session()
 
 @app.route("/")
 def main():
-    return render_template('/main/main.html')
+    email_ = None
+    if 'email' in session:
+        print("loggined")
+        email_ = "%s" % session['email']
+
+    return render_template('/main/main.html', email=email_)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        q = session.query(Account).filter_by(email="%s" % form.email, password="%s"%form.password)
+        q = db_session.query(Account).filter_by(email="%s" % form.email.data, password="%s"%form.password.data)
         if q.first():
-            print("found")
+            print("found", form['email'].data )
+            session['email'] = "%s" % form['email'].data
         else:
             print("not found")
         return redirect('/')
@@ -35,15 +41,19 @@ def login():
 
 @app.route("/logout")
 def logout():
+    session.pop('email', None)
     return render_template('/account/logout.html')
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form = SignUpForm()
+    error_msg_ = None
     if form.validate_on_submit():
-        print(form.email, form.password)
-        account = Account(email="%s" % form.email, password="%s"%form.password)
-        session.add(account)
-        session.commit()
-        return redirect('/')
-    return render_template('/account/signup.html', form=form)
+        q = db_session.query(Account).filter_by(email="%s" % form.email.data)
+        if q.first():
+            error_msg_ = "email already exists"
+        else:
+            account = Account(email="%s" % form.email.data, password="%s"%form.password.data)
+            db_session.add(account)
+            db_session.commit()
+    return render_template('/account/signup.html', form=form, error_msg=error_msg_)

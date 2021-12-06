@@ -1,5 +1,8 @@
 <html>
     <body>
+        {% if error_msg %}
+            {{ error_msg }}
+        {% else %}
         <form action="/signup" method="post">
             {{ form.hidden_tag() }}
             {{ form.email.label }}
@@ -8,5 +11,6 @@
             {{ form.password() }}
             {{ form.submit() }}
         </form>
+        {% endif %}
     </body>
 </html>
