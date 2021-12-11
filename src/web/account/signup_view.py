@@ -3,7 +3,7 @@ from flask import render_template, redirect, session
 
 from account.signup_form import SignUpForm
 
-from database.login_db import Account
+from database.account_db import Account
 from database.database_manager import DBManager
 
 class SignupView(FlaskView):
@@ -22,10 +22,15 @@ class SignupView(FlaskView):
         if _form.validate_on_submit():
             _email = _form['email'].data
             _password = _form['password'].data
-            
-            result = self.signup(_email, _password)
-            if not result:
-                return redirect("/")
+            _password_confirm = _form['password_confirm'].data
+            if _password == _password_confirm:
+                print(_password)
+                print(_password_confirm)
+                result = self.signup(_email, _password)
+                if not result:
+                    return redirect("/")
+            else:
+                result =  "password is not same"
         return render_template('/account/signup.html', form=_form, error_msg = result)
 
     def signup(self, email, password):

@@ -1,16 +1,16 @@
 <html>
     <body>
-        {% if error_msg %}
-            {{ error_msg }}
-        {% else %}
         <form action="/signup" method="post">
             {{ form.hidden_tag() }}
             {{ form.email.label }}
             {{ form.email() }}
             {{ form.password.label }}
             {{ form.password() }}
+            {{ form.password_confirm.label }}
+            {{ form.password_confirm() }}
             {{ form.submit() }}
         </form>
-        {% endif %}
+        <br/>
+        {{ error_msg }}
     </body>
 </html>

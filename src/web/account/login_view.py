@@ -1,9 +1,9 @@
 from flask_classful import FlaskView, route
-from flask import render_template, redirect, session, url_for
+from flask import render_template, redirect, session
 
 from account.login_form import LoginForm
 
-from database.login_db import Account
+from database.account_db import Account
 from database.database_manager import DBManager
 
 class LoginView(FlaskView):

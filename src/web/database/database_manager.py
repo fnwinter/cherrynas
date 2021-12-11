@@ -1,4 +1,4 @@
-from database.login_db import Account
+from database.account_db import Account
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

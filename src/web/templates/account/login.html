@@ -1,12 +1,23 @@
-<html>
-    <body>
-        <form action="/login/" method="post">
-            {{ form.hidden_tag() }}
-            {{ form.email.label }}
-            {{ form.email() }}
-            {{ form.password.label }}
-            {{ form.password() }}
-            {{ form.submit() }}
-        </form>
+        {% include 'common/center.html' %}
+        <div class="container" style='width:500px'>
+            <div style="width:500px">
+            <h3>🍒 Cherry NAS Login</h3>
+            <br/>
+                <form action="/login/" method="post">
+                    {{ form.hidden_tag() }}
+                    {{ form.email.label }}
+                    {{ form.email() }}
+                    {{ form.password.label }}
+                    {{ form.password() }}
+                    {{ form.submit() }}<br/>
+                </form>
+                <button onclick="window.location.href = '/signup'" class="btn btn-secondary mb-3" style="width:500px">
+                    Sign up
+                </button>
+                <button onclick="window.location.href = '/reset_password'" class="btn btn-secondary mb-3" style="width:500px">
+                    Reset Password
+                </button>
+            </div>        
+        </div>
     </body>
 </html>
