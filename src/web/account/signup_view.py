@@ -1,10 +1,10 @@
 from flask_classful import FlaskView, route
 from flask import render_template, redirect, session
 
-from account.signup_form import SignUpForm
+from web.account.signup_form import SignUpForm
 
-from database.account_db import Account
-from database.database_manager import DBManager
+from web.database.account_db import Account
+from web import db
 
 class SignupView(FlaskView):
     default_methods = ['GET', 'POST']
@@ -37,12 +37,11 @@ class SignupView(FlaskView):
         form = SignUpForm()
         error_msg_ = None
         if form.validate_on_submit():
-            db_session = DBManager().get_session()
-            q = db_session.query(Account).filter_by(email=f"{email}")
+            q = db.session.query(Account).filter_by(email=f"{email}")
             if q.first():
                 error_msg_ = "email already exists"
             else:
                 new_account = Account(email=f"{email}", password=f"{password}")
-                db_session.add(new_account)
-                db_session.commit()
+                db.session.add(new_account)
+                db.session.commit()
         return error_msg_

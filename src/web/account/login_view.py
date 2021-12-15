@@ -1,10 +1,10 @@
 from flask_classful import FlaskView, route
 from flask import render_template, redirect, session
+from flask import current_app as app
 
-from account.login_form import LoginForm
-
-from database.account_db import Account
-from database.database_manager import DBManager
+from web.account.login_form import LoginForm
+from web.database.account_db import Account
+from web import db
 
 class LoginView(FlaskView):
     default_methods = ['GET', 'POST']
@@ -28,8 +28,7 @@ class LoginView(FlaskView):
         return render_template('/account/login.html', form=_form)
 
     def login(self, email, password):
-        db_session = DBManager().get_session()
-        result = db_session.query(Account).filter_by(email=f"{email}", password=f"{password}")
+        result = db.session.query(Account).filter_by(email=f"{email}", password=f"{password}")
         if result.first():
             print("email found, add email to session")
             session['email'] = f"{email}"

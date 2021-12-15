@@ -1,10 +1,7 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String
+from web import db
 
-Base = declarative_base()
-
-class Account(Base):
+class Account(db.Model):
     __tablename__ = 'account'
-    email = Column(String, primary_key=True, nullable=False)
-    password = Column(String, nullable=False)
-    reset_pin = Column(String(6))
+    email = db.Column(db.String, primary_key=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    reset_pin = db.Column(db.String(6))
