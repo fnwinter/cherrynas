@@ -1,16 +1,33 @@
-<html>
-    <body>
-        <form action="/signup" method="post">
-            {{ form.hidden_tag() }}
-            {{ form.email.label }}
-            {{ form.email() }}
-            {{ form.password.label }}
-            {{ form.password() }}
-            {{ form.password_confirm.label }}
-            {{ form.password_confirm() }}
-            {{ form.submit() }}
-        </form>
-        <br/>
-        {{ error_msg }}
+        {% include 'common/center.html' %}
+        <div class="container" style='width:500px'>
+            <div style="width:500px">
+                <h3>🍒 Cherry NAS / Create an account</h3><br/>
+                <form method="post" class="post-form" action="/signup">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="text" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="nick_name">Nick name</label>
+                        <input type="text" class="form-control" name="nick_name" id="nick_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password_confirm">Password Confirm</label>
+                        <input type="password" class="form-control" name="password_confirm" id="password_confirm">
+                    </div>
+                    <br/>
+                    <button type="submit" class="btn btn-primary" style="width:500px">Create an account</button><br/>
+                </form>
+                <br/>
+                <button onclick="window.location.href = '/login/'" class="btn btn-secondary mb-3" style="width:500px">Log in</button><br>
+            </div>
+            <br/>
+            {{ error_msg }}
+        </div>
     </body>
 </html>

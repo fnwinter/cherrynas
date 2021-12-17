@@ -5,10 +5,12 @@ class MainView(FlaskView):
     default_methods = ['GET', 'POST']
 
     def index(self):
-        email_ = None
-        if session.get('email'):
-            email_ = f"{session.get('email')}"
+        who = None
+        if session.get('nick_name'):
+            who = f"{session.get('nick_name')}"
+        elif session.get('email'):
+            who = f"{session.get('email')}"
         else:
             return redirect('/login')
         
-        return render_template('/main/main.html', email=email_)
+        return render_template('/main/main.html', email=who)

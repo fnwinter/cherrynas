@@ -19,21 +19,21 @@ class SignupView(FlaskView):
 
     def post(self):
         _form = SignUpForm()
+        _result = None
         if _form.validate_on_submit():
             _email = _form['email'].data
+            _nick_name = _form['nick_name'].data
             _password = _form['password'].data
             _password_confirm = _form['password_confirm'].data
             if _password == _password_confirm:
-                print(_password)
-                print(_password_confirm)
-                result = self.signup(_email, _password)
-                if not result:
+                result = self.signup(_email, _nick_name, _password)
+                if not _result:
                     return redirect("/")
             else:
-                result =  "password is not same"
-        return render_template('/account/signup.html', form=_form, error_msg = result)
+                _result =  "password is not same"
+        return render_template('/account/signup.html', form=_form, error_msg = _result)
 
-    def signup(self, email, password):
+    def signup(self, email, nick_name, password):
         form = SignUpForm()
         error_msg_ = None
         if form.validate_on_submit():
@@ -41,7 +41,7 @@ class SignupView(FlaskView):
             if q.first():
                 error_msg_ = "email already exists"
             else:
-                new_account = Account(email=f"{email}", password=f"{password}")
+                new_account = Account(email=f"{email}", nick_name=f"{nick_name}", password=f"{password}")
                 db.session.add(new_account)
                 db.session.commit()
         return error_msg_

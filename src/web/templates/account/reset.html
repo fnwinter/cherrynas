@@ -1,0 +1,41 @@
+{% include 'common/center.html' %}
+<div class="container" style='width:500px'>
+    <div style="width:500px">
+        <h3>🍒 Cherry NAS / Reset Password</h3><br/>
+
+        <form id="request_pin" method="post" class="post-form" action="/reset_password">
+            {{ request_form.hidden_tag() }}
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="text" class="form-control" name="email" id="email" value="{{ request_form.email }}">
+            </div>
+            <br/>
+            <button type="submit" class="btn btn-primary" style="width:500px">Request PIN Number</button><br/>
+        </form>
+        <br/>
+        <form id="reset_password" method="post" class="post-form" action="/reset_password">
+            {{ reset_form.hidden_tag() }}
+            <div class="form-group">
+                <label for="reset_pin">Pin Number</label>
+                <input type="text" class="form-control" name="reset_pin" id="reset_pin">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+            <div class="form-group">
+                <label for="password_confirm">Password Confirm</label>
+                <input type="password" class="form-control" name="password_confirm" id="password_confirm">
+            </div>
+            <br/>
+            <button type="submit" class="btn btn-primary" style="width:500px">Change Password</button><br/>
+        </form>
+
+        <br/>
+        <button onclick="window.location.href = '/login/'" class="btn btn-secondary mb-3" style="width:500px">Log in</button><br>
+    </div>
+    <br/>
+    {{ error_msg }}
+</div>
+</body>
+</html>

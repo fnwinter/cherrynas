@@ -29,8 +29,10 @@ class LoginView(FlaskView):
 
     def login(self, email, password):
         result = db.session.query(Account).filter_by(email=f"{email}", password=f"{password}")
-        if result.first():
+        account = result.first()
+        if account:
             print("email found, add email to session")
             session['email'] = f"{email}"
+            session['nick_name'] = f"{account.nick_name}"
             return True
         return False
