@@ -2,6 +2,7 @@ from flask_classful import FlaskView, route
 from flask import render_template, session
 
 from web.account.reset_form import ResetForm, RequestPinForm
+from web.util.send_email import EMail
 
 class ResetView(FlaskView):
     default_methods = ['GET', 'POST']
@@ -49,4 +50,13 @@ class ResetView(FlaskView):
         pass
 
     def send_email_with_pin(self, email):
+        email = EMail(email)
+        email.set_title("pin number")
+        email.set_text("1234")
+        email.send_mail()
+
+    def update_pin_number(self):
+        pass
+
+    def get_pin_number(self):
         pass
