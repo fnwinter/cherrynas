@@ -1,4 +1,7 @@
-        {% include 'common/center.html' %}
+<!DOCTYPE html>
+<html>
+    {% include 'common/center.html' %}
+    <body>
         <div class="container" style='width:500px'>
             <div style="width:500px">
                 <h3>🍒 Cherry NAS / Create an account</h3><br/>
@@ -26,7 +29,6 @@
                 <br/>
                 <button onclick="window.location.href = '/login/'" class="btn btn-secondary mb-3" style="width:500px">Log in</button><br>
             </div>
-            <br/>
             {{ error_msg }}
         </div>
     </body>
