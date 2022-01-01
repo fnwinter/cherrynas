@@ -1,1 +1,19 @@
-{{files}}
+<!DOCTYPE html>
+<html>
+  {% include 'common/head.html' %}
+  <body>
+    <main>
+      {% include 'common/sidebar.html' %}
+      <div class="body">
+        <div>
+        {% include 'common/menu.html' %}
+        </div>
+        <div class='content'>
+          {{files}}
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="/static/bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="/static/js/sidebars.js"></script>
+</html>

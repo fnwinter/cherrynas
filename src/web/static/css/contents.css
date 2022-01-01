@@ -1,0 +1,14 @@
+.content {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.inner-round {
+  background-image:
+      radial-gradient(circle at 0 0, rgba(204,0,0,0) 14px, #c00 15px),
+      radial-gradient(circle at 100% 0, rgba(204,0,0,0) 14px, #c00 15px),
+      radial-gradient(circle at 100% 100%, rgba(204,0,0,0) 14px, #c00 15px),
+      radial-gradient(circle at 0 100%, rgba(204,0,0,0) 14px, #c00 15px);
+}

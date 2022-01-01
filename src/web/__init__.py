@@ -39,7 +39,7 @@ def create_db(app):
 
 def create_app():
     app = Flask(__name__, static_folder=STATIC_PATH)
-    app.debug=True
+    app.config['debug']=True
     app.config["SECRET_KEY"] = "!@#$#"#HASH_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///account.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
