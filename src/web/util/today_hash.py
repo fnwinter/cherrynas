@@ -6,7 +6,6 @@ def get_today_hash():
     """
     >>> from web.util.today_hash import get_today_hash
     >>> hash = get_today_hash()
-    >>> hash
     """
     md5_hash = hashlib.md5()
     md5_hash.update( f"date.today()".encode("utf-8") )

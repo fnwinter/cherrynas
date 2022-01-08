@@ -42,16 +42,23 @@ $('.ui-selected').on('click', function() {
 $( function() {
   $( "li.double_click" ).dblclick(function(object) {
     let double_clicked_item = object.target.textContent.trim()
-    console.log(double_clicked_item);
-    test_axios();
+    send_command("double_click", double_clicked_item);
   });
 } );
 
-function test_axios() {
-  axios.get('/explorer/test')
-      .then(response => {
-          const users = response.data;
-          console.log(`test axios`, users);
-      })
-      .catch(error => console.error(error));
+function send_command(_command, _option) {
+  axios.get('/explorer/command',{
+      params: {
+        command: _command,
+        option: _option
+    }
+  })
+  .then(response => {
+    const data = response.data;
+    console.log(`result : `, data.result);
+    if (data.result == 'refresh') {
+      location.reload();
+    }
+  })
+  .catch(error => console.error(error));
 }

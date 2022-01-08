@@ -12,8 +12,8 @@
             <div class='content'>
               <ol id="selectable" id="draggable">
                 {% for file in files %}
-                <li class="double_click ui-state-default" title="{{file[0]}}">
-                  <svg class="bi" width="24" height="24" role="img" aria-label="{{file[0]}}"><use xlink:href="#{{file[1]}}"/></svg>
+                <li class="double_click ui-state-default" title="{{ file[0] }} &#10; Size : {{ file[2] }}">
+                  <svg class="bi" width="36" height="36" role="img" aria-label="{{ file[0] }}"><use xlink:href="#{{file[1]}}"/></svg>
                   <br/>
                   <div style="overflow: hidden;">{{file[0]}}</div>
                 </li>
