@@ -1,4 +1,4 @@
-from flask_classful import FlaskView
+from flask_classful import FlaskView, route
 from flask import render_template, session
 
 import os
@@ -26,3 +26,7 @@ class ExplorerView(FlaskView):
             file_list.append([f,icon])
         
         return render_template('/explorer/explorer.html', files = file_list)
+
+    @route("/test")
+    def test(self):
+        return "test"

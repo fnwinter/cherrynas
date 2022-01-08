@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -43,6 +44,7 @@ def create_app():
     app.config["SECRET_KEY"] = "!@#$#"#HASH_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///account.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    CORS(app, resources={r'/*': {'origins': '*'}})
 
     create_view(app)
 
