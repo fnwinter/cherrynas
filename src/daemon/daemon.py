@@ -30,13 +30,13 @@ import daemon
 
 from daemon import pidfile
 
-from base.path.path import ROOT_PATH
-from base.path.path import DAEMON_LOCK_FILE
+ROOT_PATH = "/"
+DAEMON_LOCK_FILE = '.'
 
-from utils.log import get_logger, LogHandler
-from utils.process_helper import kill_running_process
+from util.log import get_logger, LogHandler
+from util.process_helper import kill_running_process
 
-from modules.loader import ModuleLoader
+from daemon.modules.loader import ModuleLoader
 
 LOG_MODULE = 'DAEMON'
 

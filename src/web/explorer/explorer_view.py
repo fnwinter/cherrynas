@@ -1,7 +1,7 @@
 from flask_classful import FlaskView, route
 from flask import render_template, session, request
 
-from web.util.file_helper import get_file_size
+from util.file_helper import get_file_size
 
 import os
 import json
