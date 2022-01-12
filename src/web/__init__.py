@@ -5,7 +5,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from util.today_hash import get_today_hash
+from utils.today_hash import get_today_hash
 
 SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
 STATIC_PATH = os.path.join(SCRIPT_PATH, "static")

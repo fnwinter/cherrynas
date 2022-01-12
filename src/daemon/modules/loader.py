@@ -23,7 +23,7 @@ import importlib
 
 from base.process.module_process import ModuleProcess
 from base.path.path import MODULE_PATH, ROOT_PATH
-from util.log import get_logger
+from utils.log import get_logger
 
 class ModuleLoader():
     """

@@ -33,10 +33,10 @@ from daemon import pidfile
 ROOT_PATH = "/"
 DAEMON_LOCK_FILE = '.'
 
-from util.log import get_logger, LogHandler
-from util.process_helper import kill_running_process
+from utils.log import get_logger, LogHandler
+from utils.process_helper import kill_running_process
 
-from daemon.modules.loader import ModuleLoader
+from modules.loader import ModuleLoader
 
 LOG_MODULE = 'DAEMON'
 
@@ -80,7 +80,7 @@ def run_daemon(command):
         get_logger(LOG_MODULE).error(e)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='YuriNAS Daemon')
+    parser = argparse.ArgumentParser(description='CherryNAS Daemon')
     parser.add_argument('--start', action='store_true', help='start the YuriNAS Daemon')
     parser.add_argument('--stop', action='store_true', help='stop the YuriNAS Daemon')
     parser.add_argument('--restart', action='store_true', help='restart the YuriNAS Daemon')

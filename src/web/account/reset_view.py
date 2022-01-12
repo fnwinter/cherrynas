@@ -2,7 +2,7 @@ from flask_classful import FlaskView, route
 from flask import render_template, session
 
 from web.account.reset_form import ResetForm, RequestPinForm
-from util.send_email import EMail
+from utils.send_email import EMail
 
 class ResetView(FlaskView):
     default_methods = ['GET', 'POST']
