@@ -36,7 +36,7 @@ DAEMON_LOCK_FILE = '.'
 from utils.log import get_logger, LogHandler
 from utils.process_helper import kill_running_process
 
-from modules.loader import ModuleLoader
+#sfrom modules.loader import ModuleLoader
 
 LOG_MODULE = 'DAEMON'
 
@@ -46,13 +46,14 @@ def start_daemon():
     if os.path.exists(DAEMON_LOCK_FILE):
         print("already daemon running")
         sys.exit()
-    with daemon.DaemonContext(
+    with daemons.DaemonContext(
             working_directory=ROOT_PATH,
             files_preserve=[log_file_no],
             pidfile=pidfile.TimeoutPIDLockFile(DAEMON_LOCK_FILE)) as context:
-        loader = ModuleLoader()
-        loader.load_modules()
-        loader.launch_modules(context)
+        #loader = ModuleLoader()
+        #loader.load_modules()
+        #loader.launch_modules(context)
+        pass
 
 def stop_daemon():
     get_logger(LOG_MODULE).info('stop daemon')

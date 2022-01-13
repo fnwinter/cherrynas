@@ -25,8 +25,7 @@ import importlib
 import os
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
-ROOT_PATH = os.path.abspath((os.path.join(SCRIPT_PATH, os.path.pardir)))
-MODULE_PATH = os.path.join(SCRIPT_PATH, os.path.pardir, "web")
+ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
 sys.path.append(ROOT_PATH)
 
 def get_module_name(path, file_name):
@@ -46,7 +45,7 @@ def load_python(self):
     module_name = None
     modules = {}
     try:
-        for _path, _, _files in os.walk(MODULE_PATH):
+        for _path, _, _files in os.walk(ROOT_PATH):
             for _file in _files:
                 _file_name, _ext = os.path.splitext(_file)
                 if _ext == '.py' and _file_name != '__init__':
@@ -54,7 +53,7 @@ def load_python(self):
                     module = importlib.import_module(module_name)
                     modules[module_name] = module
     except Exception as e:
-        print("load_python name %s, error %s", module_name, e)
+        print(f"load_python name {module_name}, error {e}")
     return modules.values()
 
 def run_test(verbose):
@@ -65,7 +64,7 @@ def run_test(verbose):
     runner = doctest.DocTestRunner()
 
     modules = load_python(ROOT_PATH)
-
+    
     for module in modules:
         for test in finder.find(module):
             runner.run(test)

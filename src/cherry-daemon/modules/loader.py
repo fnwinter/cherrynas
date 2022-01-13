@@ -21,9 +21,11 @@
 import os
 import importlib
 
-from base.process.module_process import ModuleProcess
-from base.path.path import MODULE_PATH, ROOT_PATH
+#from base.process.module_process import ModuleProcess
+#from base.path.path import MODULE_PATH, ROOT_PATH
 from utils.log import get_logger
+MODULE_PATH = ""
+ROOT_PATH = ""
 
 class ModuleLoader():
     """
