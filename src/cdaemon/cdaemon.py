@@ -24,14 +24,18 @@ cherry_nas daemon
 """
 
 import argparse
-import sys
-import os
 import daemon
+import os
+import sys
 
 from daemon import pidfile
 
 ROOT_PATH = "/"
-DAEMON_LOCK_FILE = '.'
+DAEMON_LOCK_FILE = '.lock.file'
+
+SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
+sys.path.append(ROOT_PATH)
 
 from utils.log import get_logger, LogHandler
 from utils.process_helper import kill_running_process
@@ -41,29 +45,37 @@ from utils.process_helper import kill_running_process
 LOG_MODULE = 'DAEMON'
 
 def start_daemon():
-    get_logger(LOG_MODULE).info('start daemon')
+    get_logger(LOG_MODULE,"test.txt").info('start daemon')
     log_file_no = LogHandler().get_file_no()
     if os.path.exists(DAEMON_LOCK_FILE):
         print("already daemon running")
         sys.exit()
-    with daemons.DaemonContext(
-            working_directory=ROOT_PATH,
-            files_preserve=[log_file_no],
-            pidfile=pidfile.TimeoutPIDLockFile(DAEMON_LOCK_FILE)) as context:
-        #loader = ModuleLoader()
-        #loader.load_modules()
-        #loader.launch_modules(context)
-        pass
+    print("TEST1")
+    try:
+        with daemon.DaemonContext(
+                working_directory=ROOT_PATH,
+                files_preserve=[log_file_no],
+                pidfile=pidfile.TimeoutPIDLockFile(DAEMON_LOCK_FILE)) as context:
+            #loader = ModuleLoader()
+            #loader.load_modules()
+            #loader.launch_modules(context)
+            import time
+            while True:
+                time.sleep(1)
+            pass
+    except Exception as e:
+        print(e)
+    print("TEST2")
 
 def stop_daemon():
-    get_logger(LOG_MODULE).info('stop daemon')
+    get_logger(LOG_MODULE,"test.txt").info('stop daemon')
     if not os.path.exists(DAEMON_LOCK_FILE):
         print("no running daemon")
         sys.exit()
     kill_running_process()
 
 def restart_daemon():
-    get_logger(LOG_MODULE).info('restart daemon')
+    get_logger(LOG_MODULE,"test.txt").info('restart daemon')
     kill_running_process()
     start_daemon()
 
