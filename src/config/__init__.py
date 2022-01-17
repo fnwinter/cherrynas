@@ -6,6 +6,10 @@ CONFIG_FILE_PATH = os.path.join(CONFIG_FOLDER_PATH, 'cherrynas.ini')
 LOG_PATH = os.path.join(CONFIG_FOLDER_PATH, "cherrynas.log")
 DAEMON_LOCK_PATH = os.path.join(CONFIG_FOLDER_PATH, "cherrynas.lock")
 
+SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
+MODULE_PATH = os.path.join(ROOT_PATH, "cdaemon", "modules")
+
 def create_config_folder():
   if not os.path.exists(CONFIG_FOLDER_PATH):
     os.makedirs(CONFIG_FOLDER_PATH)

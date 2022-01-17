@@ -19,13 +19,16 @@
 # SOFTWARE.
 
 import os
+import sys
 import importlib
 
-#from base.process.module_process import ModuleProcess
-#from base.path.path import MODULE_PATH, ROOT_PATH
+SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir))
+sys.path.append(ROOT_PATH)
+
+from modules.module_process import ModuleProcess
+from config import MODULE_PATH, ROOT_PATH
 from utils.log import get_logger
-MODULE_PATH = ""
-ROOT_PATH = ""
 
 class ModuleLoader():
     """
@@ -69,19 +72,6 @@ class ModuleLoader():
                 daemon_modules.append(module.__name__)
         return daemon_modules
 
-    def get_text_ui_modules(self):
-        """
-        >>> ml = ModuleLoader()
-        >>> modules = ml.load_modules()
-        >>> daemon_modules = ml.get_text_ui_modules()
-        """
-        text_ui_modules = []
-        for module in self.modules.values():
-            text_ui = getattr(module, 'TextUI', None)
-            if text_ui:
-                text_ui_modules.append(text_ui)
-        return text_ui_modules
-
     def load_modules(self):
         """
         load modules
@@ -96,7 +86,10 @@ class ModuleLoader():
             for _path, _, _files in os.walk(self.module_path):
                 for _file in _files:
                     _file_name, _ext = os.path.splitext(_file)
-                    if _ext == '.py' and _file_name != '__init__':
+                    if _file_name in ['__init__', 'loader', 'module_process']:
+                        continue
+                    if _ext == '.py':
+                        self.log.error("%s", _file_name)
                         module_name = self.get_module_name(_path, _file_name)
                         module = importlib.import_module(module_name)
                         self.modules[module_name] = module
