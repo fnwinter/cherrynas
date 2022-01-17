@@ -21,11 +21,16 @@
 # SOFTWARE.
 
 import os
+import sys
 
 from signal import SIGKILL
 from psutil import Process, NoSuchProcess, process_iter
 
-DAEMON_LOCK_FILE = '.'
+SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
+sys.path.append(ROOT_PATH)
+
+from config import DAEMON_LOCK_PATH
 
 def kill_child_processes(ppid):
     try:
@@ -39,16 +44,16 @@ def kill_child_processes(ppid):
         process.send_signal(SIGKILL)
 
 def kill_running_process():
-    if not os.path.exists(DAEMON_LOCK_FILE):
+    if not os.path.exists(DAEMON_LOCK_PATH):
         return
-    with open(DAEMON_LOCK_FILE, 'r') as f:
+    with open(DAEMON_LOCK_PATH, 'r') as f:
         pid = "".join(f.readlines()).strip()
         process_id = int(pid)
         if process_id != 0:
             kill_child_processes(process_id)
             os.kill(process_id, SIGKILL)
     # file is closed, so remove it.
-    os.remove(DAEMON_LOCK_FILE)
+    os.remove(DAEMON_LOCK_PATH)
 
 def kill_process_by_name(name):
     """

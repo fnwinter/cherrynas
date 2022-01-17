@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """
-cherry_nas daemon
+cherrynas daemon
 """
 
 import argparse
@@ -30,32 +30,29 @@ import sys
 
 from daemon import pidfile
 
-ROOT_PATH = "/"
-DAEMON_LOCK_FILE = '.lock.file'
-
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
 sys.path.append(ROOT_PATH)
 
+from config import DAEMON_LOCK_PATH
 from utils.log import get_logger, LogHandler
 from utils.process_helper import kill_running_process
 
-#sfrom modules.loader import ModuleLoader
+#from modules.loader import ModuleLoader
 
 LOG_MODULE = 'DAEMON'
 
 def start_daemon():
-    get_logger(LOG_MODULE,"test.txt").info('start daemon')
+    get_logger(LOG_MODULE).info('start daemon')
     log_file_no = LogHandler().get_file_no()
-    if os.path.exists(DAEMON_LOCK_FILE):
+    if os.path.exists(DAEMON_LOCK_PATH):
         print("already daemon running")
         sys.exit()
-    print("TEST1")
     try:
         with daemon.DaemonContext(
                 working_directory=ROOT_PATH,
                 files_preserve=[log_file_no],
-                pidfile=pidfile.TimeoutPIDLockFile(DAEMON_LOCK_FILE)) as context:
+                pidfile=pidfile.TimeoutPIDLockFile(DAEMON_LOCK_PATH)) as context:
             #loader = ModuleLoader()
             #loader.load_modules()
             #loader.launch_modules(context)
@@ -65,32 +62,19 @@ def start_daemon():
             pass
     except Exception as e:
         print(e)
-    print("TEST2")
 
 def stop_daemon():
-    get_logger(LOG_MODULE,"test.txt").info('stop daemon')
-    if not os.path.exists(DAEMON_LOCK_FILE):
+    get_logger(LOG_MODULE).info('stop daemon')
+    if not os.path.exists(DAEMON_LOCK_PATH):
         print("no running daemon")
         sys.exit()
-    kill_running_process()
+    else:
+        kill_running_process()
 
 def restart_daemon():
-    get_logger(LOG_MODULE,"test.txt").info('restart daemon')
-    kill_running_process()
+    get_logger(LOG_MODULE).info('restart daemon')
+    stop_daemon()
     start_daemon()
-
-def run_daemon(command):
-    try:
-        if command == 'start':
-            start_daemon()
-        elif command == 'stop':
-            stop_daemon()
-        elif command == 'restart':
-            restart_daemon()
-        else:
-            assert False, "shouldn't be here, unexpected command"
-    except Exception as e:
-        get_logger(LOG_MODULE).error(e)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='CherryNAS Daemon')
@@ -100,14 +84,17 @@ if __name__ == "__main__":
     parser.add_argument('--force', action='store_true', help='delete the lock file')
 
     args = parser.parse_args()
-    if args.force:
-        if os.path.exists(DAEMON_LOCK_FILE):
-            os.remove(DAEMON_LOCK_FILE)
-    if args.start:
-        run_daemon('start')
-    elif args.stop:
-        run_daemon('stop')
-    elif args.restart:
-        run_daemon('restart')
-    else:
-        parser.print_help()
+    try:
+        if args.force:
+            if os.path.exists(DAEMON_LOCK_PATH):
+                os.remove(DAEMON_LOCK_PATH)
+        if args.start:
+            start_daemon()
+        elif args.stop:
+            stop_daemon()
+        elif args.restart:
+            restart_daemon()
+        else:
+            parser.print_help()
+    except Exception as e:
+        get_logger(LOG_MODULE).error(e)

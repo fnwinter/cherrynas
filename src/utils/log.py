@@ -20,9 +20,8 @@
 
 import logging
 
+from config import DAEMON_LOCK_PATH, LOG_PATH
 from logging.handlers import RotatingFileHandler
-
-LOG_FILE_PATH = "."
 
 class LogHandler():
     """
@@ -41,7 +40,7 @@ class LogHandler():
             cls.instance = super(LogHandler, cls).__new__(cls)
         return cls.instance
 
-    def get_handler(self, log_file=LOG_FILE_PATH):
+    def get_handler(self, log_file=DAEMON_LOCK_PATH):
         """
         >>> from utils.log import LogHandler
         >>> LogHandler().close() # close the previous log file due to singleton
@@ -75,7 +74,7 @@ class LogHandler():
             return self.log_handler.stream.fileno()
         return -1
 
-def get_logger(module_name, log_file=LOG_FILE_PATH, level=logging.DEBUG):
+def get_logger(module_name, log_file=LOG_PATH, level=logging.DEBUG):
     """
     get logger with module name
     - this function returns logger
