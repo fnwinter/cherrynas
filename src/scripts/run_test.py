@@ -43,18 +43,19 @@ def get_module_name(path, file_name):
 
 def load_python(self):
     module_name = None
-    modules = {}
+    test_modules = {}
     try:
         for _path, _, _files in os.walk(ROOT_PATH):
             for _file in _files:
                 _file_name, _ext = os.path.splitext(_file)
                 if _ext == '.py' and _file_name != '__init__':
                     module_name = get_module_name(_path, _file_name)
+                    print(module_name)
                     module = importlib.import_module(module_name)
-                    modules[module_name] = module
+                    test_modules[module_name] = module
     except Exception as e:
         print(f"load_python name {module_name}, error {e}")
-    return modules.values()
+    return test_modules.values()
 
 def run_test(verbose):
     """

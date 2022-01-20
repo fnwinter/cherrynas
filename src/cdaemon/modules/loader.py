@@ -88,7 +88,6 @@ class ModuleLoader():
                     if _file_name in ['__init__', 'loader', 'module_process']:
                         continue
                     if _ext == '.py':
-                        self.log.error("%s", _file_name)
                         module_name = self.get_module_name(_path, _file_name)
                         module = importlib.import_module(module_name)
                         self.modules[module_name] = module
