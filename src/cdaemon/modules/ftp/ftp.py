@@ -24,8 +24,8 @@ import logging
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 
-from base.config.config import Config
-from base.path.path import FTP_LOG_FILE_PATH
+from config.config import Config
+from config import FTP_LOG_FILE_PATH
 from utils.log import get_logger
 from modules.ftp.ftp_authorizer import FTPAuthorizer
 

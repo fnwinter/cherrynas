@@ -23,18 +23,17 @@ import sys
 import importlib
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
-ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir))
-sys.path.append(ROOT_PATH)
+DAEDMON_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
 
 from modules.module_process import ModuleProcess
-from config import MODULE_PATH, ROOT_PATH
+from config import MODULE_PATH
 from utils.log import get_logger
 
 class ModuleLoader():
     """
     load modules in yurinas/modules
     """
-    def __init__(self, module_path=MODULE_PATH, root_path=ROOT_PATH):
+    def __init__(self, module_path=MODULE_PATH, root_path=DAEDMON_PATH):
         """
         >>> ml = ModuleLoader()
         >>> modules = ml.load_modules()

@@ -18,24 +18,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from pyftpdlib.authorizers import DummyAuthorizer, AuthenticationFailed
+import hashlib
 
-from utils.hash import hashed_password
-from utils.log import get_logger
-
-class FTPAuthorizer(DummyAuthorizer):
+def hashed_password(pwd):
     """
-    Use hashed password
+    return hashed password
+    >>> hashed_password('1234567890')
+    'c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646'
     """
-    def __init__(self):
-        super().__init__()
-        self.log = get_logger('FTPAuthorizer')
 
-    def validate_authentication(self, username, password, handler):
-        self.log.info('request to auth for %s', username)
-        _password = hashed_password(password)
-        try:
-            if self.user_table[username]['pwd'] != _password:
-                raise KeyError
-        except KeyError:
-            raise AuthenticationFailed
+    encoded_pwd = pwd.encode()
+    return hashlib.sha256(encoded_pwd).hexdigest()

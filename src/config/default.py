@@ -18,24 +18,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from pyftpdlib.authorizers import DummyAuthorizer, AuthenticationFailed
+DEFAULT_CONFIG = {
+    # ACCOUNT
+    'ACCOUNT_EMAIL': 'admin@cherrynas',
+    'ACCOUNT_PASSWORD': '1234567890',
 
-from utils.hash import hashed_password
-from utils.log import get_logger
+    # FTP
+    'FTP_ROOT_ENABLE': True,
+    'FTP_ROOT_PATH': '/ftp/path/here',
+    'FTP_ANONYMOUS_ENABLE': True,
+    'FTP_ANONYMOUS_PATH': '/ftp/path/here',
+    'FTP_PASSIVE_PORT': "60000, 65535",
+    'FTP_ADDRESS': '127.0.0.1',
+    'FTP_PORT': '21',
+    'FTP_MAX_CONNECTION': '10',
+    'FTP_MAX_CON_PER_IP': '2',
+    'FTP_WELCOME_BANNER': '\nWelcome! cherrynas FTP server.\n',
+}
 
-class FTPAuthorizer(DummyAuthorizer):
+def load_default(section):
     """
-    Use hashed password
+    >>> load_default('ACCOUNT').get('ACCOUNT_EMAIL')
+    'admin@cherrynas'
+    >>> load_default('FTP').get('FTP_ROOT_ENABLE')
+    True
     """
-    def __init__(self):
-        super().__init__()
-        self.log = get_logger('FTPAuthorizer')
-
-    def validate_authentication(self, username, password, handler):
-        self.log.info('request to auth for %s', username)
-        _password = hashed_password(password)
-        try:
-            if self.user_table[username]['pwd'] != _password:
-                raise KeyError
-        except KeyError:
-            raise AuthenticationFailed
+    config = {}
+    for d in DEFAULT_CONFIG:
+        if section in d:
+            config.update({d:DEFAULT_CONFIG.get(d)})
+    return config

@@ -18,24 +18,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from pyftpdlib.authorizers import DummyAuthorizer, AuthenticationFailed
+import os
 
-from utils.hash import hashed_password
-from utils.log import get_logger
-
-class FTPAuthorizer(DummyAuthorizer):
+def make_sure_path(path):
     """
-    Use hashed password
+    If the path does not exist, then create it.
+    >>> test_dir = os.path.join(TEST_RESOURCE_PATH, 'none')
+    >>> make_sure_path(test_dir)
+    >>> os.path.exists(test_dir)
+    True
+    >>> os.rmdir(test_dir)
     """
-    def __init__(self):
-        super().__init__()
-        self.log = get_logger('FTPAuthorizer')
-
-    def validate_authentication(self, username, password, handler):
-        self.log.info('request to auth for %s', username)
-        _password = hashed_password(password)
-        try:
-            if self.user_table[username]['pwd'] != _password:
-                raise KeyError
-        except KeyError:
-            raise AuthenticationFailed
+    if not os.path.exists(path):
+        os.makedirs(path, exist_ok=True)
