@@ -23,19 +23,19 @@ import sys
 import importlib
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir))
 DAEDMON_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
 
-from cdaemon.module.module_process import ModuleProcess
 from config import MODULE_PATH
 from utils.log import get_logger
 
 class ModuleLoader():
     """
-    load modules in yurinas/modules
+    load modules in cdaemon/modules
     """
     def __init__(self, module_path=MODULE_PATH, root_path=DAEDMON_PATH):
         """
-        >>> ml = ModuleLoader()
+        >>> ml = ModuleLoader(root_path=ROOT_PATH)
         >>> modules = ml.load_modules()
         """
         self.modules = {}
@@ -46,7 +46,9 @@ class ModuleLoader():
     def get_module_name(self, path, file_name):
         """
         get module name
-        >>> ml = ModuleLoader()
+        >>> import os
+        >>> ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir))
+        >>> ml = ModuleLoader(root_path=ROOT_PATH)
         >>> ml.root_path = '/root'
         >>> ml.get_module_name('/root/module/', 'module_name')
         'module.module_name'
@@ -59,10 +61,12 @@ class ModuleLoader():
     def get_daemon_module_names(self):
         """
         get daemon module
-        >>> ml = ModuleLoader()
+        >>> import os
+        >>> ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir))
+        >>> ml = ModuleLoader(root_path=ROOT_PATH)
         >>> modules = ml.load_modules()
         >>> daemon_modules = ml.get_daemon_module_names()
-        >>> 'modules.dummy.dummy' in daemon_modules
+        >>> 'cdaemon.modules.dummy.dummy' in daemon_modules
         True
         """
         daemon_modules = []
@@ -74,10 +78,12 @@ class ModuleLoader():
     def load_modules(self):
         """
         load modules
-        >>> ml = ModuleLoader()
-        >>> modules = ml.load_modules()
-        >>> module_names = [m.__name__ for m in modules]
-        >>> 'modules.dummy.dummy' in module_names
+        >>> import os
+        >>> ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir))
+        >>> ml = ModuleLoader(root_path=ROOT_PATH)
+        >>> _modules = ml.load_modules()
+        >>> _module_names = [m.__name__ for m in _modules]
+        >>> 'cdaemon.modules.dummy.dummy' in _module_names
         True
         """
         module_name = None
@@ -100,6 +106,7 @@ class ModuleLoader():
         launch daemon process
         """
         try:
+            from modules.module_process import ModuleProcess
             process_list = []
             daemon_module_names = self.get_daemon_module_names()
             for name in daemon_module_names:

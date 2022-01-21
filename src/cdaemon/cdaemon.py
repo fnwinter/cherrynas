@@ -38,8 +38,6 @@ from config import DAEMON_LOCK_PATH
 from utils.log import get_logger, LogHandler
 from utils.process_helper import kill_running_process
 
-from cdaemon.module.loader import ModuleLoader
-
 LOG_MODULE = 'DAEMON'
 
 def start_daemon():
@@ -53,6 +51,7 @@ def start_daemon():
                 working_directory=ROOT_PATH,
                 files_preserve=[log_file_no],
                 pidfile=pidfile.TimeoutPIDLockFile(DAEMON_LOCK_PATH)) as context:
+            from modules.loader import ModuleLoader
             loader = ModuleLoader()
             loader.load_modules()
             loader.launch_modules(context)

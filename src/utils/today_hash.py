@@ -4,7 +4,7 @@ from datetime import date
 
 def get_today_hash():
     """
-    >>> from util.today_hash import get_today_hash
+    >>> from utils.today_hash import get_today_hash
     >>> hash = get_today_hash()
     """
     md5_hash = hashlib.md5()

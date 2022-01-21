@@ -26,8 +26,16 @@ jobs:
         pip install -r src/requirements.txt
     - name: Run test
       run: |
+        chmod -R 777 ./resources
         pushd src
         chmod +x ./scripts/run_test.sh
         ./scripts/run_test.sh
+        popd
+    - name: Run pylint
+      run: |
+        pushd src
+        pip install pylint
+        chmod +x ./scripts/run_pylint.sh
+        # ./scripts/run_pylint.sh
         popd
 

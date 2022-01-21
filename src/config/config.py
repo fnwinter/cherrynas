@@ -34,28 +34,33 @@ class Config():
     def __init__(self, file_path=None, open_mode='r'):
         """
         open config file
-        >>> from base.path.path import CONFIG_PATH, CONFIG_FILE_NAME
-        >>> with Config() as c:
-        ...     file_name = c.config_file.name
-        ...     file_name == os.path.join(CONFIG_PATH, CONFIG_FILE_NAME)
+        >>> from config import TEST_CONFIG_READ_PATH
+        >>> with Config(TEST_CONFIG_READ_PATH) as c:
+        ...     TEST_CONFIG_READ_PATH == c.config_file.name
         True
-        >>> from base.path.path import TEST_CONFIG_FILE_PATH
-        >>> with Config(TEST_CONFIG_FILE_PATH) as c:
-        ...     TEST_CONFIG_FILE_PATH == c.config_file.name
-        True
+        >>> try:
+        ...     with Config("not_exist_file") as c:
+        ...         print("")
+        ... except Exception as e:
+        ...         print(e)
+        config file path is wrong
         """
         make_sure_path(CONFIG_FOLDER_PATH)
         if not file_path:
             config_file_path = os.path.join(CONFIG_FOLDER_PATH, CONFIG_FILE_NAME)
             self.config_file = open(config_file_path, open_mode)
         else:
-            self.config_file = open(file_path, open_mode)
+            if os.path.exists(file_path) or 'w' in open_mode:
+                self.config_file = open(file_path, open_mode)
+            else:
+                assert False, "config file path is wrong"
         self.log = get_logger('config')
         self.re_section = re.compile(r'\[(.*)\]')
         self.re_key_section = re.compile(r'([a-zA-Z\d]*)_([a-zA-Z\d_]*)')
         self.re_key_value = re.compile(r'(.*)=(.*)')
         self.config_data = copy.copy(DEFAULT_CONFIG)
-        self._read_config()
+        if open_mode == 'r':
+            self._read_config()
 
     def __del__(self):
         pass
@@ -113,7 +118,7 @@ class Config():
     def _get_section(self, line):
         """
         return section name
-        >>> from base.path.path import TEST_CONFIG_READ_PATH
+        >>> from config import TEST_CONFIG_READ_PATH
         >>> with Config(TEST_CONFIG_READ_PATH, 'r') as c:
         ...     print(c._get_section('[SECTION ]'))
         ...     print(c._get_section('SECTION'))
@@ -129,7 +134,7 @@ class Config():
     def _get_key_value(self, key_value):
         """
         return key and value from config string
-        >>> from base.path.path import TEST_CONFIG_READ_PATH
+        >>> from config import TEST_CONFIG_READ_PATH
         >>> with Config(TEST_CONFIG_READ_PATH, 'r') as c:
         ...     print(c._get_key_value('KEY=VALUE'))
         ...     print(c._get_key_value('KEY1= VALUE1'))
@@ -148,7 +153,7 @@ class Config():
     def _get_section_key(self, key):
         """
         return section and key from key name
-        >>> from base.path.path import TEST_CONFIG_READ_PATH
+        >>> from config import TEST_CONFIG_READ_PATH
         >>> with Config(TEST_CONFIG_READ_PATH, 'r') as c:
         ...     print(c._get_section_key('KEY_ VALUE'))
         ...     print(c._get_section_key('KEY1_VALUE1 '))
@@ -172,21 +177,21 @@ class Config():
     def write_config(self, config_data):
         """
         write config file in self.config_data
-        >>> from base.path.path import TEST_CONFIG_FILE_PATH
-        >>> with Config(TEST_CONFIG_FILE_PATH, 'w+') as c:
+        >>> from config import TEST_CONFIG_WRITE_PATH
+        >>> with Config(TEST_CONFIG_WRITE_PATH, 'w') as c:
         ...     config_data = {
         ...         'FTP_ADDRESS' : '127.0.0.1',
         ...         'FTP_ACCOUNT': 'ADMIN',
-        ...         'ACCOUNT_ID': 'TEST@YURINAS.COM'
+        ...         'ACCOUNT_ID': 'TEST@CHERRYNAS.COM'
         ...     }
         ...     c.write_config(config_data)
-        >>> with Config(TEST_CONFIG_FILE_PATH, 'r') as c:
+        >>> with Config(TEST_CONFIG_WRITE_PATH, 'r') as c:
         ...     print(c.get_value('FTP', 'ADDRESS'))
         ...     print(c.get_value('FTP', 'ACCOUNT'))
         ...     print(c.get_value('ACCOUNT', 'ID'))
         127.0.0.1
         ADMIN
-        TEST@YURINAS.COM
+        TEST@CHERRYNAS.COM
         """
         self.config_data = config_data
         self.config_file.write("# DO NOT MODIFY THIS FILE MANUALLY #\n")
@@ -205,7 +210,7 @@ class Config():
     def get_value(self, section, key, default=''):
         """
         get value by section/key
-        >>> from base.path.path import TEST_CONFIG_READ_PATH
+        >>> from config import TEST_CONFIG_READ_PATH
         >>> with Config(TEST_CONFIG_READ_PATH, 'r') as c:
         ...     print(c.get_value('TEST', 'GET_VALUE1'))
         ...     print(c.get_value('TEST', 'GET_VALUE2'))
@@ -222,7 +227,7 @@ class Config():
     def get_int_value(self, section, key):
         """
         get int value by section/key
-        >>> from base.path.path import TEST_CONFIG_READ_PATH
+        >>> from config import TEST_CONFIG_READ_PATH
         >>> with Config(TEST_CONFIG_READ_PATH, 'r') as c:
         ...     print(c.get_int_value('TEST', 'INT_VALUE'))
         10
@@ -238,7 +243,7 @@ class Config():
     def get_tuple_value(self, section, key):
         """
         get tuple value
-        >>> from base.path.path import TEST_CONFIG_READ_PATH
+        >>> from config import TEST_CONFIG_READ_PATH
         >>> with Config(TEST_CONFIG_READ_PATH, 'r') as c:
         ...     print(c.get_tuple_value('TEST', 'TUPLE_VALUE'))
         (1, 2)

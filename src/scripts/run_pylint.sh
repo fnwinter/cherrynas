@@ -20,5 +20,7 @@
 # SOFTWARE.
 
 SCRIPT_PATH=$(dirname $(realpath $0))
-ROOT_PATH=$SCRIPT_PATH/../web
-find $ROOT_PATH -type f -name "*.py" | xargs pylint
+ROOT_PATH=$SCRIPT_PATH/../
+pushd $ROOT_PATH
+  find ./ -type f -name "*.py" ! -path "./migrations/*" ! -path "./venv/*" | xargs pylint --rcfile=$SCRIPT_PATH/pylint.rc
+popd

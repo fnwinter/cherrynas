@@ -4,7 +4,7 @@ from flask import render_template, redirect, session
 from web.account.signup_form import SignUpForm
 
 from web.database.account_db import Account
-from web import db
+from web import DB
 
 class SignupView(FlaskView):
     default_methods = ['GET', 'POST']
@@ -26,22 +26,23 @@ class SignupView(FlaskView):
             _password = _form['password'].data
             _password_confirm = _form['password_confirm'].data
             if _password == _password_confirm:
-                result = self.signup(_email, _nick_name, _password)
+                _result = self.signup(_email, _nick_name, _password)
                 if not _result:
                     return redirect("/")
             else:
-                _result =  "password is not same"
-        return render_template('/account/signup.html', form=_form, error_msg = _result)
+                _result = "password is not same"
+        return render_template('/account/signup.html', form=_form, error_msg=_result)
 
     def signup(self, email, nick_name, password):
         form = SignUpForm()
         error_msg_ = None
         if form.validate_on_submit():
-            q = db.session.query(Account).filter_by(email=f"{email}")
-            if q.first():
+            query_ = DB.session.query(Account).filter_by(email=f"{email}")
+            if query_.first():
                 error_msg_ = "email already exists"
             else:
-                new_account = Account(email=f"{email}", nick_name=f"{nick_name}", password=f"{password}")
-                db.session.add(new_account)
-                db.session.commit()
+                new_account = Account(email=\
+                    f"{email}", nick_name=f"{nick_name}", password=f"{password}")
+                DB.session.add(new_account)
+                DB.session.commit()
         return error_msg_

@@ -23,7 +23,8 @@ import os
 def make_sure_path(path):
     """
     If the path does not exist, then create it.
-    >>> test_dir = os.path.join(TEST_RESOURCE_PATH, 'none')
+    >>> from config import RESOURCE_PATH
+    >>> test_dir = os.path.join(RESOURCE_PATH, 'none')
     >>> make_sure_path(test_dir)
     >>> os.path.exists(test_dir)
     True

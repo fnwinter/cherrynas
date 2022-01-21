@@ -12,8 +12,8 @@ STATIC_PATH = os.path.join(SCRIPT_PATH, "static")
 HASH_KEY = get_today_hash()
 print(f" * Hash key : {HASH_KEY}")
 
-db = SQLAlchemy()
-migrate = Migrate()
+DB = SQLAlchemy()
+MIGRATE = Migrate()
 
 def create_view(app):
     from web.main.main_view import MainView
@@ -29,18 +29,19 @@ def create_view(app):
 
     ExplorerView.register(app, '/explorer')
 
+    # create account view
     LoginView.register(app, '/login')
     LogoutView.register(app, '/logout')
     SignupView.register(app, '/signup')
     ResetView.register(app, '/reset_password')
 
 def create_db(app):
-    db.init_app(app)
-    migrate.init_app(app, db)
+    DB.init_app(app)
+    MIGRATE.init_app(app, DB)
 
 def create_app():
     app = Flask(__name__, static_folder=STATIC_PATH)
-    app.config['debug']=True
+    app.config['debug'] = True
     app.config["SECRET_KEY"] = "!@#$#"#HASH_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///account.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

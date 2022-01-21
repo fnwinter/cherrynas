@@ -1,8 +1,8 @@
-from web import db
+from web import DB
 
-class Account(db.Model):
+class Account(DB.Model):
     __tablename__ = 'account'
-    email = db.Column(db.String, primary_key=True, nullable=False)
-    nick_name = db.Column(db.String(30))
-    password = db.Column(db.String, nullable=False)
-    reset_pin = db.Column(db.String(6))
+    email = DB.Column(DB.String, primary_key=True, nullable=False)
+    nick_name = DB.Column(DB.String(30))
+    password = DB.Column(DB.String, nullable=False)
+    reset_pin = DB.Column(DB.String(6))

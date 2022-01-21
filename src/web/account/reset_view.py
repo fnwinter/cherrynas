@@ -16,7 +16,8 @@ class ResetView(FlaskView):
         _email = session.get('reset_pwd_email')
         _request_form.email = f"{_email}" if _email else ""
 
-        return render_template('/account/reset.html', reset_form=_reset_form, request_form=_request_form)
+        return render_template('/account/reset.html',
+                               reset_form=_reset_form, request_form=_request_form)
 
     def post(self):
         _request_form = RequestPinForm()
@@ -30,7 +31,7 @@ class ResetView(FlaskView):
             print(_email)
             if _email:
                 self.send_email_with_pin(_email)
-            
+
         if _reset_form.validate_on_submit():
             _email = f"{session.get('reset_pwd_email')}"
             _request_form.email = _email
@@ -38,13 +39,14 @@ class ResetView(FlaskView):
             _password_confirm = _reset_form["password_confirm"].data
             print("reset form")
             print("email", _email)
-            print("reset_pin",_reset_form["reset_pin"].data)
+            print("reset_pin", _reset_form["reset_pin"].data)
             print("password", _password)
             print("password_confirm", _password_confirm)
             if _password == _password_confirm and _password != "":
                 self.change_password(_email, _password)
 
-        return render_template('/account/reset.html', reset_form=_reset_form, request_form=_request_form)
+        return render_template('/account/reset.html',
+                               reset_form=_reset_form, request_form=_request_form)
 
     def change_password(self, email, password):
         pass

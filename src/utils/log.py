@@ -45,8 +45,8 @@ class LogHandler():
         >>> from utils.log import LogHandler
         >>> LogHandler().close() # close the previous log file due to singleton
         >>> import os
-        >>> from base.path.path import TEST_RESOURCE_PATH
-        >>> test_file_path = os.path.join(TEST_RESOURCE_PATH, 'test.log')
+        >>> from config import RESOURCE_PATH
+        >>> test_file_path = os.path.join(RESOURCE_PATH, 'test.log')
         >>> log1 = LogHandler().get_handler(test_file_path)
         >>> log2 = LogHandler().get_handler(test_file_path)
         >>> log1 is log2
@@ -79,9 +79,9 @@ def get_logger(module_name, log_file=LOG_PATH, level=logging.DEBUG):
     get logger with module name
     - this function returns logger
     >>> import os
-    >>> from base.path.path import TEST_RESOURCE_PATH
+    >>> from config import RESOURCE_PATH
     >>> from utils.log import get_logger
-    >>> test_file_path = os.path.join(TEST_RESOURCE_PATH, 'test.log')
+    >>> test_file_path = os.path.join(RESOURCE_PATH, 'test.log')
     >>> log = get_logger('test_module', test_file_path)
     >>> log.debug('debug log')
     >>> log.info('info log')

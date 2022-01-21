@@ -27,7 +27,6 @@ from pyftpdlib.servers import FTPServer
 from config.config import Config
 from config import FTP_LOG_FILE_PATH
 from utils.log import get_logger
-from modules.ftp.ftp_authorizer import FTPAuthorizer
 
 # pylint: disable-msg=too-many-locals
 def process_main(context):
@@ -37,6 +36,7 @@ def process_main(context):
     config = Config()
 
     # Authorizer
+    from modules.ftp.ftp_authorizer import FTPAuthorizer
     authorizer = FTPAuthorizer()
     try:
         root_enable = config.get_value('FTP', 'ROOT_ENABLE')

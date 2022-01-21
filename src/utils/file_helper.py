@@ -2,7 +2,11 @@ import os
 
 def get_file_size(path):
   """
-  >>> get_file_size()
+  >>> from config import RESOURCE_PATH
+  >>> import os
+  >>> text_file = os.path.join(RESOURCE_PATH, "text_file.txt")
+  >>> get_file_size(text_file)
+  '22 Bytes'
   """
 
   size = ''

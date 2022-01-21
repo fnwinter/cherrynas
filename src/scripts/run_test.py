@@ -31,9 +31,8 @@ sys.path.append(ROOT_PATH)
 def get_module_name(path, file_name):
     """
     get module name
-    >>> ml = ModuleLoader()
-    >>> ml.root_path = '/root'
-    >>> ml.get_module_name('/root/module/', 'module_name')
+    
+    >>> get_module_name('/module/', 'module_name')
     'module.module_name'
     """
     full_path = os.path.abspath(os.path.join(path, file_name))
@@ -46,6 +45,7 @@ def load_python(self):
     test_modules = {}
 
     for _path, _, _files in os.walk(ROOT_PATH):
+        if 'venv' in _path or 'migrations' in _path: continue
         for _file in _files:
             _file_name, _ext = os.path.splitext(_file)
             if _ext == '.py' and _file_name != '__init__':
