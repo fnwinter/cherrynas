@@ -25,7 +25,7 @@ import importlib
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 DAEDMON_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
 
-from modules.module_process import ModuleProcess
+from cdaemon.module.module_process import ModuleProcess
 from config import MODULE_PATH
 from utils.log import get_logger
 

@@ -38,7 +38,7 @@ from config import DAEMON_LOCK_PATH
 from utils.log import get_logger, LogHandler
 from utils.process_helper import kill_running_process
 
-from modules.loader import ModuleLoader
+from cdaemon.module.loader import ModuleLoader
 
 LOG_MODULE = 'DAEMON'
 
