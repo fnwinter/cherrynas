@@ -27,11 +27,14 @@ class LoginView(FlaskView):
         return render_template('/account/login.html', form=_form)
 
     def login(self, email, password):
-        result = DB.session.query(Account).filter_by(email=f"{email}", password=f"{password}")
-        account = result.first()
-        if account:
-            print("email found, add email to session")
-            session['email'] = f"{email}"
-            session['nick_name'] = f"{account.nick_name}"
-            return True
+        try:
+            result = DB.session.query(Account).filter_by(email=f"{email}", password=f"{password}")
+            account = result.first()
+            if account:
+                print("email found, add email to session")
+                session['email'] = f"{email}"
+                session['nick_name'] = f"{account.nick_name}"
+                return True
+        except Exception as e:
+            return False
         return False

@@ -30,10 +30,10 @@ def create_view(app):
     ExplorerView.register(app, '/explorer')
 
     # create account view
-    LoginView.register(app, '/login')
-    LogoutView.register(app, '/logout')
-    SignupView.register(app, '/signup')
-    ResetView.register(app, '/reset_password')
+    LoginView.register(app, '/login/')
+    LogoutView.register(app, '/logout/')
+    SignupView.register(app, '/signup/')
+    ResetView.register(app, '/reset_password/')
 
 def create_db(app):
     DB.init_app(app)
