@@ -16,20 +16,31 @@ DB = SQLAlchemy()
 MIGRATE = Migrate()
 
 def create_view(app):
+    # pages view
     from web.main.main_view import MainView
-
     from web.explorer.explorer_view import ExplorerView
+    from web.image.image_view import ImageView
+    from web.movie.movie_view import MovieView
+    from web.music.music_view import MusicView
+    from web.book.book_view import BookView
+    from web.sync.sync_view import SyncView
+    from web.proxy.proxy_view import ProxyView
 
+    MainView.register(app, '/')
+    ExplorerView.register(app, '/explorer/')
+    ImageView.register(app, '/image/')
+    MovieView.register(app, '/movie/')
+    MusicView.register(app, '/music/')
+    BookView.register(app, '/book/')
+    SyncView.register(app, '/sync/')
+    ProxyView.register(app, '/proxy/')
+
+    # create account view
     from web.account.login_view import LoginView
     from web.account.logout_view import LogoutView
     from web.account.signup_view import SignupView
     from web.account.reset_view import ResetView
 
-    MainView.register(app, '/')
-
-    ExplorerView.register(app, '/explorer')
-
-    # create account view
     LoginView.register(app, '/login/')
     LogoutView.register(app, '/logout/')
     SignupView.register(app, '/signup/')
