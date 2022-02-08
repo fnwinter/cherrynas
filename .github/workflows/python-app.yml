@@ -36,6 +36,6 @@ jobs:
         pushd src
         pip install pylint
         chmod +x ./scripts/run_pylint.sh
-        # ./scripts/run_pylint.sh
+        ./scripts/run_pylint.sh
         popd
 
