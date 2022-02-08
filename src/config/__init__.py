@@ -42,7 +42,7 @@ TEST_CONFIG_READ_PATH = os.path.join(RESOURCE_PATH, "test_read_config.ini")
 TEST_CONFIG_WRITE_PATH = os.path.join(RESOURCE_PATH, "test_write_config.ini")
 
 def create_config_folder():
-  if not os.path.exists(CONFIG_FOLDER_PATH):
-    os.makedirs(CONFIG_FOLDER_PATH)
+    if not os.path.exists(CONFIG_FOLDER_PATH):
+        os.makedirs(CONFIG_FOLDER_PATH)
 
 create_config_folder()

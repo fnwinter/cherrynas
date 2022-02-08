@@ -9,5 +9,4 @@ setup(name='cherrynas',
       packages=find_packages(),
       long_description='',
       zip_safe=False,
-      setup_requires=[]
-)
+      setup_requires=[])

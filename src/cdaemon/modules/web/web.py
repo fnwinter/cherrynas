@@ -25,7 +25,7 @@ from utils.log import get_logger
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 WEB_SCRIPT_PATH = os.path.abspath(
-    os.path.join(SCRIPT_PATH, 
+    os.path.join(SCRIPT_PATH,
                  os.path.pardir,
                  os.path.pardir,
                  os.path.pardir,

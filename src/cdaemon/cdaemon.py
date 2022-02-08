@@ -24,9 +24,9 @@ cherrynas daemon
 """
 
 import argparse
-import daemon
 import os
 import sys
+import daemon
 
 from daemon import pidfile
 
@@ -55,7 +55,6 @@ def start_daemon():
             loader = ModuleLoader()
             loader.load_modules()
             loader.launch_modules(context)
-            pass
     except Exception as e:
         print(e)
 

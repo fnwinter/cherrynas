@@ -19,7 +19,6 @@
 # SOFTWARE.
 
 import os
-import sys
 import importlib
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))

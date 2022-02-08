@@ -36,5 +36,6 @@ class LoginView(FlaskView):
                 session['nick_name'] = f"{account.nick_name}"
                 return True
         except Exception as e:
+            print(e)
             return False
         return False

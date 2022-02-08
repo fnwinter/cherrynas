@@ -20,8 +20,8 @@
 
 import logging
 
-from config import DAEMON_LOCK_PATH, LOG_PATH
 from logging.handlers import RotatingFileHandler
+from config import DAEMON_LOCK_PATH, LOG_PATH
 
 class LogHandler():
     """
