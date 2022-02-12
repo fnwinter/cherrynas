@@ -14,7 +14,7 @@ class LoginView(FlaskView):
             return redirect('/')
 
         _form = LoginForm()
-        return render_template('/account/login.html', form=_form)
+        return render_template('/account/login.html', form=_form, error_msg=None)
 
     def post(self):
         _form = LoginForm()
@@ -24,7 +24,7 @@ class LoginView(FlaskView):
 
             if self.login(_email, _password):
                 return redirect("/")
-        return render_template('/account/login.html', form=_form)
+        return render_template('/account/login.html', form=_form, error_msg='test')
 
     def login(self, email, password):
         try:
