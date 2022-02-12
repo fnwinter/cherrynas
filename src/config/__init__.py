@@ -21,19 +21,25 @@
 import os
 
 HOME_PATH = os.path.expanduser('~')
-CONFIG_FOLDER_PATH = os.path.join(HOME_PATH, '.cherrynas')
-CONFIG_FILE_NAME = "cherrynas.ini"
-CONFIG_FILE_PATH = os.path.join(CONFIG_FOLDER_PATH, CONFIG_FILE_NAME)
-
-LOG_PATH = os.path.join(CONFIG_FOLDER_PATH, "cherrynas.log")
-DAEMON_LOCK_PATH = os.path.join(CONFIG_FOLDER_PATH, "cherrynas.lock")
-FTP_LOG_FILE_PATH = os.path.join(CONFIG_FOLDER_PATH, "ftp.log")
-
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
 MODULE_PATH = os.path.join(ROOT_PATH, "cdaemon", "modules")
-
+CONFIG_FOLDER_PATH = os.path.join(HOME_PATH, '.cherrynas')
 RESOURCE_PATH = os.path.abspath(os.path.join(ROOT_PATH, os.path.pardir, "resources"))
+
+# ini file
+CONFIG_FILE_NAME = "cherrynas.ini"
+CONFIG_FILE_PATH = os.path.join(CONFIG_FOLDER_PATH, CONFIG_FILE_NAME)
+
+# log files
+LOG_PATH = os.path.join(CONFIG_FOLDER_PATH, "cherrynas.log")
+FTP_LOG_FILE_PATH = os.path.join(CONFIG_FOLDER_PATH, "ftp.log")
+
+# database files
+ACCOUNT_DB_PATH = os.path.join(CONFIG_FOLDER_PATH, "account.db")
+
+# etc files
+DAEMON_LOCK_PATH = os.path.join(CONFIG_FOLDER_PATH, "cherrynas.lock")
 
 """
 Test file path

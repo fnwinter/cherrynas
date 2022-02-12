@@ -5,12 +5,11 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from utils.today_hash import get_today_hash
+from config import ACCOUNT_DB_PATH
+from utils.hash import get_today_hash
 
 SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
 STATIC_PATH = os.path.join(SCRIPT_PATH, "static")
-HASH_KEY = get_today_hash()
-print(f" * Hash key : {HASH_KEY}")
 
 DB = SQLAlchemy()
 MIGRATE = Migrate()
@@ -53,8 +52,8 @@ def create_db(app):
 def create_app():
     app = Flask(__name__, static_folder=STATIC_PATH)
     app.config['debug'] = True
-    app.config["SECRET_KEY"] = "!@#$#"#HASH_KEY
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///account.db'
+    app.config["SECRET_KEY"] = get_today_hash()
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{ACCOUNT_DB_PATH}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     CORS(app, resources={r'/*': {'origins': '*'}})
 
