@@ -15,6 +15,7 @@
 .themed-container-error {
   padding: .75rem;
   margin-bottom: 1.5rem;
-  background-color: rgba(248, 141, 141, 0.808);
-  border: 1px solid rgb(255, 0, 0);
+  background-color: rgba(248, 141, 141, 0.61);
+  border: 1px  solid rgba(165, 2, 2, 0.411);
+  border-radius: 5px;
 }

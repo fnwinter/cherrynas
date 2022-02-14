@@ -1,3 +1,4 @@
+from email_validator import validate_email, EmailSyntaxError
 from flask_classful import FlaskView, route
 from flask import render_template, redirect, session
 
@@ -25,12 +26,15 @@ class SignupView(FlaskView):
             _nick_name = _form['nick_name'].data
             _password = _form['password'].data
             _password_confirm = _form['password_confirm'].data
+
             if _password == _password_confirm:
                 _result = self.signup(_email, _nick_name, _password)
                 if not _result:
                     return redirect("/")
             else:
                 _result = "password is not same"
+        else:
+            _result = "email or form is not valid"
         return render_template('/account/signup.html', form=_form, error_msg=_result)
 
     def signup(self, email, nick_name, password):
@@ -46,3 +50,11 @@ class SignupView(FlaskView):
                 DB.session.add(new_account)
                 DB.session.commit()
         return error_msg_
+
+    def validate_email(self, email):
+        try:
+            validate_email(email)
+        except EmailSyntaxError as e:
+            return False
+        return True
+

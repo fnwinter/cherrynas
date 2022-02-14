@@ -24,12 +24,19 @@
                         <input type="password" class="form-control" name="password_confirm" id="password_confirm">
                     </div>
                     <br/>
+
+                    {% if error_msg %}
+                    <span>
+                        <div class="themed-container-error">{{ error_msg }}</div>
+                    </span>
+                    {% endif %}
+
                     <button type="submit" class="btn btn-primary" style="width:500px">Create an account</button><br/>
                 </form>
                 <br/>
                 <button onclick="window.location.href = '/login/'" class="btn btn-secondary mb-3" style="width:500px">Log in</button><br>
             </div>
-            {{ error_msg }}
+
         </div>
     </body>
 </html>

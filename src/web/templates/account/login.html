@@ -15,12 +15,17 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" name="password" id="password" ><br/>
             
-                    <input class="form-check-input" type="checkbox" name='rememberme' id="rememberme">
+                    <input class="form-check-input" type="checkbox" name='rememberme' id="rememberme" >
                     <label class="form-check-label" for="flexCheckDefault">Remember Me</label><br/><br/>
-            
+
+                    {% if error_msg %}
+                    <span>
+                        <div class="themed-container-error">{{ error_msg }}</div>
+                    </span>
+                    {% endif %}
+
                     <button type="submit" class="btn btn-primary mb-3" style="width:500px">Login</button><br>
                 </form>
-
 
                 <button onclick="window.location.href = '/signup'" class="btn btn-secondary mb-3" style="width:500px">
                     Sign up
@@ -31,4 +36,14 @@
             </div>        
         </div>
     </body>
+    <script>
+        function get_cookie_email()
+        {
+            
+        }
+
+
+        document.getElementById('email').value = "test@gmail.com";
+        
+    </script>
 </html>

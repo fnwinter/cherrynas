@@ -18,24 +18,33 @@ class LoginView(FlaskView):
 
     def post(self):
         _form = LoginForm()
+        error_msg_ = None
         if _form.validate_on_submit():
             _email = _form['email'].data
             _password = _form['password'].data
-
-            if self.login(_email, _password):
+         
+            login_result = self.login(_email, _password)
+            if login_result == 'not_allowed':
+                error_msg_ = 'this account is not permitted by admin yet.'
+            if login_result == 'success':
                 return redirect("/")
-        return render_template('/account/login.html', form=_form, error_msg='test')
+        else:
+            error_msg_ = 'email or password is wrong'
+
+        return render_template('/account/login.html', form=_form, error_msg=error_msg_)
 
     def login(self, email, password):
         try:
             result = DB.session.query(Account).filter_by(email=f"{email}", password=f"{password}")
             account = result.first()
+            if account and not account.allowed_by_admin:
+                return 'not_allowed'
+
             if account:
-                print("email found, add email to session")
                 session['email'] = f"{email}"
                 session['nick_name'] = f"{account.nick_name}"
-                return True
+                return 'success'
         except Exception as e:
-            print(e)
-            return False
-        return False
+            print("login_view : " + e)
+            return 'fail'
+        return 'fail'

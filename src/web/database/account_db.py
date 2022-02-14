@@ -6,3 +6,4 @@ class Account(DB.Model):
     nick_name = DB.Column(DB.String(30))
     password = DB.Column(DB.String, nullable=False)
     reset_pin = DB.Column(DB.String(6))
+    allowed_by_admin = DB.Column(DB.Boolean, default=False)
