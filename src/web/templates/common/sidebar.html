@@ -5,6 +5,12 @@
   <!-- menu start -->
   <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
     <li class="nav-item">
+      {% if ( session.get('admin') == 'yes') %}
+      <a href="/admin/" id="admin" class="nav-link py-3 border-bottom" aria-current="page" title="Admin" data-bs-toggle="tooltip" data-bs-placement="right">
+        <svg class="bi" width="24" height="24" role="img" aria-label="Admin"><use xlink:href="#gear"/></svg>
+      </a>
+      {% endif %}
+
       <a href="/" id="my_computer" class="nav-link py-3 border-bottom" aria-current="page" title="My Computer" data-bs-toggle="tooltip" data-bs-placement="right">
         <svg class="bi" width="24" height="24" role="img" aria-label="My Computer"><use xlink:href="#my_pc"/></svg>
       </a>

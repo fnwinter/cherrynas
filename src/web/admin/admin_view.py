@@ -1,5 +1,7 @@
-from flask_classful import FlaskView
+from flask_classful import FlaskView, route
 from flask import render_template, session, redirect
+
+from web.admin.admin_form import AdminForm
 
 class AdminView(FlaskView):
     """
@@ -7,7 +9,8 @@ class AdminView(FlaskView):
     """
     default_methods = ['GET', 'POST']
 
-    def index(self):
+    @route("/")
+    def show(self):
         """
         admin.html
         """
@@ -21,4 +24,15 @@ class AdminView(FlaskView):
         elif session.get('email'):
             who = f"{session.get('email')}"
 
-        return render_template('/admin/admin.html', email=who)
+        _form = AdminForm()
+
+        if _form.validate_on_submit():
+            data = _form['data'].data
+            print(data)
+
+        return render_template('/admin/admin.html', email=who, form=_form)
+
+    def post(self):
+        _form = AdminForm()
+
+        return render_template('/admin/admin.html', form=_form)
