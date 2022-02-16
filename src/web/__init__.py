@@ -45,6 +45,10 @@ def create_view(app):
     SignupView.register(app, '/signup/')
     ResetView.register(app, '/reset_password/')
 
+    # admin view
+    from web.admin.admin_view import AdminView
+    AdminView.register(app, '/admin/')
+
 def create_db(app):
     DB.init_app(app)
     MIGRATE.init_app(app, DB)

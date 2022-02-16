@@ -3,15 +3,15 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Email
 
 class RequestPinForm(FlaskForm):
-    email = StringField("이메일",
+    email = StringField("email",
                         validators=[DataRequired(), Email()])
-    submit = SubmitField("핀번호 요청")
+    submit = SubmitField("request pin numebr")
 
 class ResetForm(FlaskForm):
-    reset_pin = StringField("핀번호")
-    password = PasswordField("비밀번호",
+    reset_pin = StringField("pin number")
+    password = PasswordField("new password",
                              validators=[DataRequired(), Length(min=4, max=20)])
-    password_confirm = PasswordField("비밀번호 확인",
+    password_confirm = PasswordField("password confirm",
                                      validators=[DataRequired(), Length(min=4, max=20)])
 
-    submit = SubmitField("전송")
+    submit = SubmitField("submit")

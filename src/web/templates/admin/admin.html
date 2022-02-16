@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  {% include 'common/head.html' %}
+  <body>
+    <main>
+      {% include 'common/sidebar.html' %}
+      <div class="body">
+        {% include 'common/menu.html' %}
+        <div style='background: rgb(248, 249, 250); height: 100%;'>
+          <div style='background: rgb(255, 255, 255); border: none; border-radius: 40px 0px 0px; height: 100%;'>
+            <!-- start here -->
+            <div style="padding:20px;">
+              <h2>Member List</h2>
+              <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Header</th>
+                      <th scope="col">Header</th>
+                      <th scope="col">Header</th>
+                      <th scope="col">Header</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1,001</td>
+                      <td>random</td>
+                      <td>data</td>
+                      <td>placeholder</td>
+                      <td>text</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <!-- script here -->
+  <script src="/static/bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="/static/js/sidebars.js"></script>
+</html>

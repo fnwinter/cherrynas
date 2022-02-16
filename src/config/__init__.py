@@ -23,13 +23,13 @@ import os
 HOME_PATH = os.path.expanduser('~')
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
-MODULE_PATH = os.path.join(ROOT_PATH, "cdaemon", "modules")
 CONFIG_FOLDER_PATH = os.path.join(HOME_PATH, '.cherrynas')
+MODULE_PATH = os.path.join(ROOT_PATH, "cdaemon", "modules")
 RESOURCE_PATH = os.path.abspath(os.path.join(ROOT_PATH, os.path.pardir, "resources"))
 
 # ini file
-CONFIG_FILE_NAME = "cherrynas.ini"
-CONFIG_FILE_PATH = os.path.join(CONFIG_FOLDER_PATH, CONFIG_FILE_NAME)
+INI_FILE_NAME = "cherrynas.ini"
+INI_FILE_PATH = os.path.join(CONFIG_FOLDER_PATH, INI_FILE_NAME)
 
 # log files
 LOG_PATH = os.path.join(CONFIG_FOLDER_PATH, "cherrynas.log")

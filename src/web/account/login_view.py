@@ -1,3 +1,6 @@
+from config import INI_FILE_PATH
+from config.config import Config
+from utils.hash import hashed_password
 from flask_classful import FlaskView, route
 from flask import render_template, redirect, session
 
@@ -18,7 +21,7 @@ class LoginView(FlaskView):
 
     def post(self):
         _form = LoginForm()
-        error_msg_ = None
+        error_msg_ = 'email or password is wrong'
         if _form.validate_on_submit():
             _email = _form['email'].data
             _password = _form['password'].data
@@ -26,15 +29,21 @@ class LoginView(FlaskView):
             login_result = self.login(_email, _password)
             if login_result == 'not_allowed':
                 error_msg_ = 'this account is not permitted by admin yet.'
-            if login_result == 'success':
+            elif login_result == 'success':
                 return redirect("/")
-        else:
-            error_msg_ = 'email or password is wrong'
 
         return render_template('/account/login.html', form=_form, error_msg=error_msg_)
 
     def login(self, email, password):
         try:
+            # admin check first
+            if self.is_admin(email, password):
+                session['email'] = f"{email}"
+                session['nick_name'] = 'admin'
+                session['admin'] = 'yes'
+                return 'success'
+
+            # db login
             result = DB.session.query(Account).filter_by(email=f"{email}", password=f"{password}")
             account = result.first()
             if account and not account.allowed_by_admin:
@@ -48,3 +57,14 @@ class LoginView(FlaskView):
             print("login_view : " + e)
             return 'fail'
         return 'fail'
+
+    def is_admin(self, email, password) -> bool:
+        try:
+            with Config() as c:
+                email_ = c.get_value('ADMIN', 'ID')
+                password_ = c.get_value('ADMIN', 'PASSWORD')
+                if email == email_ and password_ == hashed_password(password):
+                    return True
+        except:
+            return False
+        return False

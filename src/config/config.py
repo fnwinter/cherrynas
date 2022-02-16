@@ -23,7 +23,7 @@ import os
 import re
 
 from config.default import DEFAULT_CONFIG
-from config import CONFIG_FOLDER_PATH, CONFIG_FILE_NAME
+from config import CONFIG_FOLDER_PATH, INI_FILE_PATH
 from utils.path import make_sure_path
 from utils.log import get_logger
 
@@ -31,7 +31,7 @@ class Config():
     """
     Read and write config data to file.
     """
-    def __init__(self, file_path=None, open_mode='r'):
+    def __init__(self, file_path=INI_FILE_PATH, open_mode='r'):
         """
         open config file
         >>> from config import TEST_CONFIG_READ_PATH
@@ -46,14 +46,12 @@ class Config():
         config file path is wrong
         """
         make_sure_path(CONFIG_FOLDER_PATH)
-        if not file_path:
-            config_file_path = os.path.join(CONFIG_FOLDER_PATH, CONFIG_FILE_NAME)
-            self.config_file = open(config_file_path, open_mode)
-        else:
-            if os.path.exists(file_path) or 'w' in open_mode:
-                self.config_file = open(file_path, open_mode)
-            else:
-                assert False, "config file path is wrong"
+
+        if not os.path.exists(file_path):
+            assert False, "config file path is wrong"
+
+        self.config_file = open(file_path, open_mode)
+
         self.log = get_logger('config')
         self.re_section = re.compile(r'\[(.*)\]')
         self.re_key_section = re.compile(r'([a-zA-Z\d]*)_([a-zA-Z\d_]*)')
