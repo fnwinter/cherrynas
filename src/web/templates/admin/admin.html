@@ -15,43 +15,54 @@
                 <table class="table table-striped table-sm">
                   <thead>
                     <tr>
-                      <th scope="col">allowed</th>
+                      <th scope="col">✔️</th>
                       <th scope="col">email</th>
                       <th scope="col">nick name</th>
+                      <th scope="col">joined</th>
                       <th scope="col">permission</th>
                       <th scope="col">menu</th>
                       <th scope="col">+/-</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for member in member_list %}
                     <tr>
-                      <td><input type="checkbox" name="xxx" value="yyy" checked></td>
-                      <td>fnwinter@gmail.com</td>
-                      <td>JJ</td>
-                      <td>music/image</td>
+                      <td><input type="checkbox" id="select-{{ member.id }}" name="select"></td>
+                      <td>{{ member.email }}</td>
+                      <td>{{ member.nick_name }}</td>
+                      <td><input type="checkbox" id="joined-{{ member.id }}" name="joined" {% if member.joined %} checked {% endif %}></td>
+                      <td id="perm-{{ member.id }}">{{ member.permission }}</td>
                       <td>
                         <form>
                           <select name="language">
                             <option value="none">=== select ===</option>
-                            <option value="image" selected>image</option>
+                            <option value="image" selected>all</option>
+                            <option value="image" >image</option>
                             <option value="music">music</option>
                             <option value="movie">movie</option>
                             <option value="book">book</option>
                           </select>
                         </form>
                       </td>
-                      <td><button name="button">+</button> - <button name="button">-</button></td>
+                      <td>
+                        <button id="add-{{ member.id }}" name="button" onclick="add_permission(this);">+</button> /
+                        <button id="remove-{{ member.id }}" name="button" onclick="remove_permission(this);">-</button>
+                      </td>
                     </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
 
+                <!-- form start -->
                 <div style='text-align:right'>
                   <form action="/admin/" method="post">
                     {{ form.hidden_tag() }}
                     <input type="text" id="data" name="data" hidden>
-                    <button type="submit" class="btn btn-primary mb-3" style="width:500px" onclick="save_cookie();">Apply</button>
+                    <button type="submit" class="btn btn-primary mb-3" style="width:100px" onclick="send_delete();">Delete</button>
+                    <button type="submit" class="btn btn-primary mb-3" style="width:100px" onclick="send_apply();">Apply</button>
                   </form>
                 </div>
+                <!-- form end -->
 
               </div>
             </div>
@@ -64,4 +75,28 @@
   <!-- script here -->
   <script src="/static/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="/static/js/sidebars.js"></script>
+  <script>
+    function send_delete() {
+      let delete_id = "delete:";
+      try {
+        delete_list = $('input[id^="select-"]').toArray();
+        delete_list.forEach(element => {
+          if (element.checked) delete_id += element.id + ","
+        });
+      }
+      catch (error) {
+        console.log(error);
+      }
+      $('#data').val(delete_id);
+    }
+    function send_apply() {
+
+    }
+    function add_permission() {
+
+    }
+    function remove_permission() {
+
+    }
+  </script>
 </html>
