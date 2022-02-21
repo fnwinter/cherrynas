@@ -61,23 +61,12 @@ class AdminView(FlaskView):
         index = 0
         for acount in result:
             member_ = member
-            member_.id = index
             member_.email = acount.email
             member_.joined = acount.joined
             member_.nick_name = acount.nick_name
             member_.permission = acount.permission
             member_list_.append(member_)
             index += 1
-
-            member_ = member
-            member_.id = index
-            member_.email = acount.email
-            member_.joined = acount.joined
-            member_.nick_name = acount.nick_name
-            member_.permission = acount.permission
-            member_list_.append(member_)
-            index += 1
-
         return member_list_
 
     def delete_member(self, list_to_delete):

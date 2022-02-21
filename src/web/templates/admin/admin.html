@@ -27,26 +27,24 @@
                   <tbody>
                     {% for member in member_list %}
                     <tr>
-                      <td><input type="checkbox" id="select-{{ member.id }}" name="select"></td>
+                      <td><input type="checkbox" id="{{ member.email }}" name="select"></td>
                       <td>{{ member.email }}</td>
                       <td>{{ member.nick_name }}</td>
-                      <td><input type="checkbox" id="joined-{{ member.id }}" name="joined" {% if member.joined %} checked {% endif %}></td>
-                      <td id="perm-{{ member.id }}">{{ member.permission }}</td>
+                      <td><input type="checkbox" id="joined-{{ member.email }}" name="joined" {% if member.joined %} checked {% endif %}></td>
+                      <td id="perm-{{ member.email }}">{{ member.permission }}</td>
                       <td>
-                        <form>
-                          <select name="language">
-                            <option value="none">=== select ===</option>
-                            <option value="image" selected>all</option>
-                            <option value="image" >image</option>
-                            <option value="music">music</option>
-                            <option value="movie">movie</option>
-                            <option value="book">book</option>
-                          </select>
-                        </form>
+                        <select id="option-{{ member.email }}">
+                          <option value="none">=== select ===</option>
+                          <option value="all" selected>all</option>
+                          <option value="image" >image</option>
+                          <option value="music">music</option>
+                          <option value="movie">movie</option>
+                          <option value="book">book</option>
+                        </select>
                       </td>
                       <td>
-                        <button id="add-{{ member.id }}" name="button" onclick="add_permission(this);">+</button> /
-                        <button id="remove-{{ member.id }}" name="button" onclick="remove_permission(this);">-</button>
+                        <button id="{{ member.id }}" name="button" onclick="add_permission('{{ member.email }}');">+</button> /
+                        <button id="{{ member.id }}" name="button" onclick="remove_permission('{{ member.email }}');">-</button>
                       </td>
                     </tr>
                     {% endfor %}
@@ -77,26 +75,91 @@
   <script src="/static/js/sidebars.js"></script>
   <script>
     function send_delete() {
-      let delete_id = "delete:";
+      let delete_data = "{ action: 'delete', member: [";
       try {
-        delete_list = $('input[id^="select-"]').toArray();
+        delete_list = $("input[name='select']").toArray();
         delete_list.forEach(element => {
-          if (element.checked) delete_id += element.id + ","
+          if (element.checked) delete_data += element.id + ","
         });
       }
       catch (error) {
-        console.log(error);
+        console.log("send_delete" + error);
       }
-      $('#data').val(delete_id);
+      delete_data += ']}';
+      // set data value
+      $('#data').val(delete_data);
+      //debug:alert(delete_data);
     }
+
     function send_apply() {
-
+      let apply_data = "{ action:'apply', ";
+      try {
+        apply_list = $("input[name='select']").toArray();
+        apply_list.forEach(element => {
+          if (element.checked) {
+            let email = element.id;
+            let joined = $("input[id='joined-"+ email + "']")[0].checked;
+            let permission = $("td[id='perm-"+ email + "']").text();
+            apply_data += '{ email: ' + email + ', permission : ' + permission + ', joined:' + joined + '},';
+          }
+        });
+        apply_data += '}'
+      }
+      catch (error) {
+        console.log("send_apply" + error);
+      }
+      // set data value
+      $('#data').val(apply_data);
+      //debug:alert(apply_data);
     }
-    function add_permission() {
 
+    function add_permission(email) {
+      let permission = $("td[id='perm-"+ email + "']");
+      let permission_text = permission.text();
+      let option = $("select[id='option-"+ email + "']");
+      let option_text = option.val()
+      if (permission_text.indexOf(option_text) === -1) {
+        permission_text += ' | ' + option_text;
+        permission.html(permission_text);
+      }
     }
-    function remove_permission() {
 
+    function remove_permission(email) {
+      let permission = $("td[id='perm-"+ email + "']");
+      let permission_text = permission.text();
+      let option = $("select[id='option-"+ email + "']");
+      let option_text = option.val()
+      if (permission_text.indexOf(option_text) !== -1) {
+        let perm_list = permission_text.split('|');
+        let delete_list = []
+        permission_text.split('|').forEach(
+          item => {
+            if (item.trim() !== '' && item.trim() != option_text) {
+              delete_list.push(item);
+            }              
+          }
+        );
+        
+        let edited_permission_text = get_list_text(delete_list);
+
+        if (edited_permission_text.trim() == '')
+          edited_permission_text = 'all'
+        permission.html(edited_permission_text);
+      }
+
+      function get_list_text(list_item) {
+        let list_text = '';
+        list_item.forEach(
+          function(i, idx, array){
+            if (idx === array.length - 1){ 
+                list_text += i;
+            } else {
+                list_text += i + ' | ';
+            }
+          }
+        );
+        return list_text;
+      }
     }
   </script>
 </html>
