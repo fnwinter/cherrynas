@@ -42,11 +42,13 @@ class LoginView(FlaskView):
                 session['nick_name'] = 'admin'
                 session['admin'] = 'yes'
                 return 'success'
+            else:
+                session['admin'] = 'no'
 
             # db login
             result = DB.session.query(Account).filter_by(email=f"{email}", password=f"{password}")
             account = result.first()
-            if account and not account.allowed_by_admin:
+            if account and not account.joined:
                 return 'not_allowed'
 
             if account:

@@ -75,41 +75,45 @@
   <script src="/static/js/sidebars.js"></script>
   <script>
     function send_delete() {
-      let delete_data = "{ action: 'delete', member: [";
+      let member = []  
       try {
         delete_list = $("input[name='select']").toArray();
         delete_list.forEach(element => {
-          if (element.checked) delete_data += element.id + ","
+          if (element.checked) member += element.id;
         });
       }
       catch (error) {
         console.log("send_delete" + error);
       }
-      delete_data += ']}';
+
+      let json_data = { "action": "delete", "member" : member };
+      delete_data = JSON.stringify(json_data) 
       // set data value
       $('#data').val(delete_data);
       //debug:alert(delete_data);
     }
 
     function send_apply() {
-      let apply_data = "{ action:'apply', ";
+      let apply_data;
       try {
+        let items = Array();
         apply_list = $("input[name='select']").toArray();
         apply_list.forEach(element => {
           if (element.checked) {
             let email = element.id;
             let joined = $("input[id='joined-"+ email + "']")[0].checked;
             let permission = $("td[id='perm-"+ email + "']").text();
-            apply_data += '{ email: ' + email + ', permission : ' + permission + ', joined:' + joined + '},';
+            let item = {"email" : email, "permission" : permission, "joined" : joined };
+            items.push(item)
           }
         });
-        apply_data += '}'
+        apply_data = {"action":'apply', "changes": items };
       }
       catch (error) {
         console.log("send_apply" + error);
       }
       // set data value
-      $('#data').val(apply_data);
+      $('#data').val(JSON.stringify(apply_data));
       //debug:alert(apply_data);
     }
 
