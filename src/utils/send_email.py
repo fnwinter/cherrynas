@@ -1,16 +1,18 @@
 
 import smtplib
 import ssl
+
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from config.config import Config
 
 SMTP_URL = "smtp.gmail.com"
 SMTP_PORT = 465
 
 class EMail(object):
-    sender_email = "fnwinter@gmail.com"
-    receiver_email = "fnwinter@gmail.com"
-    password = "" # app password
+    sender_email = ""
+    receiver_email = ""
+    password = ""
     title = ""
     text = ""
     html = ""
@@ -22,6 +24,9 @@ class EMail(object):
         self.message["To"] = self.receiver_email
         if receiver:
             self.receiver_email = receiver
+        with Config() as config:
+            self.sender_email = config.get_value('EMAIL', 'SEND_EMAIL')
+            self.password = config.get_value('EMAIL', 'PASSWORD')
 
     def set_title(self, title):
         self.title = title
