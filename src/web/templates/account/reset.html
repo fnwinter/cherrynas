@@ -10,12 +10,17 @@
                     {{ request_form.hidden_tag() }}
                     <div class="form-group">
                         <label for="email">E-Mail</label>
-                        <input type="text" class="form-control" name="email" id="email" value="{{ request_form.email }}">
+                        <input type="text" class="form-control" name="email" id="email" value="{{ request_form.email_remember }}">
                     </div>
                     <br/>
                     <button type="submit" class="btn btn-primary" style="width:500px">Request PIN Number</button><br/>
                 </form>
                 <br/>
+                {% if error_msg %}
+                <span>
+                    <div class="themed-container-error">{{ error_msg }}</div>
+                </span>
+                {% endif %}
                 <form id="reset_password" method="post" class="post-form" action="/reset_password/">
                     {{ reset_form.hidden_tag() }}
                     <div class="form-group">
@@ -36,7 +41,6 @@
                 <br/>
                 <button onclick="window.location.href = '/login/'" class="btn btn-secondary mb-3" style="width:500px">Log in</button><br>
             </div>
-            {{ error_msg }}
         </div>
     </body>
 </html>

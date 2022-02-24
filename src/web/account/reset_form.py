@@ -6,6 +6,7 @@ class RequestPinForm(FlaskForm):
     email = StringField("email",
                         validators=[DataRequired(), Email()])
     submit = SubmitField("request pin numebr")
+    email_remember = None
 
 class ResetForm(FlaskForm):
     reset_pin = StringField("pin number")
