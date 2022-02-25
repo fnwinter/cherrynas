@@ -19,4 +19,18 @@ class MainView(FlaskView):
         else:
             return redirect('/login')
 
-        return render_template('/main/main.html', email=who)
+        hardware_ = { 'cpu' : 'i7-1234', 'ram': '16', 'network':'1234' }
+        software_ = { 'cherrynas':'1.0.0', 'os': 'windows' }
+        disk_ = {'info':'1TB'}
+        alarm_ = None
+        login_user_ = 'fnwinter@gmail.com , total 1 person'
+        logs_ = ['ftp open \r\n','started','  test']
+
+        return render_template('/main/main.html', 
+            email=who,
+            hardware=hardware_,
+            software=software_,
+            disk=disk_,
+            alarm=alarm_,
+            login_user=login_user_,
+            logs=logs_)
