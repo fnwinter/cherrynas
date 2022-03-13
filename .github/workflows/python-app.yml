@@ -38,4 +38,15 @@ jobs:
         chmod +x ./scripts/run_pylint.sh
         ./scripts/run_pylint.sh
         popd
-
+    - name: Build
+      run: |
+        pushd src
+        pip install wheel
+        python setup.py bdist_wheel
+        popd
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v3
+      with:
+        name: cherrynas.whl
+        path: src/dist/*
+        retention-days: 5
