@@ -1,0 +1,5 @@
+2022-03-14 08:37:38,247 > test_module [DEBUG] - debug log
+2022-03-14 08:37:38,247 > test_module [INFO] - info log
+2022-03-14 08:37:38,247 > test_module [WARNING] - warning log
+2022-03-14 08:37:38,247 > test_module [ERROR] - error log
+2022-03-14 08:37:38,247 > test_module [CRITICAL] - critical log

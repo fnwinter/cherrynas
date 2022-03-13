@@ -26,8 +26,8 @@ jobs:
         pip install -r src/requirements.txt
     - name: Run test
       run: |
-        chmod -R 777 ./resources
         pushd src
+        chmod -R 777 ./resources
         chmod +x ./scripts/run_test.sh
         ./scripts/run_test.sh
         popd
@@ -41,12 +41,11 @@ jobs:
     - name: Build
       run: |
         pushd src
-        pip install wheel
-        python setup.py bdist_wheel
+        python setup.py sdist
         popd
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v3
       with:
-        name: cherrynas.whl
+        name: cherrynas
         path: src/dist/*
         retention-days: 5
