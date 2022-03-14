@@ -26,23 +26,21 @@ jobs:
         pip install -r requirements.txt
     - name: Run test
       run: |
-        pushd src
+        pushd cherrynas
         chmod -R 777 ./resources
         chmod +x ./scripts/run_test.sh
         ./scripts/run_test.sh
         popd
     - name: Run pylint
       run: |
-        pushd src
+        pushd cherrynas
         pip install pylint
         chmod +x ./scripts/run_pylint.sh
         ./scripts/run_pylint.sh
         popd
     - name: Build
       run: |
-        pushd src
         python setup.py sdist
-        popd
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v3
       with:
