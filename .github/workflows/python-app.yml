@@ -45,5 +45,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: cherrynas
-        path: src/dist/*
+        path: dist
         retention-days: 5
