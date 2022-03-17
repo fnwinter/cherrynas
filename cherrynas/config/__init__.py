@@ -40,6 +40,7 @@ ACCOUNT_DB_PATH = os.path.join(CONFIG_FOLDER_PATH, "account.db")
 
 # etc files
 DAEMON_LOCK_PATH = os.path.join(CONFIG_FOLDER_PATH, "cherrynas.lock")
+SYSTEM_INFO_PATH = os.path.join(CONFIG_FOLDER_PATH, "system_info.json")
 
 """
 Test file path
