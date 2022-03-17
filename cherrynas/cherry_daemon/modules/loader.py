@@ -30,7 +30,7 @@ from utils.log import get_logger
 
 class ModuleLoader():
     """
-    load modules in cdaemon/modules
+    load modules in cherry_daemon/modules
     """
     def __init__(self, module_path=MODULE_PATH, root_path=DAEDMON_PATH):
         """
@@ -93,6 +93,7 @@ class ModuleLoader():
                     if _file_name in ['__init__', 'loader', 'module_process']:
                         continue
                     if _ext == '.py':
+                        self.log.error("test")
                         module_name = self.get_module_name(_path, _file_name)
                         module = importlib.import_module(module_name)
                         self.modules[module_name] = module

@@ -72,7 +72,7 @@ def process_main(_):
 
         time.sleep(60 * 5)
 
-hardware_info()
-software_info()
-disk_info()
-write_info()
+# hardware_info()
+# software_info()
+# disk_info()
+# write_info()

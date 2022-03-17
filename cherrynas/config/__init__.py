@@ -24,7 +24,7 @@ HOME_PATH = os.path.expanduser('~')
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
 CONFIG_FOLDER_PATH = os.path.join(HOME_PATH, '.cherrynas')
-MODULE_PATH = os.path.join(ROOT_PATH, "cdaemon", "modules")
+MODULE_PATH = os.path.join(ROOT_PATH, "cherry_daemon", "modules")
 RESOURCE_PATH = os.path.abspath(os.path.join(ROOT_PATH, "resources"))
 
 # ini file

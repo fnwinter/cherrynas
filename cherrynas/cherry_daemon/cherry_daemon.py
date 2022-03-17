@@ -56,7 +56,8 @@ def start_daemon():
             loader.load_modules()
             loader.launch_modules(context)
     except Exception as e:
-        print(e)
+        get_logger(LOG_MODULE).info(f'error : start daemon {e}')
+    get_logger(LOG_MODULE).info('start daemon exit')
 
 def stop_daemon():
     get_logger(LOG_MODULE).info('stop daemon')
