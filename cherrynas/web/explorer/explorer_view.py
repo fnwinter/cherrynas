@@ -6,7 +6,8 @@ from flask import render_template, session, request
 
 from utils.file_helper import get_file_size
 
-ROOT_PATH = "/mnt/c/Windows"
+SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir, "resources")
 
 class ExplorerView(FlaskView):
     default_methods = ['GET', 'POST']
