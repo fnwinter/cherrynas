@@ -1,2 +1,3 @@
 recursive-include cherrynas *
+include requirements.txt
 global-exclude *.pyc

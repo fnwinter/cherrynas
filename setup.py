@@ -1,4 +1,14 @@
+import pathlib
+import pkg_resources
+
 from setuptools import setup, find_packages
+
+with pathlib.Path('./requirements.txt').open() as requirements_txt:
+    install_requires = [
+        str(requirement)
+        for requirement
+        in pkg_resources.parse_requirements(requirements_txt)
+    ]
 
 setup(name='cherrynas',
       version='0.0.1',
@@ -10,4 +20,4 @@ setup(name='cherrynas',
       package_dir={'cherrynas': 'cherrynas'},
       long_description='',
       zip_safe=False,
-      setup_requires=[])
+      setup_requires=install_requires)
