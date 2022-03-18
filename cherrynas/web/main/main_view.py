@@ -1,5 +1,9 @@
+import json
+
+from config import SYSTEM_INFO_PATH
 from flask_classful import FlaskView
 from flask import render_template, session, redirect
+
 
 class MainView(FlaskView):
     """
@@ -19,9 +23,13 @@ class MainView(FlaskView):
         else:
             return redirect('/login')
 
-        hardware_ = { 'cpu' : 'i7-1234', 'ram': '16', 'network':'1234' }
-        software_ = { 'cherrynas':'1.0.0', 'os': 'windows' }
-        disk_ = {'info':'1TB'}
+        system_info_ = None
+        with open(SYSTEM_INFO_PATH, 'r') as f:
+            system_info_ = json.loads(f.read())
+
+        hardware_ = system_info_.get('hw')
+        software_ = system_info_.get('sw')
+        disk_ = system_info_.get('disk')
         alarm_ = None
         login_user_ = 'fnwinter@gmail.com , total 1 person'
         logs_ = ['ftp open \r\n','started','  test']
