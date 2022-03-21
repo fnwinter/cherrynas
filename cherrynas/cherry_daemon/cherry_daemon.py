@@ -71,26 +71,3 @@ def restart_daemon():
     get_logger(LOG_MODULE).info('restart daemon')
     stop_daemon()
     start_daemon()
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='CherryNAS Daemon')
-    parser.add_argument('--start', action='store_true', help='start the YuriNAS Daemon')
-    parser.add_argument('--stop', action='store_true', help='stop the YuriNAS Daemon')
-    parser.add_argument('--restart', action='store_true', help='restart the YuriNAS Daemon')
-    parser.add_argument('--force', action='store_true', help='delete the lock file')
-
-    args = parser.parse_args()
-    try:
-        if args.force:
-            if os.path.exists(DAEMON_LOCK_PATH):
-                os.remove(DAEMON_LOCK_PATH)
-        if args.start:
-            start_daemon()
-        elif args.stop:
-            stop_daemon()
-        elif args.restart:
-            restart_daemon()
-        else:
-            parser.print_help()
-    except Exception as e:
-        get_logger(LOG_MODULE).error(e)
