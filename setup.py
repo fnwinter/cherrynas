@@ -1,6 +1,7 @@
-import pkg_resources
-
 from setuptools import setup, find_packages
+
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
 
 setup(name='cherrynas',
       version='0.0.1',
@@ -12,4 +13,5 @@ setup(name='cherrynas',
       package_dir={'cherrynas': 'cherrynas'},
       long_description='',
       zip_safe=False,
-      setup_requires='')
+      install_requires=requirements
+)
