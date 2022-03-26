@@ -1,7 +1,11 @@
+import os
+import sys
+SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(SCRIPT_PATH)
+
 from setuptools import setup, find_packages
 
-with open('requirements.txt') as f:
-    requirements = f.read().splitlines()
+from requirements import req
 
 setup(name='cherrynas',
       version='0.0.1',
@@ -13,7 +17,5 @@ setup(name='cherrynas',
       package_dir={'cherrynas': 'cherrynas'},
       long_description='',
       zip_safe=False,
-      install_requires=[
-            "Flask==2.0.2"
-      ]
+      install_requires=req
 )
