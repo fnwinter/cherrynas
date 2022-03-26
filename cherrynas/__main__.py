@@ -1,19 +1,23 @@
 import argparse
 import os
+import sys
 import subprocess
 
-from cherry_daemon import *
 from utils.log import get_logger, LogHandler
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 LOG_MODULE = "main"
 
-def setup():
-    pass
+def run_daemon(argv):
+    DAEMON_SCRIPT_PATH = os.path.join(SCRIPT_PATH, "scripts", "run_daemon.sh")
+    subprocess.run([DAEMON_SCRIPT_PATH] + argv)
 
 def dev_web():
     WEB_SCRIPT_PATH = os.path.join(SCRIPT_PATH, "scripts", "run_web.sh")
     subprocess.run([WEB_SCRIPT_PATH])
+
+def setup():
+    pass
 
 parser = argparse.ArgumentParser(description='CherryNAS Daemon')
 parser.add_argument('--start', action='store_true', help='start the YuriNAS Daemon')
@@ -25,15 +29,8 @@ parser.add_argument('--dev-web', action='store_true', help='start flask web only
 
 args = parser.parse_args()
 try:
-    if args.force:
-        if os.path.exists(DAEMON_LOCK_PATH):
-            os.remove(DAEMON_LOCK_PATH)
-    if args.start:
-        start_daemon()
-    elif args.stop:
-        stop_daemon()
-    elif args.restart:
-        restart_daemon()
+    if args.start or args.stop or args.restart or args.force:
+        run_daemon(sys.argv[1:])
     elif args.setup:
         setup()
     elif args.dev_web:
