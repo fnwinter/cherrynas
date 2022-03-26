@@ -13,5 +13,7 @@ setup(name='cherrynas',
       package_dir={'cherrynas': 'cherrynas'},
       long_description='',
       zip_safe=False,
-      install_requires=requirements
+      install_requires=[
+            "Flask==2.0.2"
+      ]
 )
