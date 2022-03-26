@@ -1,5 +1,4 @@
 alembic==1.7.5
-cherrynas @ file:///mnt/c/Users/fnwin/Desktop/dev/private/cherrynas/dist/cherrynas-0.0.1.tar.gz
 click==8.0.3
 dnspython==2.2.0
 docutils==0.18.1
