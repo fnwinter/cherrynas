@@ -1,4 +1,15 @@
 req = [
-  "alembic==1.7.5",
-  "click==8.0.3",
+  'alembic==1.7.5',
+  'click==8.0.3',
+  'Flask==2.0.2',
+  'greenlet==1.1.2',
+  'importlib-metadata==4.11.3',
+  'importlib-resources==5.6.0',
+  'itsdangerous==2.1.2',
+  'Jinja2==3.1.1',
+  'Mako==1.2.0',
+  'MarkupSafe==2.1.1',
+  'SQLAlchemy==1.4.32',
+  'Werkzeug==2.0.3',
+  'zipp==3.7.0',
 ]
