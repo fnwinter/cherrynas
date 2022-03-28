@@ -19,12 +19,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set -e
-
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE:-$0}" )" && pwd )"
-
-pushd $SCRIPT_DIR/../.. > /dev/null
-  export FLASK_APP=cherrynas.web
-  export FLASK_DEBUG=1
-  flask run --host=0.0.0.0
-popd > /dev/null
+echo "install cherrynas"
