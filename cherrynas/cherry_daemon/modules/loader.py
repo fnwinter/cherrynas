@@ -65,7 +65,7 @@ class ModuleLoader():
         >>> ml = ModuleLoader(root_path=ROOT_PATH)
         >>> modules = ml.load_modules()
         >>> daemon_modules = ml.get_daemon_module_names()
-        >>> 'cdaemon.modules.dummy.dummy' in daemon_modules
+        >>> 'cherry_daemon.modules.dummy.dummy' in daemon_modules
         True
         """
         daemon_modules = []
@@ -82,7 +82,7 @@ class ModuleLoader():
         >>> ml = ModuleLoader(root_path=ROOT_PATH)
         >>> _modules = ml.load_modules()
         >>> _module_names = [m.__name__ for m in _modules]
-        >>> 'cdaemon.modules.dummy.dummy' in _module_names
+        >>> 'cherry_daemon.modules.dummy.dummy' in _module_names
         True
         """
         module_name = None
