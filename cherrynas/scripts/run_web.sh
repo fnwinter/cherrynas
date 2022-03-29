@@ -24,7 +24,7 @@ set -e
 SCRIPT_PATH=$(dirname $(realpath $0))
 
 pushd $SCRIPT_PATH/../.. > /dev/null
-  export FLASK_APP=cherrynas.web
+  export FLASK_APP=cherrynas.web.app
   export FLASK_DEBUG=1
   flask run --host=0.0.0.0
 popd > /dev/null
