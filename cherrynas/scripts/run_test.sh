@@ -21,6 +21,6 @@
 
 set -e
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE:-$0}" )" && pwd )"
+SCRIPT_PATH=$(dirname $(realpath $0))
 
 python $SCRIPT_DIR/run_test.py

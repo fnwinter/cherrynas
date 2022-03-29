@@ -19,8 +19,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+set -e
+
 SCRIPT_PATH=$(dirname $(realpath $0))
-ROOT_PATH=$SCRIPT_PATH/../
-pushd $ROOT_PATH
+
+pushd $SCRIPT_PATH/.. > /dev/null
   find ./ -type f -name "*.py" ! -path "./migrations/*" ! -path "./venv/*" | xargs pylint --rcfile=$SCRIPT_PATH/pylint.rc
-popd
+popd > /dev/null

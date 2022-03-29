@@ -21,9 +21,9 @@
 
 set -e
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE:-$0}" )" && pwd )"
+SCRIPT_PATH=$(dirname $(realpath $0))
 
-pushd $SCRIPT_DIR/../.. > /dev/null
+pushd $SCRIPT_PATH/../.. > /dev/null
   export FLASK_APP=cherrynas.web
   export FLASK_DEBUG=1
   flask run --host=0.0.0.0

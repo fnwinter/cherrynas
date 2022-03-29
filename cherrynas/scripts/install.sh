@@ -20,3 +20,14 @@
 # SOFTWARE.
 
 echo "install cherrynas"
+
+set -e
+
+SCRIPT_PATH=$(dirname $(realpath $0))
+
+pushd $SCRIPT_PATH/../.. > /dev/null
+  export FLASK_APP=cherrynas.web
+  flask db init
+  flask db migrate
+  flask db upgrade
+popd > /dev/null
