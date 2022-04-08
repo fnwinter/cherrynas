@@ -4,7 +4,6 @@ from config import SYSTEM_INFO_PATH
 from flask_classful import FlaskView
 from flask import render_template, session, redirect
 
-
 class MainView(FlaskView):
     """
     Main Page

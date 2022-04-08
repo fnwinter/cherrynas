@@ -1,3 +1,15 @@
-from web import DB, create_app
+import sys
+import os
 
-DB.create_all(app=create_app())
+SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
+ROOT_PATH = os.path.join(SCRIPT_PATH, os.path.pardir)
+sys.path.append(ROOT_PATH)
+
+from web import create_app, DB
+
+if __name__ == "__main__":
+    app = create_app()
+    app.app_context().push()
+
+    DB.create_all(app=app)
+    app.run(host='0.0.0.0', port='5001', debug=True)
