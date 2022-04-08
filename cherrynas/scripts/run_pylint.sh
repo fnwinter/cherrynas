@@ -19,8 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set -e
-
 SCRIPT_PATH=$(dirname $(realpath $0))
 
 pushd $SCRIPT_PATH/.. > /dev/null

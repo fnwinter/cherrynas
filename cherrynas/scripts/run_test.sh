@@ -23,4 +23,4 @@ set -e
 
 SCRIPT_PATH=$(dirname $(realpath $0))
 
-python $SCRIPT_DIR/run_test.py
+python $SCRIPT_PATH/run_test.py
