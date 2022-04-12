@@ -24,5 +24,5 @@ set -e
 SCRIPT_PATH=$(dirname $(realpath $0))
 
 pushd $SCRIPT_PATH/.. > /dev/null
-  python ./web/app.py
+  python3 ./web/app.py
 popd > /dev/null

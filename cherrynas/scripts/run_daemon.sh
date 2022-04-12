@@ -24,5 +24,5 @@ set -e
 SCRIPT_PATH=$(dirname $(realpath $0))
 
 pushd $SCRIPT_PATH/../cherry_daemon > /dev/null
-  python ./cherry_daemon.py "$@"
+  python3 ./cherry_daemon.py "$@"
 popd > /dev/null
