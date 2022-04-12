@@ -33,5 +33,6 @@ setup(name='cherrynas',
       package_dir={'cherrynas': 'cherrynas'},
       long_description='',
       zip_safe=False,
-      install_requires=req
+      install_requires=req,
+      include_package_data=True
 )
