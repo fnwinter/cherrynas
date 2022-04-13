@@ -25,7 +25,9 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from config import ACCOUNT_DB_PATH
+from config import ACCOUNT_DB_PATH, INI_FILE_PATH
+from config.config import Config
+from config.default import DEFAULT_CONFIG
 from utils.hash import get_today_hash
 
 SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -86,3 +88,13 @@ def create_app():
     create_db(app)
 
     return app
+
+def create_config():
+    try:
+        if not os.path.exists(INI_FILE_PATH):
+            print("no config file")
+            with Config(open_mode='w') as c:
+                c.write_config(DEFAULT_CONFIG)
+    except Exception as e:
+        print(e)
+

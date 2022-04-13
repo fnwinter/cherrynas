@@ -19,6 +19,10 @@
 # SOFTWARE.
 
 DEFAULT_CONFIG = {
+    # ADMIN
+    'ADMIN_ID': 'admin@cherrynas.com',
+    'ADMIN_PASSWORD': 'c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646',
+
     # ACCOUNT
     'ACCOUNT_EMAIL': 'admin@cherrynas',
     'ACCOUNT_PASSWORD': '1234567890',

@@ -47,7 +47,7 @@ class Config():
         """
         make_sure_path(CONFIG_FOLDER_PATH)
 
-        if not os.path.exists(file_path):
+        if not os.path.exists(file_path) and open_mode == 'r':
             assert False, "config file path is wrong"
 
         self.config_file = open(file_path, open_mode)

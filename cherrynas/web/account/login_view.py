@@ -1,4 +1,3 @@
-from config import INI_FILE_PATH
 from config.config import Config
 from utils.hash import hashed_password
 from flask_classful import FlaskView, route
