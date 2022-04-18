@@ -20,6 +20,9 @@
 
 import os
 
+from config.config import Config
+from config.default import DEFAULT_CONFIG
+
 HOME_PATH = os.path.expanduser('~')
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 ROOT_PATH = os.path.abspath(os.path.join(SCRIPT_PATH, os.path.pardir))
@@ -52,4 +55,13 @@ def create_config_folder():
     if not os.path.exists(CONFIG_FOLDER_PATH):
         os.makedirs(CONFIG_FOLDER_PATH)
 
+def create_config():
+    try:
+        if not os.path.exists(INI_FILE_PATH):
+            with Config(open_mode='w') as c:
+                c.write_config(DEFAULT_CONFIG)
+    except Exception as e:
+        print(e)
+
 create_config_folder()
+create_config()

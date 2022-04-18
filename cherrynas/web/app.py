@@ -6,11 +6,9 @@ ROOT_PATH = os.path.join(SCRIPT_PATH, os.path.pardir)
 sys.path.append(ROOT_PATH)
 
 from web import DB
-from web import create_app, create_config
+from web import create_app
 
 if __name__ == "__main__":
-    create_config()
-
     app = create_app()
     app.app_context().push()
 
