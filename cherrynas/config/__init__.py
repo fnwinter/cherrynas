@@ -20,7 +20,6 @@
 
 import os
 
-from config.config import Config
 from config.default import DEFAULT_CONFIG
 
 HOME_PATH = os.path.expanduser('~')

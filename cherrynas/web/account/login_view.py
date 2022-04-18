@@ -1,4 +1,5 @@
 from config.config import Config
+from config.version import CHERRYNAS_VERSION, CHERRYNAS_CODE, GetCommitId
 from utils.hash import hashed_password
 from flask_classful import FlaskView, route
 from flask import render_template, redirect, session
@@ -16,11 +17,13 @@ class LoginView(FlaskView):
             return redirect('/')
 
         _form = LoginForm()
-        return render_template('/account/login.html', form=_form, error_msg=None)
+        version_ = self.get_version()
+        return render_template('/account/login.html', form=_form, error_msg=None, version=version_)
 
     def post(self):
         _form = LoginForm()
         error_msg_ = 'email or password is wrong'
+        version_ = self.get_version()
         if _form.validate_on_submit():
             _email = _form['email'].data
             _password = _form['password'].data
@@ -31,7 +34,7 @@ class LoginView(FlaskView):
             elif login_result == 'success':
                 return redirect("/")
 
-        return render_template('/account/login.html', form=_form, error_msg=error_msg_)
+        return render_template('/account/login.html', form=_form, error_msg=error_msg_, version=version_)
 
     def login(self, email, password):
         try:
@@ -69,3 +72,6 @@ class LoginView(FlaskView):
         except:
             return False
         return False
+
+    def get_version(self) -> str:
+        return f"{CHERRYNAS_VERSION} - {CHERRYNAS_CODE} - {GetCommitId()}"
