@@ -24,7 +24,7 @@ from requirements import req
 from setuptools import setup, find_packages
 
 setup(name='cherrynas',
-      version='0.0.1',
+      version='0.0.2',
       url='https://github.com/fnwinter/cherrynas',
       author='JungJik Lee',
       author_email='fnwinter@gmail.com',
