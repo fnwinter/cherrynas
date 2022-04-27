@@ -30,6 +30,7 @@ from utils.log import get_logger
 
 # pylint: disable-msg=too-many-locals
 def process_main(context):
+    return
     log = get_logger('FTP')
     log.info("FTP Process start")
     logging.basicConfig(filename=FTP_LOG_FILE_PATH, level=logging.INFO)

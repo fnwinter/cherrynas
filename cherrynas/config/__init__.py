@@ -57,6 +57,7 @@ def create_config_folder():
 def create_config():
     try:
         if not os.path.exists(INI_FILE_PATH):
+            from config.config import Config
             with Config(open_mode='w') as c:
                 c.write_config(DEFAULT_CONFIG)
     except Exception as e:

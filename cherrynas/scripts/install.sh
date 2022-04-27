@@ -25,8 +25,11 @@ set -e
 
 SCRIPT_PATH=$(dirname $(realpath $0))
 
-pushd $SCRIPT_PATH/../.. > /dev/null
-  export FLASK_APP=cherrynas.web
+pushd $SCRIPT_PATH > /dev/null
+  chmod +x *.sh
+popd > /dev/null
+
+pushd $SCRIPT_PATH/../web > /dev/null
   flask db init
   flask db migrate
   flask db upgrade

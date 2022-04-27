@@ -74,9 +74,9 @@ def restart_daemon():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='CherryNAS Daemon')
-    parser.add_argument('--start', action='store_true', help='start the YuriNAS Daemon')
-    parser.add_argument('--stop', action='store_true', help='stop the YuriNAS Daemon')
-    parser.add_argument('--restart', action='store_true', help='restart the YuriNAS Daemon')
+    parser.add_argument('--start', action='store_true', help='start CherryNas Daemon')
+    parser.add_argument('--stop', action='store_true', help='stop CherryNas Daemon')
+    parser.add_argument('--restart', action='store_true', help='restart CherryNas Daemon')
     parser.add_argument('--force', action='store_true', help='delete the lock file')
     parser.add_argument('--setup', action='store_true', help='start setup')
     parser.add_argument('--dev-web', action='store_true', help='start flask web only')
