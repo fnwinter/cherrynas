@@ -3,7 +3,8 @@ import os
 import sys
 import subprocess
 
-from utils.log import get_logger, LogHandler
+from utils.log import get_logger
+from utils.chmod import change_permission
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 LOG_MODULE = "main"
@@ -18,6 +19,7 @@ def dev_web():
 
 def install():
     INSTALL_SCRIPT_PATH = os.path.join(SCRIPT_PATH, "scripts", "install.sh")
+    change_permission(INSTALL_SCRIPT_PATH, "+x")
     subprocess.run([INSTALL_SCRIPT_PATH])
 
 def setup():

@@ -26,8 +26,8 @@ set -e
 SCRIPT_PATH=$(dirname $(realpath $0))
 
 pushd $SCRIPT_PATH > /dev/null
-  chmod +x *.sh
-popd > /dev/null
+  chmod +x ./*
+popd
 
 pushd $SCRIPT_PATH/../web > /dev/null
   flask db init

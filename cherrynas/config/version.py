@@ -20,5 +20,3 @@ def create_commit_log():
 def GetCommitId():
     with open(BUILD_COMMIT_ID, "r") as f:
         return f.readline()
-
-create_commit_log()
