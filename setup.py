@@ -20,12 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from config.version import get_version
 from requirements import req
 from setuptools import setup, find_packages
 
+VERSION = open("./cherrynas/config/version.txt").readline()
+
 setup(name='cherrynas',
-      version=get_version(),
+      version=VERSION,
 
       url='https://github.com/fnwinter/cherrynas',
       author='JungJik Lee',
