@@ -29,7 +29,7 @@ import json
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir,os.path.pardir))
 
-from config.version import CHERRYNAS_VERSION, CHERRYNAS_CODE
+from config.version import get_full_version
 from config import SYSTEM_INFO_PATH
 from utils.unit import HumanReadByte
 from utils.log import get_logger
@@ -64,7 +64,7 @@ def software_info():
     system_ = platform.system()
     release_ = platform.release()
     os_ = f"{system_}-{release_}"
-    cherrynas_version_ = f"{CHERRYNAS_VERSION} {CHERRYNAS_CODE}" 
+    cherrynas_version_ = get_full_version()
 
     return {"os": os_, "cherrynas version":cherrynas_version_}
 
