@@ -17,13 +17,11 @@ class LoginView(FlaskView):
             return redirect('/')
 
         _form = LoginForm()
-        version_ = self.get_version()
-        return render_template('/account/login.html', form=_form, error_msg=None, version=version_)
+        return render_template('/account/login.html', form=_form, error_msg=None, version=get_full_version())
 
     def post(self):
         _form = LoginForm()
         error_msg_ = 'email or password is wrong'
-        version_ = self.get_version()
         if _form.validate_on_submit():
             _email = _form['email'].data
             _password = _form['password'].data
@@ -34,7 +32,7 @@ class LoginView(FlaskView):
             elif login_result == 'success':
                 return redirect("/")
 
-        return render_template('/account/login.html', form=_form, error_msg=error_msg_, version=version_)
+        return render_template('/account/login.html', form=_form, error_msg=error_msg_, version=get_full_version())
 
     def login(self, email, password):
         try:
@@ -72,6 +70,3 @@ class LoginView(FlaskView):
         except:
             return False
         return False
-
-    def get_version(self) -> str:
-        return f"{get_full_version()} - {get_commit_id()}"
