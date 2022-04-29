@@ -38,6 +38,12 @@ jobs:
         chmod +x ./scripts/run_pylint.sh
         ./scripts/run_pylint.sh
         popd
+    - name: Version up
+      run: |
+        pushd cherrynas
+        chmod +x ./scripts/version_up.sh
+        ./scripts/version_up.sh
+        popd
     - name: Build
       run: |
         python setup.py sdist

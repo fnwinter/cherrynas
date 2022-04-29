@@ -1,6 +1,5 @@
-#!/usr/bin/python3
-#
-# Copyright 2022 fnwinter@gmail.com
+#!/bin/bash
+# Copyright 2021 fnwinter@gmail.com
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the "Software"), to deal in
@@ -20,24 +19,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from config.version import get_version
-from requirements import req
-from setuptools import setup, find_packages
+set -e
 
-setup(name='cherrynas',
-      version=get_version(),
-
-      url='https://github.com/fnwinter/cherrynas',
-      author='JungJik Lee',
-      author_email='fnwinter@gmail.com',
-
-      description='Installable NAS software',
-      long_description='',
-
-      packages=find_packages(),
-      package_dir={'cherrynas': 'cherrynas'},
-
-      zip_safe=False,
-      install_requires=req,
-      include_package_data=True
-)
+GIT_TITLE=$(git log -1 --pretty='%s')
+SUB='version_up'
+if [[ "$GIT_TITLE" == *"$SUB"* ]]; then
+  python3 -c 'from config.version import save_version_patch
+save_version_patch()'
+fi

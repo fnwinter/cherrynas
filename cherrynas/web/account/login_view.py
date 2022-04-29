@@ -1,5 +1,5 @@
 from config.config import Config
-from config.version import CHERRYNAS_VERSION, CHERRYNAS_CODE, GetCommitId
+from config.version import get_full_version, get_commit_id
 from utils.hash import hashed_password
 from flask_classful import FlaskView, route
 from flask import render_template, redirect, session
@@ -74,4 +74,4 @@ class LoginView(FlaskView):
         return False
 
     def get_version(self) -> str:
-        return f"{CHERRYNAS_VERSION} - {CHERRYNAS_CODE} - {GetCommitId()}"
+        return f"{get_full_version()} - {get_commit_id()}"
