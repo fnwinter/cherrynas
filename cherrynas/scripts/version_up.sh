@@ -26,4 +26,8 @@ SUB='version_up'
 if [[ "$GIT_TITLE" == *"$SUB"* ]]; then
   python3 -c 'from config.version import save_version_patch
 save_version_patch()'
+  NEW_VERSION=`cat ./config/version.txt`
+  git add --all
+  git commit -m "version : " + $NEW_VERSION
+  git push origin main
 fi
