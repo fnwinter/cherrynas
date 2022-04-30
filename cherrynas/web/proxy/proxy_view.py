@@ -27,7 +27,7 @@ class ProxyView(FlaskView):
         else:
             return redirect('/login')
 
-        return render_template('/proxy/proxy.html', url="http://127.0.0.1:5000/proxy/ref/125.130.115.231:90/trac")
+        return render_template('/proxy/proxy.html', url="http://192.168.29.100:5000/proxy/ref/125.130.115.231:90/trac")
 
     @route('/ref/<path:url>')
     def root(self, url):
