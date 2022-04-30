@@ -1,5 +1,7 @@
 req = [
   'alembic==1.7.5',
+  'certifi==2021.10.8',
+  'charset-normalizer==2.0.12',
   'click==8.0.3',
   'distlib==0.3.4',
   'dnspython==2.2.0',
@@ -26,8 +28,10 @@ req = [
   'pyftpdlib==1.5.6',
   'python-daemon==2.3.0',
   'pyzmq==22.3.0',
+  'requests==2.27.1',
   'six==1.16.0',
   'SQLAlchemy==1.4.31',
+  'urllib3==1.26.9',
   'urwid==2.1.2',
   'virtualenv==20.14.0',
   'Werkzeug==2.0.2',
