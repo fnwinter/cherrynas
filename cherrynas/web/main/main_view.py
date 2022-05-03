@@ -1,8 +1,9 @@
 import json
+import re
 
 from config import SYSTEM_INFO_PATH
-from flask_classful import FlaskView
-from flask import render_template, session, redirect
+from flask_classful import FlaskView, route
+from flask import render_template, session, redirect, request
 
 class MainView(FlaskView):
     """
@@ -21,6 +22,13 @@ class MainView(FlaskView):
             who = f"{session.get('email')}"
         else:
             return redirect('/login')
+        
+        ref = request.headers.get('referer')
+        print(request)
+
+        if ref:
+            print("----------------------------")
+            print(ref)
 
         system_info_ = None
         with open(SYSTEM_INFO_PATH, 'r') as f:
@@ -41,3 +49,9 @@ class MainView(FlaskView):
             alarm=alarm_,
             login_user=login_user_,
             logs=logs_)
+
+    @route('/<path>')
+    def root(self, path):
+        print(request)
+        print(path)
+        return "TEST"

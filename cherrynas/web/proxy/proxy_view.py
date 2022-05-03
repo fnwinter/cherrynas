@@ -5,7 +5,8 @@ import re
 from urllib.parse import urlparse, urlunparse
 import requests
 
-APPROVED_HOSTS = ['125.130.115.231:90/']
+APPROVED_HOSTS = set(["google.com", "www.google.com", "yahoo.com", "fnwinter.github.io", "ko.wikipedia.org"])
+CHUNK_SIZE = 1024
 
 # https://gist.github.com/gear11/8006132
 
@@ -27,78 +28,64 @@ class ProxyView(FlaskView):
         else:
             return redirect('/login')
 
-        return render_template('/proxy/proxy.html', url="http://192.168.29.100:5000/proxy/ref/125.130.115.231:90/trac")
-
-    @route('/ref/<path:url>')
-    def root(self, url):
-        # If referred from a proxy request, then redirect to a URL with the proxy prefix.
-        # This allows server-relative and protocol-relative URLs to work.
-        referer = request.headers.get('referer')
-        if not referer:
-            return Response("Relative URL sent without a a proxying request referal. Please specify a valid proxy host (/p/url)", 400)
-        proxy_ref = self.proxied_request_info(referer)
-        host = proxy_ref[0]
-        redirect_url = "/p/%s/%s%s" % (host, url, ("?" + request.query_string.decode('utf-8') if request.query_string else ""))
-        return redirect(redirect_url)
+        return render_template('/proxy/proxy.html', url="http://127.0.0.1:5000/proxy/ref/ko.wikipedia.org/wiki/%ED%85%8C%EC%8A%A4%ED%8A%B8")
 
     @route('/ref/<path:url>')
     def proxy(self, url):
         """Fetches the specified URL and streams it out to the client.
-        If the request was referred by the proxy itself (e.g. this is an image fetch
-        for a previously proxied HTML page), then the original Referer is passed."""
-        # Check if url to proxy has host only, and redirect with trailing slash
-        # (path component) to avoid breakage for downstream apps attempting base
-        # path detection
-        url_parts = urlparse('%s://%s' % (request.scheme, url))
-        if url_parts.path == "":
-            parts = urlparse(request.url)
-            return redirect(urlunparse(parts._replace(path=parts.path+'/')))
-
-        r = self.make_request(url, request.method, dict(request.headers), request.form)
-        headers = dict(r.raw.headers)
+        If the request was referred by the proxy itself (e.g. this is an image fetch for
+        a previously proxied HTML page), then the original Referer is passed."""
+        r = self.get_source_rsp(url)
+        print(url)
+        headers = dict(r.headers)
         def generate():
             for chunk in r.raw.stream(decode_content=False):
                 yield chunk
-        out = Response(generate(), headers=headers)
-        out.status_code = r.status_code
-        return out
+        return Response(generate(), headers = headers)
 
-    def make_request(self, url, method, headers={}, data=None):
+    def get_source_rsp(self, url):
         url = 'http://%s' % url
         # Ensure the URL is approved, else abort
-        #if not self.is_approved(url):
-        #    abort(403)
-
+        if not self.is_approved(url):
+            abort(403)
         # Pass original Referer for subsequent resource requests
-        referer = request.headers.get('referer')
-        if referer:
-            proxy_ref = self.proxied_request_info(referer)
-            headers.update({ "referer" : "http://%s/%s" % (proxy_ref[0], proxy_ref[1])})
-
-        # Fetch the URL, and stream it back
-        return requests.request(method, url, params=request.args, stream=True, headers=headers, allow_redirects=False, data=data)
+        proxy_ref = self.proxy_ref_info(request)
+        headers = { "Referer" : "http://%s/%s" % (proxy_ref[0], proxy_ref[1])} if proxy_ref else {}
+        req = requests.get(url, stream=True , params = request.args, headers=headers)
+        print(req)
+        return req
 
     def is_approved(self, url):
         """Indicates whether the given URL is allowed to be fetched.  This
         prevents the server from becoming an open proxy"""
-        parts = urlparse(url)
-        return parts.netloc in APPROVED_HOSTS
+        host = self.split_url(url)[1]
+        print(host)
+        return host in APPROVED_HOSTS
 
-    def proxied_request_info(self, proxy_url):
-        """Returns information about the target (proxied) URL given a URL sent to
-        the proxy itself. For example, if given:
-            http://localhost:5000/p/google.com/search?q=foo
+    def split_url(self, url):
+        """Splits the given URL into a tuple of (protocol, host, uri)"""
+        proto, rest = url.split(':', 1)
+        rest = rest[2:].split('/', 1)
+        host, uri = (rest[0], rest[1]) if len(rest) == 2 else (rest[0], "")
+        return (proto, host, uri)
+
+    def proxy_ref_info(self, request):
+        """Parses out Referer info indicating the request is from a previously proxied page.
+        For example, if:
+            Referer: http://localhost:8080/p/google.com/search?q=foo
         then the result is:
-            ("google.com", "search?q=foo")"""
-        parts = urlparse(proxy_url)
-        if not parts.path:
-            return None
-        elif not parts.path.startswith('/p/'):
-            return None
-        matches = re.match('^/ref/([^/]+)/?(.*)', parts.path)
-        proxied_host = matches.group(1)
-        proxied_path = matches.group(2) or '/'
-        proxied_tail = urlunparse(parts._replace(scheme="", netloc="", path=proxied_path))
-        print(proxied_host, proxied_tail)
-        return ["125.130.115.231:90", "trac"]
+            ("google.com", "search?q=foo")
+        """
+        return ("ko.wikipedia.org","/wiki/%ED%85%8C%EC%8A%A4%ED%8A%B8")
+        ref = request.headers.get('referer')
+        if ref:
+            _, _, uri = self.split_url(ref)
+            if uri.find("/") < 0:
+                return None
+            first, rest = uri.split("/", 1)
+            if first in "pd":
+                parts = rest.split("/", 1)
+                r = (parts[0], parts[1]) if len(parts) == 2 else (parts[0], "")
+                return r
+        return None
 
