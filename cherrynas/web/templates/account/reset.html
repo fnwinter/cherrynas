@@ -6,7 +6,7 @@
             <div style="width:500px">
                 <h3>🍒 Cherry NAS / Reset Password</h3><br/>
 
-                <form id="request_pin" method="post" class="post-form" action="/reset_password/">
+                <form id="request_pin" method="post" class="post-form" action="/cherry/reset_password/">
                     {{ request_form.hidden_tag() }}
                     <div class="form-group">
                         <label for="email">E-Mail</label>
@@ -21,7 +21,7 @@
                     <div class="themed-container-error">{{ error_msg }}</div>
                 </span>
                 {% endif %}
-                <form id="reset_password" method="post" class="post-form" action="/reset_password/">
+                <form id="reset_password" method="post" class="post-form" action="/cherry/reset_password/">
                     {{ reset_form.hidden_tag() }}
                     <div class="form-group">
                         <label for="reset_pin">Pin Number</label>
@@ -39,7 +39,7 @@
                     <button type="submit" class="btn btn-primary" style="width:500px">Change Password</button><br/>
                 </form>
                 <br/>
-                <button onclick="window.location.href = '/login/'" class="btn btn-secondary mb-3" style="width:500px">Log in</button><br>
+                <button onclick="window.location.href = '/cherry/login/'" class="btn btn-secondary mb-3" style="width:500px">Log in</button><br>
             </div>
         </div>
     </body>

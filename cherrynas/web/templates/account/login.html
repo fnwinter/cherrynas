@@ -7,7 +7,7 @@
             <h3>🍒 Cherry NAS / Login</h3>
             <br/>
             <br/>
-                <form action="/login/" method="post">
+                <form action="/cherry/login/" method="post">
                     {{ form.hidden_tag() }}
                     <label for="email" class="form-label">E-Mail</label>
                     <input type="text" class="form-control" id="email" name="email">
@@ -27,10 +27,10 @@
                     <button type="submit" class="btn btn-primary mb-3" style="width:500px" onclick="save_cookie();">Login</button><br>
                 </form>
 
-                <button onclick="window.location.href = '/signup'" class="btn btn-secondary mb-3" style="width:500px">
+                <button onclick="window.location.href = '/cherry/signup'" class="btn btn-secondary mb-3" style="width:500px">
                     Sign up
                 </button>
-                <button onclick="window.location.href = '/reset_password'" class="btn btn-secondary mb-3" style="width:500px">
+                <button onclick="window.location.href = '/cherry/reset_password'" class="btn btn-secondary mb-3" style="width:500px">
                     Reset Password
                 </button>
             </div>

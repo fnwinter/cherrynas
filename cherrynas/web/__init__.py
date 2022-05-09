@@ -45,14 +45,14 @@ def create_view(app):
     from web.sync.sync_view import SyncView
     from web.proxy.proxy_view import ProxyView
 
-    MainView.register(app, '/')
-    ExplorerView.register(app, '/explorer/')
-    ImageView.register(app, '/image/')
-    MovieView.register(app, '/movie/')
-    MusicView.register(app, '/music/')
-    BookView.register(app, '/book/')
-    SyncView.register(app, '/sync/')
-    ProxyView.register(app, '/proxy/')
+    MainView.register(app, '/cherry/')
+    ExplorerView.register(app, '/cherry/explorer/')
+    ImageView.register(app, '/cherry/image/')
+    MovieView.register(app, '/cherry/movie/')
+    MusicView.register(app, '/cherry/music/')
+    BookView.register(app, '/cherry/book/')
+    SyncView.register(app, '/cherry/sync/')
+    ProxyView.register(app, '/cherry/proxy/')
 
     # create account view
     from web.account.login_view import LoginView
@@ -60,14 +60,14 @@ def create_view(app):
     from web.account.signup_view import SignupView
     from web.account.reset_view import ResetView
 
-    LoginView.register(app, '/login/')
-    LogoutView.register(app, '/logout/')
-    SignupView.register(app, '/signup/')
-    ResetView.register(app, '/reset_password/')
+    LoginView.register(app, '/cherry/login/')
+    LogoutView.register(app, '/cherry/logout/')
+    SignupView.register(app, '/cherry/signup/')
+    ResetView.register(app, '/cherry/reset_password/')
 
     # admin view
     from web.admin.admin_view import AdminView
-    AdminView.register(app, '/admin/')
+    AdminView.register(app, '/cherry/admin/')
 
 def create_db(app):
     DB.init_app(app)

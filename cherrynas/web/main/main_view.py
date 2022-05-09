@@ -21,7 +21,7 @@ class MainView(FlaskView):
         elif session.get('email'):
             who = f"{session.get('email')}"
         else:
-            return redirect('/login')
+            return redirect('/cherry/login')
 
         system_info_ = None
         with open(SYSTEM_INFO_PATH, 'r') as f:
