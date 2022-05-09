@@ -5,6 +5,7 @@ from flask_classful import FlaskView, route
 from flask import render_template, redirect, session
 
 from web.account.login_form import LoginForm
+from web.common.decorator import login_required
 from web.database.account_db import Account
 from web import DB
 
@@ -12,10 +13,8 @@ class LoginView(FlaskView):
     default_methods = ['GET', 'POST']
 
     @route("/")
+    @login_required
     def show(self):
-        if session.get('email'):
-            return redirect('/')
-
         _form = LoginForm()
         return render_template('/account/login.html', form=_form, error_msg=None, version=get_full_version())
 

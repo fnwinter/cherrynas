@@ -22,13 +22,6 @@ class MainView(FlaskView):
             who = f"{session.get('email')}"
         else:
             return redirect('/login')
-        
-        ref = request.headers.get('referer')
-        print(request)
-
-        if ref:
-            print("----------------------------")
-            print(ref)
 
         system_info_ = None
         with open(SYSTEM_INFO_PATH, 'r') as f:
@@ -49,9 +42,3 @@ class MainView(FlaskView):
             alarm=alarm_,
             login_user=login_user_,
             logs=logs_)
-
-    @route('/<path>')
-    def root(self, path):
-        print(request)
-        print(path)
-        return "TEST"
