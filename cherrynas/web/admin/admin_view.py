@@ -4,6 +4,7 @@ from flask_classful import FlaskView, route
 from flask import render_template, session, redirect
 
 from web.admin.admin_form import AdminForm
+from web.common.helper import get_id
 from web.database.account_db import Account
 from web import DB
 
@@ -29,11 +30,7 @@ class AdminView(FlaskView):
         if is_admin != 'yes':
             redirect('/')
 
-        who = None
-        if session.get('nick_name'):
-            who = f"{session.get('nick_name')}"
-        elif session.get('email'):
-            who = f"{session.get('email')}"
+        who = get_id()
 
         form_ = AdminForm()
 
@@ -42,13 +39,10 @@ class AdminView(FlaskView):
         return render_template('/admin/admin.html', email=who, form=form_, member_list=member_list_)
 
     def post(self):
-        who = None
-        if session.get('nick_name'):
-            who = f"{session.get('nick_name')}"
-        elif session.get('email'):
-            who = f"{session.get('email')}"
+        who = get_id()
 
         form_ = AdminForm()
+
         if form_.validate_on_submit():
             data = form_['data'].data
             print(data)

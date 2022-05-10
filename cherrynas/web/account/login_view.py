@@ -29,7 +29,7 @@ class LoginView(FlaskView):
             if login_result == 'not_allowed':
                 error_msg_ = 'this account is not permitted by admin yet.'
             elif login_result == 'success':
-                return redirect("/")
+                return redirect("/cherry/")
 
         return render_template('/account/login.html', form=_form, error_msg=error_msg_, version=get_full_version())
 

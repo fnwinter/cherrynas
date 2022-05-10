@@ -2,8 +2,9 @@ import json
 import re
 
 from config import SYSTEM_INFO_PATH
-from flask_classful import FlaskView, route
-from flask import render_template, session, redirect, request
+from web.common.helper import get_id
+from flask_classful import FlaskView
+from flask import render_template, redirect
 
 class MainView(FlaskView):
     """
@@ -12,15 +13,9 @@ class MainView(FlaskView):
     default_methods = ['GET', 'POST']
 
     def index(self):
-        """
-        main.html
-        """
-        who = None
-        if session.get('nick_name'):
-            who = f"{session.get('nick_name')}"
-        elif session.get('email'):
-            who = f"{session.get('email')}"
-        else:
+
+        who = get_id()
+        if not who:
             return redirect('/cherry/login')
 
         system_info_ = None
