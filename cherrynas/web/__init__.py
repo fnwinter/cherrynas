@@ -20,7 +20,7 @@
 
 import os
 
-from flask import Flask
+from flask import Flask, redirect, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -73,6 +73,14 @@ def create_db(app):
     DB.init_app(app)
     MIGRATE.init_app(app, DB)
 
+def proxy_handler(app):
+    @app.route('/')
+    def proxy():
+        referer = request.headers.get('referer')
+        if not referer:
+            return redirect("/cherry/")
+        return "proxy"
+
 def create_app():
     app = Flask(__name__, static_folder=STATIC_PATH)
     app.config['debug'] = True
@@ -84,5 +92,7 @@ def create_app():
     create_view(app)
 
     create_db(app)
+
+    proxy_handler(app)
 
     return app
