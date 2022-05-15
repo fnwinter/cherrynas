@@ -13,7 +13,6 @@ class LoginView(FlaskView):
     default_methods = ['GET', 'POST']
 
     @route("/")
-    @login_required
     def show(self):
         _form = LoginForm()
         return render_template('/account/login.html', form=_form, error_msg=None, version=get_full_version())

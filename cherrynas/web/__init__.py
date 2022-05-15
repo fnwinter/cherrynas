@@ -19,11 +19,13 @@
 # SOFTWARE.
 
 import os
+import requests
 
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, Response
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from werkzeug.datastructures import Headers
 
 from config import ACCOUNT_DB_PATH
 from utils.hash import get_today_hash
@@ -75,14 +77,36 @@ def create_db(app):
 
 def proxy_handler(app):
     @app.route('/')
-    def proxy():
-        referer = request.headers.get('referer')
-        if not referer:
-            return redirect("/cherry/")
-        return "proxy"
+    def root():
+        return redirect('/cherry/')
+
+    @app.before_request
+    def before_req():
+        print(request.path)
+        print(dir(request))
+        headers = Headers()
+        for head in request.headers.items():
+            headers.add(head[0], head[1])
+        request.headers = headers
+
+    @app.route('/<path:url>', methods=["GET", "POST"])
+    def proxy(url):
+        out = ''
+        try:
+            url = f"https://{url[10:]}"
+            r = requests.request(request.method, url, stream=True)
+            headers = dict(r.raw.headers)
+            def generate():
+                for chunk in r.raw.stream(decode_content=False):
+                    yield chunk
+            out = Response(generate(), headers=headers)
+            out.status_code = r.status_code
+        except Exception as e:
+            print('error')
+        return out
 
 def create_app():
-    app = Flask(__name__, static_folder=STATIC_PATH)
+    app = Flask(__name__, static_folder=STATIC_PATH, static_url_path='/cherry/static')
     app.config['debug'] = True
     app.config["SECRET_KEY"] = get_today_hash()
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{ACCOUNT_DB_PATH}'

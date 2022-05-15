@@ -4,7 +4,7 @@ from functools import wraps
 def login_required(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
-        if session.get('email'):
-            return redirect('/')
+        if not session.get('email'):
+            return redirect('/cherry/login')
         return func(*args, **kwargs)
     return decorated_view
