@@ -80,20 +80,14 @@ def proxy_handler(app):
     def root():
         return redirect('/cherry/')
 
-    @app.before_request
-    def before_req():
-        print(request.path)
-        print(dir(request))
-        headers = Headers()
-        for head in request.headers.items():
-            headers.add(head[0], head[1])
-        request.headers = headers
-
     @app.route('/<path:url>', methods=["GET", "POST"])
     def proxy(url):
         out = ''
         try:
-            url = f"https://{url[10:]}"
+            if "proxy/ref/" in url:
+                url = f"http://127.0.0.1/trac"
+            else:
+                url = f"http://127.0.0.1/" + url
             r = requests.request(request.method, url, stream=True)
             headers = dict(r.raw.headers)
             def generate():
@@ -101,6 +95,7 @@ def proxy_handler(app):
                     yield chunk
             out = Response(generate(), headers=headers)
             out.status_code = r.status_code
+            print(out)
         except Exception as e:
             print('error')
         return out
