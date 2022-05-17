@@ -14,11 +14,11 @@ class ProxyView(FlaskView):
         """
         proxy.html
         """
-        proxy_url = "/proxy/ref/"
+        proxy_url = "/proxy/ref?localhost/trac"
         if not proxy_url:
             redirect('/proxy/error')
 
-        return render_template('/proxy/proxy.html', url="/proxy/ref/")
+        return render_template('/proxy/proxy.html', url=proxy_url)
 
     @route("/error")
     def error(self):

@@ -20,6 +20,7 @@
 
 import os
 import requests
+import urllib
 
 from flask import Flask, redirect, request, Response
 from flask_cors import CORS
@@ -85,9 +86,10 @@ def proxy_handler(app):
         out = ''
         try:
             if "proxy/ref/" in url:
-                print("proxy")
-                url = f"http://localhost/trac"
+                parsed_ = urllib.parse.urlparse(url)                
+                url = f"http://{parsed_.query}"
             else:
+                #FIXME: referer
                 url = f"http://localhost/" + url
             r = requests.request(request.method, url, stream=True)
             headers = dict(r.raw.headers)
