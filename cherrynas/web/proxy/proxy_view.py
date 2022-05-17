@@ -1,9 +1,7 @@
 from flask_classful import FlaskView, route
-from flask import render_template, session, request, abort, Response, redirect
+from flask import render_template, redirect
 
 from web.common.decorator import login_required
-
-from urllib.parse import urlparse, urlunparse
 
 class ProxyView(FlaskView):
     """
@@ -16,8 +14,12 @@ class ProxyView(FlaskView):
         """
         proxy.html
         """
-        return render_template('/proxy/proxy.html', url="http://localhost:5000/proxy/ref/ko.wikipedia.org/wiki/%ED%85%8C%EC%8A%A4%ED%8A%B8")
+        proxy_url = "/proxy/ref/"
+        if not proxy_url:
+            redirect('/proxy/error')
 
-    @route("/static")
-    def static(self):
-        print("proxy >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", request)
+        return render_template('/proxy/proxy.html', url="/proxy/ref/")
+
+    @route("/error")
+    def error(self):
+        return render_template('/proxy/proxy_error.html')

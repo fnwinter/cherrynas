@@ -85,9 +85,10 @@ def proxy_handler(app):
         out = ''
         try:
             if "proxy/ref/" in url:
-                url = f"http://127.0.0.1/trac"
+                print("proxy")
+                url = f"http://localhost/trac"
             else:
-                url = f"http://127.0.0.1/" + url
+                url = f"http://localhost/" + url
             r = requests.request(request.method, url, stream=True)
             headers = dict(r.raw.headers)
             def generate():
@@ -95,7 +96,6 @@ def proxy_handler(app):
                     yield chunk
             out = Response(generate(), headers=headers)
             out.status_code = r.status_code
-            print(out)
         except Exception as e:
             print('error')
         return out
