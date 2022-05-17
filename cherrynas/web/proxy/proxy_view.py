@@ -14,7 +14,7 @@ class ProxyView(FlaskView):
         """
         proxy.html
         """
-        proxy_url = "/proxy/ref?localhost/trac"
+        proxy_url = "/proxy_ref"
         if not proxy_url:
             redirect('/proxy/error')
 

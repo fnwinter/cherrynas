@@ -84,14 +84,14 @@ def proxy_handler(app):
     @app.route('/<path:url>', methods=["GET", "POST"])
     def proxy(url):
         out = ''
+        url_ = ''
+        base_url = 'http://localhost'
         try:
-            if "proxy/ref/" in url:
-                parsed_ = urllib.parse.urlparse(url)                
-                url = f"http://{parsed_.query}"
+            if "proxy_ref" in url:
+                url_ = base_url
             else:
-                #FIXME: referer
-                url = f"http://localhost/" + url
-            r = requests.request(request.method, url, stream=True)
+                url_ = f"{base_url}/{url}"
+            r = requests.request(request.method, url_, stream=True)
             headers = dict(r.raw.headers)
             def generate():
                 for chunk in r.raw.stream(decode_content=False):
