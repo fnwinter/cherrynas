@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from modules.base_text_ui import BaseTextUI
+from gui.base_text_ui import BaseTextUI
 
 class TextUI(BaseTextUI):
     """

@@ -20,10 +20,10 @@
 
 import urwid
 
-from base.gui.screen import Screen
-from base.gui.colors import colors
-from base.gui.widget import LINE_SPLITTER
-from base.gui.widget import draw_header, draw_footer
+from gui.screen import Screen
+from gui.colors import colors
+from gui.widget import LINE_SPLITTER
+from gui.widget import draw_header, draw_footer
 
 class BasePopup:
     """ Base Popup Class """

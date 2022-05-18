@@ -25,20 +25,15 @@ from collections import deque
 import os
 import urwid
 
-from base.config.config import Config
-from base.gui.splash import Splash
-from base.gui.screen import Screen
-from base.gui.colors import colors
-from base.gui.popup import YesNoPopup
-from base.gui.widget import draw_header, draw_footer
-from base.path.path import ROOT_PATH, TEXTUI_LOG_FILE_PATH
-from modules.loader import ModuleLoader
-from utils.log import get_logger
+from gui.splash import Splash
+from gui.screen import Screen
+from gui.colors import colors
+from gui.popup import YesNoPopup
+from gui.widget import draw_header, draw_footer
 
-class YuriNasUI():
-    """ YuriNas Setup TextUI """
+class CherryNasUI():
+    """ CharryNas Setup TextUI """
     def __init__(self):
-        self.log = get_logger('TEXT_UI', log_file=TEXTUI_LOG_FILE_PATH)
         self.screen = Screen()
         self.list_walker = urwid.SimpleFocusListWalker([])
         self.column = None
@@ -48,32 +43,31 @@ class YuriNasUI():
         self.modules = self.load_tui_modules()
 
     def load_config(self):
-        try:
-            with Config() as config:
-                return config.get_config_data()
-        except Exception as e:
-            self.log.error("load config %s", e)
+        # try:
+        #     with Config() as config:
+        #         return config.get_config_data()
+        # except Exception as e:
+        #     self.log.error("load config %s", e)
         return {}
 
     def load_tui_modules(self):
         """ load text ui modules """
         try:
-            self.log.info('load text ui modules')
-            module_loader = ModuleLoader()
-            module_loader.load_modules()
-            return module_loader.get_text_ui_modules()
+            #module_loader = ModuleLoader()
+            #module_loader.load_modules()
+            #return module_loader.get_text_ui_modules()
+            pass
         except Exception as e:
-            self.log.error("fail to load modules : %s", e)
             assert False, "fail to load modules"
 
     def draw_left(self):
         """ draw left column menu buttons """
         buttons = []
-        for module in sorted(self.modules, key=lambda module: module.get_label()):
-            label = module.get_label() if hasattr(module, 'get_label') else "Unknown"
-            button = urwid.Button(label, on_press=self.on_press_left_button, user_data=module)
-            button = urwid.AttrWrap(button, 'button', focus_attr='button_focus')
-            buttons.append(button)
+
+        label = "Unknown"
+        button = urwid.Button(label, on_press=self.on_press_left_button)
+        button = urwid.AttrWrap(button, 'button', focus_attr='button_focus')
+        buttons.append(button)
         return urwid.LineBox(urwid.ListBox(buttons))
 
     def on_press_left_button(self, _, module):
@@ -148,21 +142,20 @@ class YuriNasUI():
             with Config(open_mode='w+') as config:
                 config.write_config(self.global_config_data)
         except Exception as e:
-            self.log.error("fail to save the config file : %s", e)
+            pass
+
 
     def restart_daemon(self):
         """ restart daemon """
         try:
-            self.log.info("restart daemon")
-            daemon_path = os.path.join(ROOT_PATH, 'yurinas-daemon.py')
-            self.log.info("daemon path : %s", daemon_path)
+            daemon_path = os.path.join(ROOT_PATH, 'cherry-daemon.py')
             command = "python3 %s --restart --force" % daemon_path
             os.system(command)
         except Exception as e:
-            self.log.error("fail to restart daemon : %s", e)
+            pass
 
     def stop_daemon(self):
-        self.log.info("stop daemon")
+        pass
 
     def focus_move(self):
         self.focus_order.rotate(-1)
@@ -184,4 +177,4 @@ if __name__ == '__main__':
     # show splash
     Splash().show_splash()
     # show yurinas gui
-    YuriNasUI().show_gui()
+    CherryNasUI().show_gui()

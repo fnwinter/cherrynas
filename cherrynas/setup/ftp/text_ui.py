@@ -20,10 +20,10 @@
 
 import urwid
 
-from base.gui.widget import SPLITTER, LINE_SPLITTER, FocusAttrWrap
-from base.gui.widget import NamedCheckBox, NamedEdit
-from base.gui.browse import DirectoryBrowser
-from modules.base_text_ui import BaseTextUI
+from gui.widget import SPLITTER, LINE_SPLITTER, FocusAttrWrap
+from gui.widget import NamedCheckBox, NamedEdit
+from gui.browse import DirectoryBrowser
+from gui.base_text_ui import BaseTextUI
 
 class TextUI(BaseTextUI):
     """

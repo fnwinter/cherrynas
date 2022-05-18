@@ -20,8 +20,7 @@
 
 import urwid
 
-from base.gui.widget import SPLITTER
-from utils.log import get_logger
+from gui.widget import SPLITTER
 
 class BaseTextUI():
     """ Base Text UI class """
@@ -32,7 +31,6 @@ class BaseTextUI():
 
     def __init__(self, module_name):
         self.module_name = module_name
-        self.log = get_logger(module_name)
 
     @staticmethod
     def draw_title(title):

@@ -40,7 +40,7 @@ import os
 
 import urwid
 
-from base.gui.screen import Screen
+from gui.screen import Screen
 
 #FIXME: why global variable?
 INCLUDE_FILES = False

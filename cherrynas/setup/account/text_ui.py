@@ -20,10 +20,10 @@
 
 import urwid
 
-from base.gui.widget import SPLITTER
-from base.utils.email import valid_email
-from base.utils.hash import hashed_password
-from modules.base_text_ui import BaseTextUI
+from gui.widget import SPLITTER
+from utils.email import valid_email
+from utils.hash import hashed_password
+from gui.base_text_ui import BaseTextUI
 
 class TextUI(BaseTextUI):
     """

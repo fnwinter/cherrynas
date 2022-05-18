@@ -21,8 +21,8 @@
 import time
 import urwid
 
-from base.gui.screen import Screen
-from base.gui.widget import SPLITTER
+from gui.screen import Screen
+from gui.widget import SPLITTER
 
 class Splash():
     """ YuriNas Text UI Splash """
@@ -43,7 +43,7 @@ class Splash():
         raise urwid.ExitMainLoop()
 
     def show_splash(self):
-        title = urwid.BigText(u"yurinas", urwid.Thin6x6Font())
+        title = urwid.BigText(u"cherrynas", urwid.Thin6x6Font())
         title = urwid.Padding(title, 'center', None)
         title = urwid.AttrMap(title, 'title')
         title = urwid.Filler(title, 'middle', None, 27)
