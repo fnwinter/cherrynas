@@ -31,6 +31,8 @@ from gui.colors import colors
 from gui.popup import YesNoPopup
 from gui.widget import draw_header, draw_footer
 
+from account.text_ui import TextUI as accountUI
+
 class CherryNasUI():
     """ CharryNas Setup TextUI """
     def __init__(self):
@@ -40,7 +42,9 @@ class CherryNasUI():
         self.instance = None
         self.focus_order = deque(['left', 'right'])
         self.global_config_data = self.load_config()
-        self.modules = self.load_tui_modules()
+        self.modules = [
+            accountUI
+        ]
 
     def load_config(self):
         # try:
@@ -63,11 +67,11 @@ class CherryNasUI():
     def draw_left(self):
         """ draw left column menu buttons """
         buttons = []
-
-        label = "Unknown"
-        button = urwid.Button(label, on_press=self.on_press_left_button)
-        button = urwid.AttrWrap(button, 'button', focus_attr='button_focus')
-        buttons.append(button)
+        for module in sorted(self.modules, key=lambda module: module.get_label()):
+            label = module.get_label() if hasattr(module, 'get_label') else "Unknown"
+            button = urwid.Button(label, on_press=self.on_press_left_button, user_data=module)
+            button = urwid.AttrWrap(button, 'button', focus_attr='button_focus')
+            buttons.append(button)
         return urwid.LineBox(urwid.ListBox(buttons))
 
     def on_press_left_button(self, _, module):
@@ -115,10 +119,6 @@ class CherryNasUI():
             self.focus_move()
         elif key_str == 'f1':
             self.save_config()
-        elif key_str == 'f2':
-            self.restart_daemon()
-        elif key_str == 'f3':
-            self.stop_daemon()
         elif key_str == 'f4':
             raise urwid.ExitMainLoop()
 
@@ -143,19 +143,6 @@ class CherryNasUI():
                 config.write_config(self.global_config_data)
         except Exception as e:
             pass
-
-
-    def restart_daemon(self):
-        """ restart daemon """
-        try:
-            daemon_path = os.path.join(ROOT_PATH, 'cherry-daemon.py')
-            command = "python3 %s --restart --force" % daemon_path
-            os.system(command)
-        except Exception as e:
-            pass
-
-    def stop_daemon(self):
-        pass
 
     def focus_move(self):
         self.focus_order.rotate(-1)

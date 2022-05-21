@@ -21,8 +21,8 @@
 import urwid
 
 from gui.widget import SPLITTER
-from utils.email import valid_email
-from utils.hash import hashed_password
+#from utils.email import valid_email
+#from utils.hash import hashed_password
 from gui.base_text_ui import BaseTextUI
 
 class TextUI(BaseTextUI):
@@ -41,7 +41,7 @@ class TextUI(BaseTextUI):
         return u"Account"
 
     def draw_text_ui(self):
-        self.email.set_edit_text(self.config_data.get('ACCOUNT_EMAIL'))
+        self.email.set_edit_text("TEST")#self.config_data.get('ACCOUNT_EMAIL'))
         desc = urwid.Text(u"# You can create an user account in web ui.", align='left')
 
         urwid.connect_signal(self.email, 'change', self.edit_email_changed)
@@ -55,17 +55,18 @@ class TextUI(BaseTextUI):
         return self.contents
 
     def edit_email_changed(self, _, text):
-        if valid_email(text):
-            self.config_data['ACCOUNT_EMAIL'] = text
-            self.notice.set_text('')
-        else:
-            self.notice.set_text('# Invalid Email format')
+        # if valid_email(text):
+        #     self.config_data['ACCOUNT_EMAIL'] = text
+        #     self.notice.set_text('')
+        # else:
+        #     self.notice.set_text('# Invalid Email format')
+        pass
 
     def edit_password_changed(self, widget, text):
         pwd1 = text if self.password1 == widget else self.password1.get_edit_text()
         pwd2 = text if self.password2 == widget else self.password2.get_edit_text()
         if pwd1 == pwd2 and pwd1 != '':
-            self.config_data['ACCOUNT_PASSWORD'] = hashed_password(pwd1)
+            self.config_data['ACCOUNT_PASSWORD'] = ""#hashed_password(pwd1)
             self.notice.set_text('')
         else:
             self.notice.set_text('# Confirm password is different')

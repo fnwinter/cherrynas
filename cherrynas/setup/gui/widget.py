@@ -36,8 +36,7 @@ def draw_header():
 
 def draw_footer():
     """ footer """
-    footer = urwid.Text(u" [ F1 SAVE | F2 RESTART DAEMON |"\
-        " F3 STOP DAEMON | F4 EXIT | TAB FOCUS MOVE ] ", align='left')
+    footer = urwid.Text(u" [ F1 SAVE | F2 EXIT | TAB FOCUS MOVE ] ", align='left')
     footer = urwid.AttrWrap(footer, 'footer')
     return footer
 
