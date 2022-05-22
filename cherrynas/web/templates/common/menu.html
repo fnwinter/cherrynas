@@ -2,13 +2,7 @@
   <header class="p-3 bg-light">
     <div>
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        {% if ( url_for(request.endpoint) == "/cherry/") %}
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 link-secondary">About</a></li>
-          <li><a href="#" class="nav-link px-2 link-secondary">History</a></li>
-          <li><a href="#" class="nav-link px-2 link-secondary">Licence</a></li>
-        </ul>
-        {% elif ( url_for(request.endpoint) == "/cherry/explorer/") %}
+        {% if (url_for(request.endpoint) == "/cherry/explorer/") %}
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" class="nav-link px-2 link-dark">New Folder</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Copy</a></li>
@@ -18,6 +12,12 @@
           <li><a href="#" class="nav-link px-2 link-dark">View</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Upload</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Download</a></li>
+        </ul>
+        {% else %}
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 link-secondary">About</a></li>
+          <li><a href="#" class="nav-link px-2 link-secondary">History</a></li>
+          <li><a href="#" class="nav-link px-2 link-secondary">Licence</a></li>
         </ul>
         {% endif %}
 
