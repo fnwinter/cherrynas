@@ -23,7 +23,12 @@
 from collections import deque
 
 import os
+import sys
 import urwid
+
+SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
+ROOT_PATH = os.path.join(SCRIPT_PATH, os.path.pardir)
+sys.path.append(ROOT_PATH)
 
 from gui.splash import Splash
 from gui.screen import Screen
@@ -32,6 +37,8 @@ from gui.popup import YesNoPopup
 from gui.widget import draw_header, draw_footer
 
 from account.text_ui import TextUI as accountUI
+from ftp.text_ui import TextUI as ftpUI
+from config.config import Config
 
 class CherryNasUI():
     """ CharryNas Setup TextUI """
@@ -42,27 +49,19 @@ class CherryNasUI():
         self.instance = None
         self.focus_order = deque(['left', 'right'])
         self.global_config_data = self.load_config()
+        print("global_config", self.global_config_data)
         self.modules = [
-            accountUI
+            accountUI,
+            #ftpUI
         ]
 
     def load_config(self):
-        # try:
-        #     with Config() as config:
-        #         return config.get_config_data()
-        # except Exception as e:
-        #     self.log.error("load config %s", e)
-        return {}
-
-    def load_tui_modules(self):
-        """ load text ui modules """
         try:
-            #module_loader = ModuleLoader()
-            #module_loader.load_modules()
-            #return module_loader.get_text_ui_modules()
-            pass
+            with Config() as config:
+                return config.get_config_data()
         except Exception as e:
-            assert False, "fail to load modules"
+            self.log.error("load config %s", e)
+        return {}
 
     def draw_left(self):
         """ draw left column menu buttons """
@@ -119,7 +118,7 @@ class CherryNasUI():
             self.focus_move()
         elif key_str == 'f1':
             self.save_config()
-        elif key_str == 'f4':
+        elif key_str == 'f2':
             raise urwid.ExitMainLoop()
 
     def update_config_data(self):
