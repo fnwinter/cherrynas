@@ -43,15 +43,15 @@ class Splash():
         raise urwid.ExitMainLoop()
 
     def show_splash(self):
-        title = urwid.BigText(u"cherrynas", urwid.Thin6x6Font())
+        title = urwid.BigText("cherrynas", urwid.Thin6x6Font())
         title = urwid.Padding(title, 'center', None)
         title = urwid.AttrMap(title, 'title')
         title = urwid.Filler(title, 'middle', None, 27)
         title = urwid.BoxAdapter(title, 7)
 
-        desc = urwid.Text(u"Network Attached Storage", align='center')
-        version = urwid.Text(u"v0.1", align='center')
-        skip = urwid.Text(u"Press enter", align='center')
+        desc = urwid.Text("Network Attached Storage", align='center')
+        version = urwid.Text("v0.1", align='center')
+        skip = urwid.Text("Press enter", align='center')
         pile = urwid.Pile(
             [title, desc, SPLITTER, version, SPLITTER, skip, SPLITTER])
 

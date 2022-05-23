@@ -46,7 +46,7 @@ class ResetView(FlaskView):
             email_ = f"{session.get('reset_pwd_email')}"
 
             request_form_.email_remember = email_
-            reset_pin_ = reset_form_["reset_pin"].data 
+            reset_pin_ = reset_form_["reset_pin"].data
             password_ = reset_form_["password"].data
             password_confirm_ = reset_form_["password_confirm"].data
             if password_ == password_confirm_ and password_ != "":

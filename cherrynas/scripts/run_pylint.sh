@@ -22,5 +22,5 @@
 SCRIPT_PATH=$(dirname $(realpath $0))
 
 pushd $SCRIPT_PATH/.. > /dev/null
-  find ./ -type f -name "*.py" ! -path "./migrations/*" ! -path "./venv/*" | xargs pylint --rcfile=$SCRIPT_PATH/pylint.rc
+  find ./ -type f -name "*.py" ! -path "./web/migrations/*" ! -path "./venv/*" | xargs pylint --rcfile=$SCRIPT_PATH/pylint.rc
 popd > /dev/null

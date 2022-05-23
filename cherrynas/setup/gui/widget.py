@@ -29,14 +29,14 @@ LINE_SPLITTER = urwid.Divider(u'\u2500')
 def draw_header():
     """ header """
     version = 'v0.1'
-    title = u" [ YuriNas %s ]" % version
+    title = " [ cherrynas %s ]" % version
     header = urwid.Text(title, align='left')
     header = urwid.AttrWrap(header, 'header')
     return header
 
 def draw_footer():
     """ footer """
-    footer = urwid.Text(u" [ F1 SAVE | F2 EXIT | TAB FOCUS MOVE ] ", align='left')
+    footer = urwid.Text(" [ F1 SAVE | F2 EXIT | TAB FOCUS MOVE ] ", align='left')
     footer = urwid.AttrWrap(footer, 'footer')
     return footer
 

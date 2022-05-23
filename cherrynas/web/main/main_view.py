@@ -18,7 +18,7 @@ class MainView(FlaskView):
 
         who = get_id()
         system_info_ = None
-        with open(SYSTEM_INFO_PATH, 'r') as f:
+        with open(SYSTEM_INFO_PATH, 'r', encoding="utf8") as f:
             system_info_ = json.loads(f.read())
 
         hardware_ = system_info_.get('hw')
@@ -28,7 +28,7 @@ class MainView(FlaskView):
         login_user_ = f'{who} , total 1 person'
         logs_ = ['ftp open \r\n','started','  test']
 
-        return render_template('/main/main.html', 
+        return render_template('/main/main.html',
             email=who,
             hardware=hardware_,
             software=software_,

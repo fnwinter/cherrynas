@@ -46,17 +46,17 @@ class TextUI(BaseTextUI):
 
     @staticmethod
     def get_label():
-        return u"FTP"
+        return "FTP"
 
     def draw_text_ui(self):
        #admin
         self.enable_root = NamedCheckBox(
-            u"Enable FTP server",
+            "Enable FTP server",
             name='FTP_ROOT_ENABLE',
             state=self.get_config_value('FTP_ROOT_ENABLE'),
             on_state_change=self.callback)
         self.root_path = NamedEdit(
-            u'    Root path : ', name='FTP_ROOT_PATH', align='left',
+            '    Root path : ', name='FTP_ROOT_PATH', align='left',
             edit_text=self.get_config_value('FTP_ROOT_PATH'),
             callback=self.callback)
         self.root_button = FocusAttrWrap(
@@ -66,12 +66,12 @@ class TextUI(BaseTextUI):
 
         #anonymous
         self.enable_anonymous = NamedCheckBox(
-            u"Enable anonymous user",
+            "Enable anonymous user",
             name='FTP_ANONYMOUS_ENABLE',
             state=self.get_config_value('FTP_ANONYMOUS_ENABLE'),
             on_state_change=self.callback)
         self.anonymous_path = NamedEdit(
-            u'    Anonymous path : ',
+            '    Anonymous path : ',
             name='FTP_ANONYMOUS_PATH',
             edit_text=self.get_config_value('FTP_ANONYMOUS_PATH'),
             align='left', callback=self.callback)
@@ -82,31 +82,31 @@ class TextUI(BaseTextUI):
 
         # address and port
         self.address = NamedEdit(
-            u'Address : ', name='FTP_ADDRESS',
+            'Address : ', name='FTP_ADDRESS',
             align='left', callback=self.callback,
             edit_text=self.get_config_value('FTP_ADDRESS'))
         self.port = NamedEdit(
-            u'Port : ', name='FTP_PORT',
+            'Port : ', name='FTP_PORT',
             align='left', callback=self.callback,
             edit_text=self.get_config_value('FTP_PORT'))
         self.passive_port = NamedEdit(
-            u'Passive port (range 60000,65535): ', name='FTP_PASSIVE_PORT',
+            'Passive port (range 60000,65535): ', name='FTP_PASSIVE_PORT',
             align='left', callback=self.callback,
             edit_text=self.get_config_value('FTP_PASSIVE_PORT'))
 
         # max connection
         self.max_connection = NamedEdit(
-            u'Max Connection : ', name='FTP_MAX_CONNECTION',
+            'Max Connection : ', name='FTP_MAX_CONNECTION',
             align='left', callback=self.callback,
             edit_text=self.get_config_value('FTP_MAX_CONNECTION'))
         self.max_connection_per_ip = NamedEdit(
-            u'Max Connection Per IP : ', name='FTP_MAX_CON_PER_IP',
+            'Max Connection Per IP : ', name='FTP_MAX_CON_PER_IP',
             align='left', callback=self.callback,
             edit_text=self.get_config_value('FTP_MAX_CON_PER_IP'))
 
         # banner
         self.banner = NamedEdit(
-            u'Welcome Banner >', name='FTP_WELCOME_BANNER',
+            'Welcome Banner >', name='FTP_WELCOME_BANNER',
             align='left', callback=self.callback,
             edit_text=self.get_config_value('FTP_WELCOME_BANNER'))
 

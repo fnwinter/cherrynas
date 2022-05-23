@@ -11,16 +11,16 @@ LOG_MODULE = "main"
 
 def run_daemon(argv):
     DAEMON_SCRIPT_PATH = os.path.join(SCRIPT_PATH, "scripts", "run_daemon.sh")
-    subprocess.run([DAEMON_SCRIPT_PATH] + argv)
+    subprocess.run([DAEMON_SCRIPT_PATH] + argv, check=True)
 
 def dev_web():
     WEB_SCRIPT_PATH = os.path.join(SCRIPT_PATH, "scripts", "run_web.sh")
-    subprocess.run([WEB_SCRIPT_PATH])
+    subprocess.run([WEB_SCRIPT_PATH], check=True)
 
 def install():
     INSTALL_SCRIPT_PATH = os.path.join(SCRIPT_PATH, "scripts", "install.sh")
     change_permission(INSTALL_SCRIPT_PATH, "+x")
-    subprocess.run([INSTALL_SCRIPT_PATH])
+    subprocess.run([INSTALL_SCRIPT_PATH], check=True)
 
 def setup():
     pass

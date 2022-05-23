@@ -55,4 +55,3 @@ class SignupView(FlaskView):
         except EmailSyntaxError as e:
             return False
         return True
-

@@ -80,12 +80,12 @@ class BasePopup:
 
 class YesNoPopup(BasePopup):
     """ Yes or No Popup """
-    def __init__(self, title=u'# Popup #', messages=None):
+    def __init__(self, title='# Popup #', messages=None):
         BasePopup.__init__(self)
         self.title = title
         self.messages = messages if messages else []
-        yes = urwid.Button(u'Yes', on_press=self.on_press, user_data='yes')
+        yes = urwid.Button('Yes', on_press=self.on_press, user_data='yes')
         yes = urwid.AttrWrap(yes, 'popup_button', 'popup_button_focus')
-        no = urwid.Button(u'No', on_press=self.on_press, user_data='no')
+        no = urwid.Button('No', on_press=self.on_press, user_data='no')
         no = urwid.AttrWrap(no, 'popup_button', 'popup_button_focus')
         self.buttons = [yes, no]

@@ -29,7 +29,7 @@ class TextUI(BaseTextUI):
 
     @staticmethod
     def get_label():
-        return u"Sync"
+        return "Sync"
 
     def draw_text_ui(self):
-        return BaseTextUI.draw_title(u"Sync folders")
+        return BaseTextUI.draw_title("Sync folders")

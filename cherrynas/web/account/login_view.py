@@ -23,7 +23,7 @@ class LoginView(FlaskView):
         if _form.validate_on_submit():
             _email = _form['email'].data
             _password = _form['password'].data
-         
+
             login_result = self.login(_email, _password)
             if login_result == 'not_allowed':
                 error_msg_ = 'this account is not permitted by admin yet.'

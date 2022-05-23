@@ -37,10 +37,10 @@ class TextUI(BaseTextUI):
     """
     def __init__(self):
         super().__init__('ACCOUNT')
-        self.email = urwid.Edit(u"      ID (Email) : ", align='left')
-        self.password1 = urwid.Edit(u"        Password : ", align='left', mask=u"*")
-        self.password2 = urwid.Edit(u"Confirm Password : ", align='left', mask=u"*")
-        self.notice = urwid.Text(u"", align='left')
+        self.email = urwid.Edit("      ID (Email) : ", align='left')
+        self.password1 = urwid.Edit("        Password : ", align='left', mask="*")
+        self.password2 = urwid.Edit("Confirm Password : ", align='left', mask="*")
+        self.notice = urwid.Text("", align='left')
 
     @staticmethod
     def get_label():
@@ -48,13 +48,13 @@ class TextUI(BaseTextUI):
 
     def draw_text_ui(self):
         self.email.set_edit_text(self.config_data.get('ACCOUNT_EMAIL'))
-        desc = urwid.Text(u"# You can create an user account in web ui.", align='left')
+        desc = urwid.Text("# You can create an user account in web ui.", align='left')
 
         urwid.connect_signal(self.email, 'change', self.edit_email_changed)
         urwid.connect_signal(self.password1, 'change', self.edit_password_changed)
         urwid.connect_signal(self.password2, 'change', self.edit_password_changed)
 
-        self.contents = BaseTextUI.draw_title(u"Administrator Account") +\
+        self.contents = BaseTextUI.draw_title("Administrator Account") +\
             [self.email, SPLITTER,
              self.password1, self.password2, SPLITTER,
              desc, self.notice]
