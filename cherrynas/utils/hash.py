@@ -20,8 +20,6 @@
 
 import hashlib
 
-from datetime import date
-
 def hashed_password(pwd):
     """
     return hashed password

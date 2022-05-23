@@ -1,15 +1,12 @@
-from distutils.log import error
 import random
-from shutil import ExecError
 
 from flask_classful import FlaskView, route
 from flask import render_template, session, redirect
 
+from utils.send_email import EMail
 from web.account.reset_form import ResetForm, RequestPinForm
 from web.database.account_db import Account
 from web import DB
-
-from utils.send_email import EMail
 
 class ResetView(FlaskView):
     default_methods = ['GET', 'POST']

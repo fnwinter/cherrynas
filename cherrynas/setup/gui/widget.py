@@ -24,12 +24,12 @@ SPLITTER = urwid.Divider(' ')
 
 UNDER_LINE_SPLITTER = urwid.Divider('_')
 
-LINE_SPLITTER = urwid.Divider(u'\u2500')
+LINE_SPLITTER = urwid.Divider('\u2500')
 
 def draw_header():
     """ header """
     version = 'v0.1'
-    title = " [ cherrynas %s ]" % version
+    title = f" [ cherrynas {version} ]"
     header = urwid.Text(title, align='left')
     header = urwid.AttrWrap(header, 'header')
     return header

@@ -36,7 +36,8 @@ class AdminView(FlaskView):
 
         member_list_ = self.load_member_lists()
 
-        return render_template('/admin/admin.html', email=who, form=form_, member_list=member_list_)
+        return render_template('/admin/admin.html',
+            email=who, form=form_, member_list=member_list_)
 
     def post(self):
         who = get_id()
@@ -53,7 +54,8 @@ class AdminView(FlaskView):
                 self.apply_change(json_)
 
         member_list_ = self.load_member_lists()
-        return render_template('/admin/admin.html', email=who, form=form_, member_list=member_list_)
+        return render_template('/admin/admin.html',
+            email=who, form=form_, member_list=member_list_)
 
     def load_member_lists(self):
         member_list_ = []

@@ -369,7 +369,7 @@ def escape_filename_sh_ansic(name):
     # gather the escaped characters into a list
     for ch in name:
         if ord(ch) < 32:
-            out.append("\\x%02x"% ord(ch))
+            out.append(f"{ord(ch):02x}")
         elif ch == '\\':
             out.append('\\\\')
         else:
