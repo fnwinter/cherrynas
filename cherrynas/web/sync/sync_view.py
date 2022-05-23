@@ -1,22 +1,20 @@
 from flask_classful import FlaskView
-from flask import render_template, session, redirect
+from flask import render_template
+
+from web.common.decorator import login_required
+from web.common.helper import get_id
 
 class SyncView(FlaskView):
     """
-    Main Page
+    Sync Page
     """
     default_methods = ['GET', 'POST']
 
+    @login_required
     def index(self):
         """
-        main.html
+        sync.html
         """
-        who = None
-        if session.get('nick_name'):
-            who = f"{session.get('nick_name')}"
-        elif session.get('email'):
-            who = f"{session.get('email')}"
-        else:
-            return redirect('/login')
+        who = get_id()
 
-        return render_template('/main/main.html', email=who)
+        return render_template('/sync/sync.html', email=who)

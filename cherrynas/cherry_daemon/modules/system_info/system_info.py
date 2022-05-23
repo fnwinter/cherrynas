@@ -18,13 +18,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from asyncore import write
 import os
+import sys
 import time
+import json
 import platform
 import psutil
-import sys
-import json
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir,os.path.pardir))
@@ -54,7 +53,6 @@ def hardware_info():
         "ram_total": ram_total_, \
         "ram_available" : ram_available_, "ram_used": ram_used_,\
         "ram_free": ram_free_}
-    
 
 def software_info():
     """
@@ -94,4 +92,3 @@ def process_main(_):
         # update system info per 10 mins
         write_info()
         time.sleep(60 * 10)
-   

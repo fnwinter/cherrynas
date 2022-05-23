@@ -20,7 +20,6 @@
 
 import os
 import requests
-import urllib
 
 from flask import Flask, redirect, request, Response
 from flask_cors import CORS
@@ -99,7 +98,7 @@ def proxy_handler(app):
             out = Response(generate(), headers=headers)
             out.status_code = r.status_code
         except Exception as e:
-            print('error')
+            print('error', e)
         return out
 
 def create_app():
