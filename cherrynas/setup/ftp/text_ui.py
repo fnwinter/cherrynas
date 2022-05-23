@@ -90,7 +90,7 @@ class TextUI(BaseTextUI):
             align='left', callback=self.callback,
             edit_text=self.get_config_value('FTP_PORT'))
         self.passive_port = NamedEdit(
-            'Passive port (range 60000,65535): ', name='FTP_PASSIVE_PORT',
+            'Passive port (range 60000, 65535): ', name='FTP_PASSIVE_PORT',
             align='left', callback=self.callback,
             edit_text=self.get_config_value('FTP_PASSIVE_PORT'))
 
@@ -110,7 +110,7 @@ class TextUI(BaseTextUI):
             align='left', callback=self.callback,
             edit_text=self.get_config_value('FTP_WELCOME_BANNER'))
 
-        self.contents = BaseTextUI.draw_title(u'FTP') + \
+        self.contents = BaseTextUI.draw_title('FTP') + \
             [self.enable_root, self.root_path, self.root_button, SPLITTER,
              self.enable_anonymous, self.anonymous_path, self.anonymous_button, SPLITTER,
              self.passive_port, self.address, self.port, SPLITTER,

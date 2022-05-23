@@ -15,7 +15,9 @@ class LoginView(FlaskView):
     @route("/")
     def show(self):
         _form = LoginForm()
-        return render_template('/account/login.html', form=_form, error_msg=None, version=get_full_version())
+        return render_template('/account/login.html',
+            form=_form, error_msg=None,
+            version=get_full_version())
 
     def post(self):
         _form = LoginForm()
@@ -30,7 +32,9 @@ class LoginView(FlaskView):
             elif login_result == 'success':
                 return redirect("/cherry/")
 
-        return render_template('/account/login.html', form=_form, error_msg=error_msg_, version=get_full_version())
+        return render_template('/account/login.html',
+            form=_form, error_msg=error_msg_,
+            version=get_full_version())
 
     def login(self, email, password):
         try:

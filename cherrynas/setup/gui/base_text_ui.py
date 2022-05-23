@@ -35,7 +35,7 @@ class BaseTextUI():
     @staticmethod
     def draw_title(title):
         _title = urwid.AttrWrap(urwid.Text(title, align='left'), 'title_label')
-        _line = urwid.AttrWrap(urwid.Divider(u'\u2500'), 'title_label')
+        _line = urwid.AttrWrap(urwid.Divider('\u2500'), 'title_label')
         return [_line, _title, _line, SPLITTER]
 
     def set_config(self, config_data):

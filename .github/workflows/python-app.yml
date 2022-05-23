@@ -29,6 +29,9 @@ jobs:
         pushd cherrynas
         chmod -R 777 ./resources
         chmod +x ./scripts/run_test.sh
+        echo "------------------------------"
+        echo "Run test"
+        echo "------------------------------"
         ./scripts/run_test.sh
         popd
     - name: Run pylint
@@ -36,12 +39,18 @@ jobs:
         pushd cherrynas
         pip install pylint
         chmod +x ./scripts/run_pylint.sh
+        echo "------------------------------"
+        echo "Run pylint"
+        echo "------------------------------"
         ./scripts/run_pylint.sh
         popd
     - name: Version up
       run: |
         pushd cherrynas
         chmod +x ./scripts/version_up.sh
+        echo "------------------------------"
+        echo "Version up"
+        echo "------------------------------"
         ./scripts/version_up.sh
         popd
     - name: Build

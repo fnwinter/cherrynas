@@ -90,7 +90,7 @@ class Config():
             if section_name and key_value:
                 _key, _value = self._get_key_value(line)
                 if _key and _value:
-                    section_key = '%s_%s' % (section_name, _key)
+                    section_key = f"{section_name}_{_key}"
                     value = Config.typed_value(section_key, _value)
                     self.config_data[section_key] = value
                     self.log.info("read config [%s %s], %s",
@@ -199,10 +199,10 @@ class Config():
             value = self.config_data.get(k)
             _section, _key = self._get_section_key(k)
             if _section and previous_section != _section:
-                new_section = '\n[%s]\n' % _section
+                new_section = f'\n[{_section}]\n'
                 self.config_file.write(new_section)
                 previous_section = _section
-            data = '%s=%s\n' % (_key, value)
+            data = f'{_key}={value}\n'
             self.config_file.write(data)
 
     def get_value(self, section, key, default=''):
@@ -219,7 +219,7 @@ class Config():
         None
         default
         """
-        _key = "%s_%s" % (section, key)
+        _key = f"{section}_{key}"
         return self.config_data.get(_key, default)
 
     def get_int_value(self, section, key):
