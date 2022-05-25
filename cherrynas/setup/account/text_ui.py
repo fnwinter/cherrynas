@@ -11,7 +11,7 @@ sys.path.append(ROOT_PATH)
 from gui.widget import SPLITTER
 from gui.base_text_ui import BaseTextUI
 from utils.hash import hashed_password
-from utils.email import valid_email
+from utils.email import validate_email
 
 class TextUI(BaseTextUI):
     """
@@ -43,7 +43,7 @@ class TextUI(BaseTextUI):
         return self.contents
 
     def edit_email_changed(self, _, text):
-        if valid_email(text):
+        if validate_email(text):
             self.config_data['ACCOUNT_EMAIL'] = text
             self.notice.set_text('')
         else:
