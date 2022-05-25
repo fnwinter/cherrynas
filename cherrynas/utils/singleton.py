@@ -1,6 +1,6 @@
 # Copyright 2022 fnwinter@gmail.com
 
-class Singleton(object):
+class Singleton:
     """
     Singleton
     """

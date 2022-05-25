@@ -10,7 +10,7 @@ from config.config import Config
 SMTP_URL = "smtp.gmail.com"
 SMTP_PORT = 465
 
-class EMail(object):
+class EMail:
     """
     EMail
     - Send email when user foget the password

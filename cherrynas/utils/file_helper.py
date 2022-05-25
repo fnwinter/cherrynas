@@ -10,16 +10,17 @@ def get_file_size(path):
     >>> get_file_size(text_file)
     '22 Bytes'
     """
+    # FIXME: delete this duplicated
 
     size = ''
     try:
         _n_size = os.path.getsize(path)
         if _n_size > 1024 * 1024:
-            size = '%.2f MB' % (_n_size / 1048576.0)
+            size = f'{_n_size / 1048576.0} MB'
         elif _n_size > 1024:
-            size = '%d KB' % (_n_size / 1024)
+            size = f'{_n_size / 1024} KB'
         else:
-            size = '%d Bytes' % _n_size
+            size = f'{_n_size} Bytes'
 
     except os.error:
         size = 'wrong size'

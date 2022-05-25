@@ -2,7 +2,7 @@
 
 from email_validator import validate_email, EmailSyntaxError
 from flask_classful import FlaskView, route
-from flask import render_template, redirect, session
+from flask import render_template, redirect
 
 from web.account.signup_form import SignUpForm
 from web.common.decorator import login_required
@@ -58,5 +58,6 @@ class SignupView(FlaskView):
         try:
             validate_email(email)
         except EmailSyntaxError as e:
+            print("validate_email : ", e)
             return False
         return True

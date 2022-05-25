@@ -26,7 +26,7 @@ class TextUI(BaseTextUI):
 
     @staticmethod
     def get_label():
-        return u"Account"
+        return "Account"
 
     def draw_text_ui(self):
         self.email.set_edit_text(self.config_data.get('ACCOUNT_EMAIL'))
@@ -48,7 +48,6 @@ class TextUI(BaseTextUI):
             self.notice.set_text('')
         else:
             self.notice.set_text('# Invalid Email format')
-        pass
 
     def edit_password_changed(self, widget, text):
         pwd1 = text if self.password1 == widget else self.password1.get_edit_text()

@@ -2,6 +2,8 @@
 
 import hashlib
 
+from datetime import date
+
 def hashed_password(pwd):
     """
     return hashed password
@@ -19,6 +21,7 @@ def get_today_hash():
     32
     """
     md5_hash = hashlib.md5()
-    md5_hash.update(f"date.today()".encode("utf-8"))
+    today = date.today()
+    md5_hash.update(f"{today}".encode("utf-8"))
     hash_key = md5_hash.hexdigest()
     return hash_key

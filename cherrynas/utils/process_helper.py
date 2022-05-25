@@ -21,13 +21,13 @@ def kill_child_processes(ppid):
 
     children_process = parent_process.children(recursive=True)
     for process in children_process:
-        print("Running child process killed. (PID {})".format(process.pid))
+        print(f"Running child process killed. (PID {process.pid})")
         process.send_signal(SIGKILL)
 
 def kill_running_process():
     if not os.path.exists(DAEMON_LOCK_PATH):
         return
-    with open(DAEMON_LOCK_PATH, 'r') as f:
+    with open(DAEMON_LOCK_PATH, 'r', encoding="utf8") as f:
         pid = "".join(f.readlines()).strip()
         process_id = int(pid)
         if process_id != 0:

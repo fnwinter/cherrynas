@@ -18,7 +18,7 @@ from gui.popup import YesNoPopup
 from gui.widget import draw_header, draw_footer
 
 from account.text_ui import TextUI as accountUI
-from ftp.text_ui import TextUI as ftpUI
+#from ftp.text_ui import TextUI as ftpUI
 from config.config import Config
 
 class CherryNasUI():
@@ -122,7 +122,7 @@ class CherryNasUI():
             with Config(open_mode='w+') as config:
                 config.write_config(self.global_config_data)
         except Exception as e:
-            pass
+            print("save config : ", e)
 
     def focus_move(self):
         self.focus_order.rotate(-1)

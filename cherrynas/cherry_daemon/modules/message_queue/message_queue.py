@@ -11,7 +11,7 @@ def process_main(context):
     while True:
         #  Wait for next request from client
         message = socket.recv()
-        print("Received request: %s" % message)
+        print(f"Received request: {message}")
 
         #  Do some 'work'
         time.sleep(1)

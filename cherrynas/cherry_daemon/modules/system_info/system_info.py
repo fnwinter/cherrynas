@@ -64,7 +64,7 @@ def write_info():
     sw_ = software_info()
     disk_ = disk_info()
     system_ = { "hw": hw_, "sw": sw_, "disk": disk_}
-    with open(SYSTEM_INFO_PATH, "w") as json_file:
+    with open(SYSTEM_INFO_PATH, "w", encoding="utf8") as json_file:
         json.dump(system_, json_file)
 
 def process_main(_):

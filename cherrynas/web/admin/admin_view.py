@@ -88,7 +88,8 @@ class AdminView(FlaskView):
                 email_ = item.get('email')
                 permission_ = item.get('permission')
                 joined_ = item.get('joined')
-                DB.session.query(Account).filter_by(email=f"{email_}").update({'permission': permission_, 'joined':joined_})
+                DB.session.query(Account).filter_by(email=f"{email_}").\
+                    update({'permission': permission_, 'joined':joined_})
                 DB.session.commit()
         except Exception as e:
             print(e)

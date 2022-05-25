@@ -1,13 +1,12 @@
 # Copyright 2022 fnwinter@gmail.com
 
-from config.config import Config
-from config.version import get_full_version, get_commit_id
-from utils.hash import hashed_password
 from flask_classful import FlaskView, route
 from flask import render_template, redirect, session
 
+from config.config import Config
+from config.version import get_full_version
+from utils.hash import hashed_password
 from web.account.login_form import LoginForm
-from web.common.decorator import login_required
 from web.database.account_db import Account
 from web import DB
 

@@ -36,8 +36,8 @@ def start_daemon():
             loader = ModuleLoader()
             loader.load_modules()
             loader.launch_modules(context)
-    except Exception as e:
-        get_logger(LOG_MODULE).info(f'error : start daemon {e}')
+    except Exception as daemon_error:
+        get_logger(LOG_MODULE).info(f'error : start daemon {daemon_error}')
     get_logger(LOG_MODULE).info('start daemon exit')
 
 def stop_daemon():
@@ -76,4 +76,4 @@ if __name__ == '__main__':
         else:
             parser.print_help()
     except Exception as e:
-        get_logger(LOG_MODULE).error(e)
+        get_logger(LOG_MODULE).error(f'error : cherry daemon {e}')

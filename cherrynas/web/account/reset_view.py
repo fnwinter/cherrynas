@@ -77,7 +77,8 @@ class ResetView(FlaskView):
         db_pin = self.get_pin_number(email)
         if pin_number == db_pin:
             try:
-                DB.session.query(Account).filter_by(email=f"{email}").update({"password" : new_password})
+                DB.session.query(Account).\
+                    filter_by(email=f"{email}").update({"password" : new_password})
                 DB.session.commit()
             except Exception as e:
                 print(e)
@@ -111,7 +112,7 @@ class ResetView(FlaskView):
     def make_new_pin_number(self):
         new_pin = ''
         for _ in range(6):
-            new_pin += '%d' % random.randint(0,9)
+            new_pin += f"{random.randint(0,9)}"
         return new_pin
 
     def check_email_exist(self, email):

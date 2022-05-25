@@ -34,7 +34,7 @@ class BaseTextUI():
         value = self.config_data.get(key)
         if type(value).__name__ == 'bool':
             return value
-        return "%s" % value
+        return f"{value}"
 
     def get_focus_order(self):
         index = 0
