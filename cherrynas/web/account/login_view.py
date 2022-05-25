@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 from config.config import Config
 from config.version import get_full_version, get_commit_id
 from utils.hash import hashed_password

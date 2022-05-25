@@ -1,5 +1,14 @@
+# Copyright 2022 fnwinter@gmail.com
+
 from web import DB
 
+"""
+Basic account database scheme
+- email : same as ID, unique key
+- joined : when admin allow to join
+- permission : keyword which can define allowed page
+- reset_pin : when member forget the password, send reset pin to email
+"""
 class Account(DB.Model):
     __tablename__ = 'account'
     email = DB.Column(DB.String, primary_key=True, nullable=False)

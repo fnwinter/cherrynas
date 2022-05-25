@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 from email_validator import validate_email, EmailSyntaxError
 from flask_classful import FlaskView, route
 from flask import render_template, redirect, session

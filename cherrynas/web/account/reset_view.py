@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 import random
 
 from flask_classful import FlaskView, route

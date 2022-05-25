@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 import time
 import zmq
 

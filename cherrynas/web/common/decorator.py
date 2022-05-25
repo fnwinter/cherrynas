@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 from flask import redirect, session
 from functools import wraps
 

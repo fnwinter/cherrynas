@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 from flask import session
 
 def get_id() -> str:

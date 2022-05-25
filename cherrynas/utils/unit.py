@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 def HumanReadByte(byte):
     if byte < 1024:
         return f"{byte} bytes"

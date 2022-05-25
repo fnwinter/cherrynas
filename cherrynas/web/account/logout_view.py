@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 from flask_classful import FlaskView
 from flask import render_template, session
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright 2022 fnwinter@gmail.com
 #
 # Urwid example lazy directory browser / tree view
 #    Copyright (C) 2004-2011  Ian Ward

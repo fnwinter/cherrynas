@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 import os
 
 def get_file_size(path):

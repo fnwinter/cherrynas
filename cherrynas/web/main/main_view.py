@@ -1,3 +1,5 @@
+# Copyright 2022 fnwinter@gmail.com
+
 import json
 
 from flask_classful import FlaskView
