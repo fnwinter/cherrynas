@@ -11,6 +11,11 @@ SMTP_URL = "smtp.gmail.com"
 SMTP_PORT = 465
 
 class EMail(object):
+    """
+    EMail
+    - Send email when user foget the password
+    - Email includes reset-pin number
+    """
     sender_email = ""
     receiver_email = ""
     password = ""

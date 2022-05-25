@@ -10,6 +10,9 @@ from web.database.account_db import Account
 from web import DB
 
 class SignupView(FlaskView):
+    """
+    SignupView
+    """
     default_methods = ['GET', 'POST']
 
     @route("/")

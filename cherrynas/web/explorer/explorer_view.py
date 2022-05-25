@@ -11,11 +11,11 @@ from utils.file_helper import get_file_size
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
 ROOT_PATH = os.path.join(SCRIPT_PATH, os.path.pardir, os.path.pardir, "resources")
 
-"""
-Exploerer View
-- copy, paste, move, delete, upload, download files.
-"""
 class ExplorerView(FlaskView):
+    """
+    ExplorerView
+    - copy, paste, move, delete, upload, download files.
+    """
     default_methods = ['GET', 'POST']
 
     def index(self):

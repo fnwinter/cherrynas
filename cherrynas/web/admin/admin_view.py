@@ -11,6 +11,9 @@ from web.database.account_db import Account
 from web import DB
 
 class member:
+    """
+    member
+    """
     id = 0
     email = None
     nick_name = None
@@ -19,7 +22,7 @@ class member:
 
 class AdminView(FlaskView):
     """
-    Admin Page
+    AdminView
     """
     default_methods = ['GET', 'POST']
 
