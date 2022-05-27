@@ -1,9 +1,8 @@
 # Copyright 2022 fnwinter@gmail.com
 
 import os
-import requests
 
-from flask import Flask, redirect, request, Response
+from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -57,32 +56,6 @@ def create_db(app):
     DB.init_app(app)
     MIGRATE.init_app(app, DB)
 
-def proxy_handler(app):
-    @app.route('/')
-    def root():
-        return redirect('/cherry/')
-
-    @app.route('/<path:url>', methods=["GET", "POST"])
-    def proxy(url):
-        out = ''
-        url_ = ''
-        base_url = 'http://localhost'
-        try:
-            if "proxy_ref" in url:
-                url_ = base_url
-            else:
-                url_ = f"{base_url}/{url}"
-            r = requests.request(request.method, url_, stream=True)
-            headers = dict(r.raw.headers)
-            def generate():
-                for chunk in r.raw.stream(decode_content=False):
-                    yield chunk
-            out = Response(generate(), headers=headers)
-            out.status_code = r.status_code
-        except Exception as e:
-            print('error', e)
-        return out
-
 def create_app():
     app = Flask(__name__, static_folder=STATIC_PATH, static_url_path='/cherry/static')
     app.config['debug'] = True
@@ -95,6 +68,7 @@ def create_app():
 
     create_db(app)
 
+    from web.proxy.proxy_handler import proxy_handler
     proxy_handler(app)
 
     return app
