@@ -22,7 +22,7 @@ def get_module_name(path, file_name):
     module_name = module_path.replace(os.path.sep, '.')[1:]
     return module_name
 
-def load_python():
+def load_python(verbose):
     module_name = None
     test_modules = {}
 
@@ -37,7 +37,8 @@ def load_python():
                     module = importlib.import_module(module_name)
                     test_modules[module_name] = module
                 except Exception as e:
-                    print(f"load_python name {module_name}, error {e}")
+                    if verbose:
+                        print(f"load_python name {module_name}, error {e}")
 
     return test_modules.values()
 
@@ -48,7 +49,7 @@ def run_test(verbose):
     finder = doctest.DocTestFinder(recurse=True)
     runner = doctest.DocTestRunner()
 
-    modules = load_python()
+    modules = load_python(verbose)
 
     for module in modules:
         for test in finder.find(module):

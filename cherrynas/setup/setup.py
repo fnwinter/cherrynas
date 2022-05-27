@@ -143,5 +143,5 @@ class CherryNasUI():
 if __name__ == '__main__':
     # show splash
     Splash().show_splash()
-    # show yurinas gui
+    # show cherrynas gui
     CherryNasUI().show_gui()
