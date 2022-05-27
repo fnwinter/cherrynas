@@ -32,6 +32,7 @@ class Config():
         if not os.path.exists(file_path) and open_mode == 'r':
             assert False, "config file path is wrong"
 
+        # pylint: disable=R1732
         self.config_file = open(file_path, open_mode, encoding="utf8")
 
         self.log = get_logger('config')

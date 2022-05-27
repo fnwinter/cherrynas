@@ -19,6 +19,7 @@ class TextUI(BaseTextUI):
     """
     def __init__(self):
         super().__init__('ACCOUNT')
+        self.contents = None
         self.email = urwid.Edit("      ID (Email) : ", align='left')
         self.password1 = urwid.Edit("        Password : ", align='left', mask="*")
         self.password2 = urwid.Edit("Confirm Password : ", align='left', mask="*")

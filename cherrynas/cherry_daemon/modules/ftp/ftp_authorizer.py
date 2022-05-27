@@ -20,4 +20,4 @@ class FTPAuthorizer(DummyAuthorizer):
             if self.user_table[username]['pwd'] != _password:
                 raise KeyError
         except KeyError:
-            raise AuthenticationFailed
+            raise AuthenticationFailed from KeyError

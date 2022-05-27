@@ -54,8 +54,7 @@ class ResetView(FlaskView):
             if password_ == password_confirm_ and password_ != "":
                 if self.change_password(email_, password_, reset_pin_):
                     return redirect('/')
-                else:
-                    error_msg_ = "pin number is not correct"
+                error_msg_ = "pin number is not correct"
             else:
                 error_msg_ = "confirm password does not match"
 

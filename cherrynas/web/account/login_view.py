@@ -48,8 +48,8 @@ class LoginView(FlaskView):
                 session['nick_name'] = 'admin'
                 session['admin'] = 'yes'
                 return 'success'
-            else:
-                session['admin'] = 'no'
+
+            session['admin'] = 'no'
 
             # db login
             result = DB.session.query(Account).filter_by(email=f"{email}", password=f"{password}")
@@ -73,6 +73,7 @@ class LoginView(FlaskView):
                 password_ = c.get_value('ADMIN', 'PASSWORD')
                 if email == email_ and password_ == hashed_password(password):
                     return True
-        except:
+        except Exception as e:
+            print("login_view : " + e)
             return False
         return False

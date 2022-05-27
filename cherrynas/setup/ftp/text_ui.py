@@ -13,6 +13,7 @@ class TextUI(BaseTextUI):
     """
     def __init__(self):
         super().__init__('FTP')
+        self.contents = None
         self.root_path = None
         self.root_button = None
         self.enable_anonymous = None

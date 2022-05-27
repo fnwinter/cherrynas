@@ -10,7 +10,7 @@ from config.config import Config
 from config import FTP_LOG_FILE_PATH
 from utils.log import get_logger
 
-# pylint: disable-msg=too-many-locals
+# pylint: disable-msg=too-many-locals, W0101
 def process_main(context):
     return
     log = get_logger('FTP')

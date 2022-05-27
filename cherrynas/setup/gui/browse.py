@@ -187,7 +187,6 @@ class DirectoryNode(urwid.ParentNode):
         return parent
 
     def load_child_keys(self):
-        global INCLUDE_FILES
         dirs = []
         files = []
         try:
