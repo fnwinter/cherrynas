@@ -2,8 +2,7 @@
 
 import requests
 
-from flask_classful import Response
-from flask import redirect, request
+from flask import redirect, request, Response
 
 def proxy_handler(app):
     @app.route('/')
