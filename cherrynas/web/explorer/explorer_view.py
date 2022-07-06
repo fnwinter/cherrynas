@@ -4,7 +4,7 @@ import os
 import json
 
 from flask_classful import FlaskView, route
-from flask import render_template, session, request
+from flask import render_template, session, request, send_file
 
 from utils.file_helper import get_file_size
 
@@ -19,13 +19,7 @@ class ExplorerView(FlaskView):
     default_methods = ['GET', 'POST']
 
     def index(self):
-        _path = None
-        if not session.get('current_path'):
-            print("no current_path")
-            _path = ROOT_PATH
-            session['current_path'] = ROOT_PATH
-        else:
-            _path = session.get('current_path')
+        _path = self.get_current_path()
 
         folders = [f for f in os.listdir(_path) if os.path.isdir(os.path.join(_path, f))]
         files = [f for f in os.listdir(_path) if os.path.isfile(os.path.join(_path, f))]
@@ -44,6 +38,15 @@ class ExplorerView(FlaskView):
 
         return render_template('/explorer/explorer.html', files=file_list)
 
+    def get_current_path(self):
+        _path = None
+        if not session.get('current_path'):
+            _path = ROOT_PATH
+            session['current_path'] = ROOT_PATH
+        else:
+            _path = session.get('current_path')
+        return _path
+
     @route("/command")
     def command(self):
         command = request.args.get('command')
@@ -58,3 +61,15 @@ class ExplorerView(FlaskView):
                 result = {"result" : "refresh"}
 
         return json.dumps(result)
+
+    @route("/download")
+    def command(self):
+        args = request.args
+        file_name = args.get('file')
+        _path = self.get_current_path()
+        full_path = os.path.join(_path, file_name)
+        # FIXME: check root path
+        # FIXME: check login
+        return send_file(full_path, as_attachment=True)
+
+

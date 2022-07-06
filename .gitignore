@@ -4,3 +4,4 @@ dist/
 cherrynas.egg-info/
 .eggs
 *.db
+.idea/
