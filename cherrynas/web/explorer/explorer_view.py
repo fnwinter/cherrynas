@@ -72,17 +72,6 @@ class ExplorerView(FlaskView):
         # FIXME: check login
         return send_file(full_path, as_attachment=True)
 
-
     @route("/upload", methods=["POST", "GET"])
     def upload(self):
-        file = request.files['uploadFile']
-        _path = self.get_current_path()
-        full_path = os.path.join(_path, file)
-
-        filename = secure_filename(full_path)
-        if file:
-            file.save(filename)
-
-        else:
-            msg = 'Invalid Uplaod only png, jpg, jpeg, gif'
-        return jsonify({'htmlresponse': render_template('response.html', msg=msg, filenameimage=filenameimage)})
+        return render_template('/explorer/upload.html')

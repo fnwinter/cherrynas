@@ -9,9 +9,6 @@
         <div style='background: rgb(248, 249, 250); height: 100%;'>
           <div style='background: rgb(255, 255, 255); border: none; border-radius: 40px 0px 0px; height: 100%;'>
             <!-- start here -->
-            <div id="upload_dialog" title="Basic dialog">
-              <p>This is the default dialog which is useful for displaying information.</p>
-            </div>
             <div class='content'>
               <ol id="selectable" id="draggable">
                 {% for file in files %}
@@ -24,6 +21,11 @@
               </ol>
             </div>
             <!-- end here -->
+            <!-- dialog start -->
+            <div id="upload_dialog" title="Upload Dialog">
+              <iframe src="/cherry/explorer/upload" scrolling="no" style="overflow:hidden;height:90%;width:90%;"></iframe>
+            </div>
+            <!-- dialog end -->
           </div>
         </div>
       </div>
