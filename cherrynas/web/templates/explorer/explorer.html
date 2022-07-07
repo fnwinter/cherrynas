@@ -9,6 +9,9 @@
         <div style='background: rgb(248, 249, 250); height: 100%;'>
           <div style='background: rgb(255, 255, 255); border: none; border-radius: 40px 0px 0px; height: 100%;'>
             <!-- start here -->
+            <div id="upload_dialog" title="Basic dialog">
+              <p>This is the default dialog which is useful for displaying information.</p>
+            </div>
             <div class='content'>
               <ol id="selectable" id="draggable">
                 {% for file in files %}
@@ -23,11 +26,11 @@
             <!-- end here -->
           </div>
         </div>
-
       </div>
     </main>
   </body>
   {% include 'common/deferred_js.html' %}
   <script src="/cherry/static/js/explorer.js"></script>
   <script src="/cherry/static/js/download.js"></script>
+  <script src="/cherry/static/js/upload.js"></script>
 </html>

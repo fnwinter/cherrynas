@@ -5,7 +5,7 @@ import json
 
 from flask_classful import FlaskView, route
 from flask import render_template, session, request, send_file
-
+from werkzeug.utils import secure_filename
 from utils.file_helper import get_file_size
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -63,7 +63,7 @@ class ExplorerView(FlaskView):
         return json.dumps(result)
 
     @route("/download")
-    def command(self):
+    def download(self):
         args = request.args
         file_name = args.get('file')
         _path = self.get_current_path()
@@ -73,3 +73,16 @@ class ExplorerView(FlaskView):
         return send_file(full_path, as_attachment=True)
 
 
+    @route("/upload", methods=["POST", "GET"])
+    def upload(self):
+        file = request.files['uploadFile']
+        _path = self.get_current_path()
+        full_path = os.path.join(_path, file)
+
+        filename = secure_filename(full_path)
+        if file:
+            file.save(filename)
+
+        else:
+            msg = 'Invalid Uplaod only png, jpg, jpeg, gif'
+        return jsonify({'htmlresponse': render_template('response.html', msg=msg, filenameimage=filenameimage)})
