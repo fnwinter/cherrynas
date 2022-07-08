@@ -16,7 +16,6 @@ class SignupView(FlaskView):
     default_methods = ['GET', 'POST']
 
     @route("/")
-    @login_required
     def show(self):
         _form = SignUpForm()
         return render_template('/account/signup.html', form=_form)
