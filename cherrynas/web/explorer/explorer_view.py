@@ -5,7 +5,6 @@ import json
 
 from flask_classful import FlaskView, route
 from flask import render_template, session, request, send_file
-from werkzeug.utils import secure_filename
 from utils.file_helper import get_file_size
 
 SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))

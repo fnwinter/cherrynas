@@ -5,7 +5,6 @@ from flask_classful import FlaskView, route
 from flask import render_template, redirect
 
 from web.account.signup_form import SignUpForm
-from web.common.decorator import login_required
 from web.database.account_db import Account
 from web import DB
 
