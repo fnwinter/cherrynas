@@ -13,4 +13,4 @@ if __name__ == "__main__":
     app.app_context().push()
 
     DB.create_all(app=app)
-    app.run(host='0.0.0.0', port='5000', debug=True)
+    app.run(host='0.0.0.0', port='8812', debug=True)
