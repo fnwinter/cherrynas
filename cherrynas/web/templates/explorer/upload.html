@@ -4,18 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="/cherry/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <script src="/cherry/static/jquery/jquery-3.6.0.min.js"></script>
     <link href="/cherry/static/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <script src="/cherry/static/jquery/jquery-3.6.0.min.js"></script>
     <script src="/cherry/static/jquery-ui/jquery-ui.js"></script>
-
     <script src="/cherry/static/js/axios.min.js"></script>
 
     <title>🍒 Upload files</title>
-    <style>
-      body {background-color: white;}
-    </style>
-
     <script>
 			$(function() {
 				fileDropDown();
@@ -91,89 +85,69 @@
 							console.log("0kb file return");
 							return;
 						}
-
-
-
 					}
 				} else {
 					alert("ERROR");
 				}
 			}
     </script>
+    <style>
+      .bg-light {
+        background-color:white !important;
+      }
+    </style>
   </head>
-  <body class="bg-light">
+
+  <body class="bg-light" style="height:480px">
     <div class="bd-cheatsheet container-fluid bg-body">
       <section id="forms">
         <article class="my-3" id="overview">
-          <div>
-            <div class="bd-example-snippet bd-code-snippet"><div class="bd-example">
-            <form>
+            <div class="bd-example-snippet bd-code-snippet">
+              <form>
+              <!-- file choose -->
               <div class="mb-3">
-                <label class="form-label" for="customFile">Upload</label>
-                <input type="file" class="form-control" id="customFile">
+                <input type="file" class="form-control" id="customFile" multiple>
               </div>
+              <!-- drop zone -->
               <div id='dropZone'>
                 <figure class="figure">
-                  <svg class="bd-placeholder-img figure-img img-fluid rounded" width="300" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 400x300" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect>
+                  <svg class="bd-placeholder-img figure-img img-fluid rounded" width="480px" height="100"
+                       xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 400x300"
+                       preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#868e96"></rect>
                     <text x="30%" y="50%" fill="#dee2e6" dy=".3em">
                     Drag file here!!
                     </text>
-                    </svg>
+                  </svg>
                 </figure>
               </div>
-
-              <div style="height:100px;">
-                  <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">File Name</th>
-                  <th scope="col">Size</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                </tr>
-                </tbody>
-              </table>
+              <!-- submit button -->
+              <div align="right">
+                <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-
-
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+              <br/>
+              <!-- drop zone -->
+              <div align='center' style="overflow-x:hidden;overflow:auto;height:250px;">
+                <table class="table table-striped">
+                  <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col">Size</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              </form>
             </div>
-            </div>
-
-
-          </div>
         </article>
       </section>
     </div>
