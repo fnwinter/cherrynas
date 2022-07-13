@@ -8,89 +8,10 @@
     <script src="/cherry/static/jquery/jquery-3.6.0.min.js"></script>
     <script src="/cherry/static/jquery-ui/jquery-ui.js"></script>
     <script src="/cherry/static/js/axios.min.js"></script>
+    <script src="/cherry/static/js/jquery.form.min.js"></script>
+    <script src="/cherry/static/js/upload.js"></script>
 
     <title>🍒 Upload files</title>
-    <script>
-			$(function() {
-				fileDropDown();
-			});
-
-			function fileDropDown() {
-				var dropZone = $("#dropZone");
-				dropZone.on('dragenter', function(e) {
-					e.stopPropagation();
-					e.preventDefault();
-					dropZone.css('background-color', '#E3F2FC');
-				});
-				dropZone.on('dragleave', function(e) {
-					e.stopPropagation();
-					e.preventDefault();
-					dropZone.css('background-color', '#FFFFFF');
-				});
-				dropZone.on('dragover', function(e) {
-					e.stopPropagation();
-					e.preventDefault();
-					dropZone.css('background-color', '#E3F2FC');
-				});
-				dropZone.on('drop', function(e) {
-					e.preventDefault();
-					dropZone.css('background-color', '#FFFFFF');
-					var files = e.originalEvent.dataTransfer.files;
-					if (files != null) {
-						if (files.length < 1) {
-							/* alert("폴더 업로드 불가"); */
-							console.log("폴더 업로드 불가");
-							return;
-						} else {
-							selectFile(files)
-						}
-					} else {
-						alert("ERROR");
-					}
-				});
-			}
-
-			function selectFile(fileObject) {
-				var files = null;
-
-				if (fileObject != null) {
-
-					files = fileObject;
-				} else {
-
-					files = $('#multipaartFileList_' + fileIndex)[0].files;
-				}
-
-				// 다중파일 등록
-				if (files != null) {
-
-					if (files != null && files.length > 0) {
-						$("#fileDragDesc").hide();
-						$("fileListTable").show();
-					} else {
-						$("#fileDragDesc").show();
-						$("fileListTable").hide();
-					}
-
-					for (var i = 0; i < files.length; i++) {
-						// 파일 이름
-						var fileName = files[i].name;
-						var fileNameArr = fileName.split("\.");
-						// 확장자
-						var ext = fileNameArr[fileNameArr.length - 1];
-
-						var fileSize = files[i].size; // 파일 사이즈(단위 :byte)
-						console.log("fileSize="+fileSize);
-						if (fileSize <= 0) {
-							console.log("0kb file return");
-							return;
-						}
-					}
-				} else {
-					alert("ERROR");
-				}
-			}
-    </script>
     <style>
       .bg-light {
         background-color:white !important;
@@ -100,56 +21,41 @@
 
   <body class="bg-light" style="height:480px">
     <div class="bd-cheatsheet container-fluid bg-body">
-      <section id="forms">
-        <article class="my-3" id="overview">
-            <div class="bd-example-snippet bd-code-snippet">
-              <form>
-              <!-- file choose -->
-              <div class="mb-3">
-                <input type="file" class="form-control" id="customFile" multiple>
-              </div>
-              <!-- drop zone -->
-              <div id='dropZone'>
-                <figure class="figure">
-                  <svg class="bd-placeholder-img figure-img img-fluid rounded" width="480px" height="100"
-                       xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 400x300"
-                       preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#868e96"></rect>
-                    <text x="30%" y="50%" fill="#dee2e6" dy=".3em">
-                    Drag file here!!
-                    </text>
-                  </svg>
-                </figure>
-              </div>
-              <!-- submit button -->
-              <div align="right">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-              <br/>
-              <!-- drop zone -->
-              <div align='center' style="overflow-x:hidden;overflow:auto;height:250px;">
-                <table class="table table-striped">
-                  <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">File Name</th>
-                    <th scope="col">Size</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-              </form>
-            </div>
-        </article>
-      </section>
+      <br/>
+      <form id="uploadImage" action="/upload" method="post">
+        <!-- file choose -->
+        <div class="mb-3">
+          <input type="file" id="uploadFiles" class="form-control" multiple onchange="javascript:updateInputFiles();">
+        </div>
+        <!-- drop zone -->
+        <div id='dropZone' class="container alert alert-dark" >
+              Drag file here!!
+        </div>
+        <!-- submit button -->
+        <div align="right">
+          <button type="submit" class="btn btn-primary" onclick="javascript:submitFiles();">Submit</button>
+        </div>
+        <br/>
+        <!-- drop zone -->
+        <div align='center' style="overflow-x:hidden;overflow:auto;height:250px;">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">File Name</th>
+              <th scope="col">Size</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
     </div>
   </body>
 </html>
