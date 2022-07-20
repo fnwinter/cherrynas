@@ -74,3 +74,11 @@ class ExplorerView(FlaskView):
     @route("/upload", methods=["POST", "GET"])
     def upload(self):
         return render_template('/explorer/upload.html')
+
+    @route("/uploadFile", methods=["POST", "GET"])
+    def uploadFile(self):
+        for f in request.files:
+            file = request.files[f]
+            _path = self.get_current_path()
+            file.save(os.path.join(_path, file.filename))
+        return ""

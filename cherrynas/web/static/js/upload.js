@@ -1,4 +1,5 @@
 function showUploadPopup() {
+  upload_file_list = [];
   $( function() {
     $( "#upload_dialog" ).dialog(
         {
@@ -21,7 +22,6 @@ var upload_file_list = [];
 
 $(function() {
     fileDropDown();
-    clearList();
 });
 
 function fileDropDown() {
@@ -58,40 +58,50 @@ function fileDropDown() {
 function updateInputFiles() {
     var input_file = document.getElementById('uploadFiles');
     for (var i = 0; i < input_file.files.length; ++i) {
-      var name = input_file.files.item(i).name;
-      alert("file name: " + name);
+        let file = input_file.files.item(i);
+        upload_file_list.push(file);
     }
+    updateList();
 }
 
-function updateDragFiles(fileObject) {
-
+function updateDragFiles(files) {
+    for (var i = 0; i < files.length; ++i) {
+        upload_file_list.push(files[i]);
+    }
+    updateList();
 }
 
 function submitFiles() {
-    $('#uploadImage').submit(function(event){
-        $(this).ajaxSubmit({
-            target: '#targetLayer',
-            beforeSubmit:function(){
-                $('.progress-bar').width('50%');
-            },
-            uploadProgress: function(event, position, total, percentageComplete)
-            {
-                $('.progress-bar').animate({
-                    width: percentageComplete + '%'
-                }, {
-                    duration: 1000
-                });
-            },
-            success:function(data){
-
-            },
-            resetForm: true
-        });
-      });
+    var formData = new FormData(uploadImage);
+    for (let i = 0; i < upload_file_list.length; ++i)
+    {
+        let file = upload_file_list[i];
+        formData.append("uploadFile_" + i,file);
+    }
+    $.ajax({
+        url: '/cherry/explorer/uploadFile',
+        data: formData,
+        type: 'POST',
+        contentType: false,
+        processData: false,
+    });
 }
 
 function updateList() {
+    $("#uploadList tbody tr").remove();
+    for (let i = 0; i < upload_file_list.length; ++i)
+    {
+        let file = upload_file_list[i];
+        let file_id = i + 1;
+        let file_name = file.name;
+        let file_size = file.size;
+        let row = `"<tr id='file_${file_id}'><th scope='row'>${file_id}</th>`+
+            `<td>${file_name}</td><td>${file_size}</td><td>Wait</td></tr>`;
+        $("#uploadList tbody").append(row)
+    }
 }
 
 function clearList() {
+    upload_file_list = [];
+    $('#uploadList tbody tr').remove();
 }

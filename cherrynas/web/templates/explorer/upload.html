@@ -22,7 +22,7 @@
   <body class="bg-light" style="height:480px">
     <div class="bd-cheatsheet container-fluid bg-body">
       <br/>
-      <form id="uploadImage" action="/upload" method="post">
+      <form id="uploadImage" action="http://172.23.225.235:8812/cherry/explorer/uploadFile" method="post" enctype="multipart/form-data">
         <!-- file choose -->
         <div class="mb-3">
           <input type="file" id="uploadFiles" class="form-control" multiple onchange="javascript:updateInputFiles();">
@@ -33,25 +33,22 @@
         </div>
         <!-- submit button -->
         <div align="right">
+          <button type="button" class="btn btn-primary" onclick="javascript:clearList();">Clear</button>
           <button type="submit" class="btn btn-primary" onclick="javascript:submitFiles();">Submit</button>
         </div>
         <br/>
         <!-- drop zone -->
         <div align='center' style="overflow-x:hidden;overflow:auto;height:250px;">
-          <table class="table table-striped">
+          <table id="uploadList" class="table table-striped">
             <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">File Name</th>
-              <th scope="col">Size</th>
-            </tr>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">File Name</th>
+                <th scope="col">Size</th>
+                <th scope="col">Upload</th>
+              </tr>
             </thead>
-            <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-            </tr>
+            <tbody id="updload_tbody">
             </tbody>
           </table>
         </div>
