@@ -72,19 +72,25 @@ function updateDragFiles(files) {
 }
 
 function submitFiles() {
-    var formData = new FormData(uploadImage);
     for (let i = 0; i < upload_file_list.length; ++i)
     {
+        var formData = new FormData(uploadImage);
         let file = upload_file_list[i];
         formData.append("uploadFile_" + i,file);
+        formData.append("id", `file_upload_complete_${i}`)
+        $.ajax({
+            url: '/cherry/explorer/uploadFile',
+            data: formData,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function(data, txtStatus, jqXHR) {
+                let id = $(this)[0].data.get('id');
+                console.log(id);
+                $(`#${id}`).text("Done");
+            }
+        });
     }
-    $.ajax({
-        url: '/cherry/explorer/uploadFile',
-        data: formData,
-        type: 'POST',
-        contentType: false,
-        processData: false,
-    });
 }
 
 function updateList() {
@@ -92,11 +98,11 @@ function updateList() {
     for (let i = 0; i < upload_file_list.length; ++i)
     {
         let file = upload_file_list[i];
-        let file_id = i + 1;
+        let file_id = i;
         let file_name = file.name;
         let file_size = file.size;
         let row = `"<tr id='file_${file_id}'><th scope='row'>${file_id}</th>`+
-            `<td>${file_name}</td><td>${file_size}</td><td>Wait</td></tr>`;
+            `<td>${file_name}</td><td>${file_size}</td><td id='file_upload_complete_${file_id}'>Wait</td></tr>`;
         $("#uploadList tbody").append(row)
     }
 }
