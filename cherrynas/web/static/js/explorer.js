@@ -57,7 +57,7 @@ function newFolder() {
                 .addClass("ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close")
                 .html("<span class='ui-button-icon ui-icon ui-icon-closethick'></span>");
 
-                $("#upload_dialog").removeClass("ui-dialog-content");
+                $("#name_dialog").removeClass("ui-dialog-content");
             },
             close: function() {
                 send_command("create_new_folder", "new_folder_name");
@@ -82,11 +82,31 @@ function deleteItem() {
 }
 
 function renameItem() {
-    alert("renameFile");
+  $( function() {
+    $( "#name_dialog" ).dialog(
+        {
+            open: function() {
+                $(this).closest(".ui-dialog")
+                .find(".ui-dialog-titlebar-close")
+                .removeClass("ui-dialog-titlebar-close")
+                .addClass("ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close")
+                .html("<span class='ui-button-icon ui-icon ui-icon-closethick'></span>");
+
+                $("#name_dialog").removeClass("ui-dialog-content");
+            },
+            close: function() {
+                send_command("create_new_folder", "new_folder_name");
+                location.reload();
+            },
+            width: 400
+        }
+    );
+  });
 }
 
 function send_command(_command, _option) {
-  axios.get('/explorer/command',{
+  let request_url =  location.href + 'command';
+  axios.get(request_url,{
       params: {
         command: _command,
         option: _option
