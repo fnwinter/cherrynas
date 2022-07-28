@@ -82,3 +82,7 @@ class ExplorerView(FlaskView):
             _path = self.get_current_path()
             file.save(os.path.join(_path, file.filename))
         return ""
+
+    @route("/name", methods=["POST", "GET"])
+    def name(self):
+        return render_template('/explorer/name.html')

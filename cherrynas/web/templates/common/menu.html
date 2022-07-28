@@ -4,12 +4,12 @@
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         {% if (url_for(request.endpoint) == "/cherry/explorer/") %}
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 link-dark">New Folder</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Copy</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Paste</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Delete</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Rename</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">View</a></li>
+          <li><a href="javascript:newFolder()" class="nav-link px-2 link-dark">New Folder</a></li>
+          <li><a href="javascript:copyItem()" class="nav-link px-2 link-dark">Copy</a></li>
+          <li><a href="javascript:pasteItem()" class="nav-link px-2 link-dark">Paste</a></li>
+          <li><a href="javascript:deleteItem()" class="nav-link px-2 link-dark">Delete</a></li>
+          <li><a href="javascript:renameItem()" class="nav-link px-2 link-dark">Rename</a></li>
+          <li><a href="javascript:viewItem()" class="nav-link px-2 link-dark">View</a></li>
           <li><a href="javascript:showUploadPopup()" class="nav-link px-2 link-dark">Upload</a></li>
           <li><a href="javascript:downloadURI('/cherry/explorer/download')" class="nav-link px-2 link-dark">Download</a></li>
         </ul>

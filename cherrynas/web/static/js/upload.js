@@ -12,6 +12,9 @@ function showUploadPopup() {
 
                 $("#upload_dialog").removeClass("ui-dialog-content");
             },
+            close: function() {
+                location.reload();
+            },
             width: 400
         }
     );
