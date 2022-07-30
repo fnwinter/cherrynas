@@ -10,6 +10,7 @@
           <div style='background: rgb(255, 255, 255); border: none; border-radius: 40px 0px 0px; height: 100%;'>
             <!-- start here -->
             <div class='content'>
+              <!-- Button trigger modal -->
               <ol id="selectable" id="draggable">
                 {% for file in files %}
                 <li class="double_click ui-state-default" title="{{ file[0] }} &#10; Size : {{ file[2] }}">
@@ -26,8 +27,8 @@
               <iframe src="/cherry/explorer/upload" style="overflow:hidden;width:100%;height:500px;"></iframe>
             </div>
 
-            <div id="name_dialog" title="Dialog">
-              <iframe src="/cherry/explorer/name" style="overflow:hidden;width:100%;height:150px;"></iframe>
+            <div id="new_folder_dialog" title="Dialog">
+              <iframe src="/cherry/explorer/new_folder" style="overflow:hidden;width:100%;height:160px;"></iframe>
             </div>
             <!-- dialog end -->
           </div>

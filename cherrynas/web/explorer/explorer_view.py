@@ -76,13 +76,21 @@ class ExplorerView(FlaskView):
         return render_template('/explorer/upload.html')
 
     @route("/uploadFile", methods=["POST", "GET"])
-    def uploadFile(self):
+    def upload_file(self):
         for f in request.files:
             file = request.files[f]
             _path = self.get_current_path()
             file.save(os.path.join(_path, file.filename))
         return ""
 
-    @route("/name", methods=["POST", "GET"])
-    def name(self):
-        return render_template('/explorer/name.html')
+    @route("/new_folder", methods=["POST", "GET"])
+    def create_new_folder(self):
+        return render_template('/explorer/name.html', title='Create folder')
+
+    @route("/rename_file", methods=["POST", "GET"])
+    def rename_file(self):
+        return render_template('/explorer/name.html', title='Rename file')
+
+    @route("/error_dialog", methods=["POST", "GET"])
+    def rename_file(self):
+        return render_template('/common/error_dialog.html', title='Rename file', msg="")

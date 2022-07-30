@@ -48,7 +48,7 @@ $( function() {
 
 function newFolder() {
   $( function() {
-    $( "#name_dialog" ).dialog(
+    $( "#new_folder_dialog" ).dialog(
         {
             open: function() {
                 $(this).closest(".ui-dialog")
@@ -57,10 +57,9 @@ function newFolder() {
                 .addClass("ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close")
                 .html("<span class='ui-button-icon ui-icon ui-icon-closethick'></span>");
 
-                $("#name_dialog").removeClass("ui-dialog-content");
+                $("#new_folder_dialog").removeClass("ui-dialog-content");
             },
             close: function() {
-                send_command("create_new_folder", "new_folder_name");
                 location.reload();
             },
             width: 400
@@ -70,37 +69,24 @@ function newFolder() {
 }
 
 function copyItem() {
-    alert("copyFile");
+    $( "#exampleModal" ).dialog();
 }
 
 function pasteItem() {
-    alert("pasteFile");
+
 }
 
 function deleteItem() {
-    alert("deleteFile");
+    let items = get_selected_items();
+    console.log(items);
+    send_command("delete_item", items);
+    //location.reload();
 }
 
 function renameItem() {
   $( function() {
-    $( "#name_dialog" ).dialog(
-        {
-            open: function() {
-                $(this).closest(".ui-dialog")
-                .find(".ui-dialog-titlebar-close")
-                .removeClass("ui-dialog-titlebar-close")
-                .addClass("ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close")
-                .html("<span class='ui-button-icon ui-icon ui-icon-closethick'></span>");
-
-                $("#name_dialog").removeClass("ui-dialog-content");
-            },
-            close: function() {
-                send_command("create_new_folder", "new_folder_name");
-                location.reload();
-            },
-            width: 400
-        }
-    );
+    alert("TEST");
+    $( "#rename_file_dialog" ).show();
   });
 }
 
