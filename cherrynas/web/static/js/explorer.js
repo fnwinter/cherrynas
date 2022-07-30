@@ -46,8 +46,16 @@ $( function() {
   });
 } );
 
+function show_error_dialog(title, content) {
+  $( "#error_msg" ).show();
+  $('#error_msg_title').text(title);
+  $('#error_msg_content').text(content);
+}
+function close_error_dialog() {
+  $( "#error_msg" ).hide();
+}
+
 function newFolder() {
-  $( function() {
     $( "#new_folder_dialog" ).dialog(
         {
             open: function() {
@@ -65,7 +73,6 @@ function newFolder() {
             width: 400
         }
     );
-  });
 }
 
 function copyItem() {
@@ -83,11 +90,49 @@ function deleteItem() {
     //location.reload();
 }
 
+function showNameDialog(title, placeholder, callback) {
+    var return_val = '';
+
+    $( "#name_dialog_label").text(title);
+    $( "#file_folder_name").attr('placeholder', placeholder);
+
+    $( "#name_dialog" ).dialog(
+        {
+            open: function() {
+                $(this).closest(".ui-dialog")
+                .find(".ui-dialog-titlebar-close")
+                .removeClass("ui-dialog-titlebar-close")
+                .addClass("ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close")
+                .html("<span class='ui-button-icon ui-icon ui-icon-closethick'></span>");
+                $("#name_dialog").removeClass("ui-dialog-content");
+            },
+            close: function() {
+                return_val = $("#file_folder_name").val();
+                callback(return_val);
+                location.reload();
+            },
+            width: 400
+        }
+    );
+    return return_val;
+}
+
+function closeNameDialog() {
+    $( "#name_dialog" ).dialog("close");
+}
+
 function renameItem() {
-  $( function() {
-    alert("TEST");
-    $( "#rename_file_dialog" ).show();
-  });
+    var items = get_selected_items();
+    if (items.length != 1) {
+        show_error_dialog("Rename", "A file is not selected. or multiple files are selected.");
+    } else {
+        showNameDialog("Rename", items[0],
+        function (new_name) {
+            if (new_name.length != 0 && items[0].length != 0) {
+                send_command("rename_item", {"origin": items[0], "new": new_name });
+            }
+        });
+    }
 }
 
 function send_command(_command, _option) {

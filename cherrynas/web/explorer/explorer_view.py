@@ -52,12 +52,19 @@ class ExplorerView(FlaskView):
         option = request.args.get('option')
         result = {"result": "fail"}
 
+        _path = session.get('current_path')
+
         if command == 'double_click':
-            _path = session.get('current_path')
             new_path = os.path.join(_path, option)
             if os.path.exists(new_path) and os.path.isdir(new_path):
                 session['current_path'] = new_path
                 result = {"result" : "refresh"}
+
+        elif command == "rename_item":
+            json_option = json.loads(option)
+            origin_file = os.path.join(_path, json_option["origin"])
+            new_file = os.path.join(_path, json_option["new"])
+            os.rename(origin_file, new_file)
 
         return json.dumps(result)
 
@@ -82,15 +89,3 @@ class ExplorerView(FlaskView):
             _path = self.get_current_path()
             file.save(os.path.join(_path, file.filename))
         return ""
-
-    @route("/new_folder", methods=["POST", "GET"])
-    def create_new_folder(self):
-        return render_template('/explorer/name.html', title='Create folder')
-
-    @route("/rename_file", methods=["POST", "GET"])
-    def rename_file(self):
-        return render_template('/explorer/name.html', title='Rename file')
-
-    @route("/error_dialog", methods=["POST", "GET"])
-    def rename_file(self):
-        return render_template('/common/error_dialog.html', title='Rename file', msg="")
