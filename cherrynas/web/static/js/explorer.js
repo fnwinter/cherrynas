@@ -119,21 +119,23 @@ function newFolder() {
 /////////////////////////////////////////////////////////////////////
 // copy file
 function copyItem() {
-    $( "#exampleModal" ).dialog();
+    let items = get_selected_items();
+    let json_val = JSON.stringify(items);
+    send_command("copy_item", json_val);
 }
 
 /////////////////////////////////////////////////////////////////////
 // paste file
 function pasteItem() {
-
+    send_command("paste_item", "test");
 }
 
 /////////////////////////////////////////////////////////////////////
 // delete file
 function deleteItem() {
     let items = get_selected_items();
-    console.log(items);
-    send_command("delete_item", items[0]);
+    let json_val = JSON.stringify(items);
+    send_command("delete_item", json_val);
 }
 
 /////////////////////////////////////////////////////////////////////

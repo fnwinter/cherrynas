@@ -2,6 +2,7 @@
 
 import os
 import json
+import shutil
 
 from flask_classful import FlaskView, route
 from flask import render_template, session, request, send_file
@@ -19,6 +20,7 @@ class ExplorerView(FlaskView):
 
     def index(self):
         _path = self.get_current_path()
+        print(_path)
 
         folders = [f for f in os.listdir(_path) if os.path.isdir(os.path.join(_path, f))]
         files = [f for f in os.listdir(_path) if os.path.isfile(os.path.join(_path, f))]
@@ -44,6 +46,10 @@ class ExplorerView(FlaskView):
             session['current_path'] = ROOT_PATH
         else:
             _path = session.get('current_path')
+            print("yes", _path)
+        if not os.path.exists(_path):
+            _path = ROOT_PATH
+            session['current_path'] = ROOT_PATH
         return _path
 
     @route("/command")
@@ -75,14 +81,31 @@ class ExplorerView(FlaskView):
 
         elif command == "delete_item":
             try:
-                _delete_file = os.path.join(_path, option)
-
-                if os.path.isfile(_delete_file):
-                    os.remove(_delete_file)
-                else:
-                    os.rmdir(_delete_file)
+                items = json.loads(option)
+                for item in items:
+                    _delete_file = os.path.join(_path, item)
+                    if os.path.isfile(_delete_file):
+                        os.remove(_delete_file)
+                    else:
+                        os.rmdir(_delete_file)
             except Exception as e:
                 print(e)
+            result = {"result": "refresh"}
+
+        elif command == "copy_item":
+            session['copy_path'] = _path
+            session['copy_item'] = option
+            result = {"result": "success"}
+
+        elif command == "paste_item":
+            paste_path = session.get('copy_path')
+            paste_items = session.get('copy_item')
+            items = json.loads(paste_items)
+
+            for item in items:
+                item_path = os.path.join(paste_path, item)
+                new_item = os.path.join(_path, item)
+                shutil.copyfile(item_path, new_item)
             result = {"result": "refresh"}
 
         return json.dumps(result)
