@@ -132,7 +132,6 @@ class ExplorerView(FlaskView):
         file_name = args.get('file')
         _path = self.get_current_path()
         full_path = os.path.join(_path, file_name)
-        # FIXME: check root path
         # FIXME: check login
         return send_file(full_path, as_attachment=True)
 
