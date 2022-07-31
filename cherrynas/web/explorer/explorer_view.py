@@ -65,6 +65,25 @@ class ExplorerView(FlaskView):
             origin_file = os.path.join(_path, json_option["origin"])
             new_file = os.path.join(_path, json_option["new"])
             os.rename(origin_file, new_file)
+            result = {"result": "refresh"}
+
+        elif command == "new_folder":
+            new_path = os.path.join(_path, option)
+            if not os.path.exists(new_path):
+                os.makedirs(new_path)
+                result = {"result": "refresh"}
+
+        elif command == "delete_item":
+            try:
+                _delete_file = os.path.join(_path, option)
+
+                if os.path.isfile(_delete_file):
+                    os.remove(_delete_file)
+                else:
+                    os.rmdir(_delete_file)
+            except Exception as e:
+                print(e)
+            result = {"result": "refresh"}
 
         return json.dumps(result)
 

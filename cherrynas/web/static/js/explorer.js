@@ -51,43 +51,9 @@ function show_error_dialog(title, content) {
   $('#error_msg_title').text(title);
   $('#error_msg_content').text(content);
 }
+
 function close_error_dialog() {
   $( "#error_msg" ).hide();
-}
-
-function newFolder() {
-    $( "#new_folder_dialog" ).dialog(
-        {
-            open: function() {
-                $(this).closest(".ui-dialog")
-                .find(".ui-dialog-titlebar-close")
-                .removeClass("ui-dialog-titlebar-close")
-                .addClass("ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close")
-                .html("<span class='ui-button-icon ui-icon ui-icon-closethick'></span>");
-
-                $("#new_folder_dialog").removeClass("ui-dialog-content");
-            },
-            close: function() {
-                location.reload();
-            },
-            width: 400
-        }
-    );
-}
-
-function copyItem() {
-    $( "#exampleModal" ).dialog();
-}
-
-function pasteItem() {
-
-}
-
-function deleteItem() {
-    let items = get_selected_items();
-    console.log(items);
-    send_command("delete_item", items);
-    //location.reload();
 }
 
 function showNameDialog(title, placeholder, callback) {
@@ -121,20 +87,6 @@ function closeNameDialog() {
     $( "#name_dialog" ).dialog("close");
 }
 
-function renameItem() {
-    var items = get_selected_items();
-    if (items.length != 1) {
-        show_error_dialog("Rename", "A file is not selected. or multiple files are selected.");
-    } else {
-        showNameDialog("Rename", items[0],
-        function (new_name) {
-            if (new_name.length != 0 && items[0].length != 0) {
-                send_command("rename_item", {"origin": items[0], "new": new_name });
-            }
-        });
-    }
-}
-
 function send_command(_command, _option) {
   let request_url =  location.href + 'command';
   axios.get(request_url,{
@@ -151,4 +103,51 @@ function send_command(_command, _option) {
     }
   })
   .catch(error => console.error(error));
+}
+
+/////////////////////////////////////////////////////////////////////
+// new folder
+function newFolder() {
+    showNameDialog("New folder name", "please enter new folder name",
+        function (new_name) {
+            if (new_name.length != 0) {
+                send_command("new_folder", new_name);
+            }
+        });
+}
+
+/////////////////////////////////////////////////////////////////////
+// copy file
+function copyItem() {
+    $( "#exampleModal" ).dialog();
+}
+
+/////////////////////////////////////////////////////////////////////
+// paste file
+function pasteItem() {
+
+}
+
+/////////////////////////////////////////////////////////////////////
+// delete file
+function deleteItem() {
+    let items = get_selected_items();
+    console.log(items);
+    send_command("delete_item", items[0]);
+}
+
+/////////////////////////////////////////////////////////////////////
+// rename file
+function renameItem() {
+    var items = get_selected_items();
+    if (items.length != 1) {
+        show_error_dialog("Rename", "A file is not selected. or multiple files are selected.");
+    } else {
+        showNameDialog("Rename", items[0],
+        function (new_name) {
+            if (new_name.length != 0 && items[0].length != 0) {
+                send_command("rename_item", {"origin": items[0], "new": new_name });
+            }
+        });
+    }
 }
