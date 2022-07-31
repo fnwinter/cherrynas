@@ -17,10 +17,19 @@ class ExplorerView(FlaskView):
     - copy, paste, move, delete, upload, download files.
     """
     default_methods = ['GET', 'POST']
+    result = {"result": "fail"}
+
+    def __init__(self):
+        self.commands = {
+            "new_folder": self.new_folder,
+            "rename_item": self.rename_item,
+            "delete_item": self.delete_item,
+            "copy_item": self.copy_item,
+            "paste_item": self.paste_item
+        }
 
     def index(self):
         _path = self.get_current_path()
-        print(_path)
 
         folders = [f for f in os.listdir(_path) if os.path.isdir(os.path.join(_path, f))]
         files = [f for f in os.listdir(_path) if os.path.isfile(os.path.join(_path, f))]
@@ -46,7 +55,6 @@ class ExplorerView(FlaskView):
             session['current_path'] = ROOT_PATH
         else:
             _path = session.get('current_path')
-            print("yes", _path)
         if not os.path.exists(_path):
             _path = ROOT_PATH
             session['current_path'] = ROOT_PATH
@@ -54,61 +62,69 @@ class ExplorerView(FlaskView):
 
     @route("/command")
     def command(self):
+        self.result = {"result": "fail"}
+
         command = request.args.get('command')
         option = request.args.get('option')
-        result = {"result": "fail"}
 
-        _path = session.get('current_path')
+        _path = self.get_current_path()
 
         if command == 'double_click':
             new_path = os.path.join(_path, option)
             if os.path.exists(new_path) and os.path.isdir(new_path):
                 session['current_path'] = new_path
-                result = {"result" : "refresh"}
+                self.result = {"result" : "refresh"}
 
-        elif command == "rename_item":
-            json_option = json.loads(option)
-            origin_file = os.path.join(_path, json_option["origin"])
-            new_file = os.path.join(_path, json_option["new"])
-            os.rename(origin_file, new_file)
-            result = {"result": "refresh"}
+        if self.commands.get(command):
+            self.commands[command](option)
 
-        elif command == "new_folder":
-            new_path = os.path.join(_path, option)
-            if not os.path.exists(new_path):
-                os.makedirs(new_path)
-                result = {"result": "refresh"}
+        return json.dumps(self.result)
 
-        elif command == "delete_item":
-            try:
-                items = json.loads(option)
-                for item in items:
-                    _delete_file = os.path.join(_path, item)
-                    if os.path.isfile(_delete_file):
-                        os.remove(_delete_file)
-                    else:
-                        os.rmdir(_delete_file)
-            except Exception as e:
-                print(e)
-            result = {"result": "refresh"}
+    def rename_item(self, option):
+        _path = self.get_current_path()
+        json_option = json.loads(option)
+        origin_file = os.path.join(_path, json_option["origin"])
+        new_file = os.path.join(_path, json_option["new"])
+        os.rename(origin_file, new_file)
+        self.result = {"result": "refresh"}
 
-        elif command == "copy_item":
-            session['copy_path'] = _path
-            session['copy_item'] = option
-            result = {"result": "success"}
+    def new_folder(self, option):
+        _path = self.get_current_path()
+        new_path = os.path.join(_path, option)
+        if not os.path.exists(new_path):
+            os.makedirs(new_path)
+            self.result = {"result": "refresh"}
 
-        elif command == "paste_item":
-            paste_path = session.get('copy_path')
-            paste_items = session.get('copy_item')
-            items = json.loads(paste_items)
-
+    def delete_item(self, option):
+        try:
+            _path = self.get_current_path()
+            items = json.loads(option)
             for item in items:
-                item_path = os.path.join(paste_path, item)
-                new_item = os.path.join(_path, item)
-                shutil.copyfile(item_path, new_item)
-            result = {"result": "refresh"}
+                _delete_file = os.path.join(_path, item)
+                if os.path.isfile(_delete_file):
+                    os.remove(_delete_file)
+                else:
+                    os.rmdir(_delete_file)
+        except Exception as e:
+            print("delete_item", e)
+        self.result = {"result": "refresh"}
 
-        return json.dumps(result)
+    def copy_item(self, option):
+        session['copy_path'] = self.get_current_path()
+        session['copy_item'] = option
+        self.result = {"result": "success"}
+
+    def paste_item(self, _option):
+        paste_path = session.get('copy_path')
+        paste_items = session.get('copy_item')
+        items = json.loads(paste_items)
+        _path = self.get_current_path()
+
+        for item in items:
+            item_path = os.path.join(paste_path, item)
+            new_item = os.path.join(_path, item)
+            shutil.copyfile(item_path, new_item)
+        self.result = {"result": "refresh"}
 
     @route("/download")
     def download(self):
