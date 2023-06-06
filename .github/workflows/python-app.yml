@@ -27,7 +27,6 @@ jobs:
     - name: Run test
       run: |
         pushd cherrynas
-        chmod -R 777 ./resources
         chmod +x ./scripts/run_test.sh
         echo "------------------------------"
         echo "Run test"
@@ -51,7 +50,7 @@ jobs:
         echo "------------------------------"
         echo "Version up"
         echo "------------------------------"
-        ./scripts/version_up.sh
+        echo "./scripts/version_up.sh"
         popd
     - name: Build
       run: |
