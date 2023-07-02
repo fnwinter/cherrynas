@@ -1,66 +1,51 @@
-# music page
 import pynecone as pc
 
-from typing import List
+def music_scripts():
+    _html = '''<script src='/javascripts/music.js'></script>'''
+    return pc.html(_html)
 
-options: List[str] = ["Title", "Artist", "Album", "Genre"]
+def grid_item(_text, _width, _align, _span):
+    return pc.grid_item(pc.box(pc.text(_text), width=_width), row_span=1, col_span=_span)
 
-class SelectState(pc.State):
-    option: str = "Search by"
+def album_cover():
+    return pc.image(src="/images/album_art.png", width="200px", height="200px", border_radius="lg")
 
-class InputState(pc.State):
-    text: str = "Search"
-
-def grid_item(_text):
-    return pc.grid_item(
-        pc.center(pc.text(_text)),
-        row_span=1, col_span=1)
+def album_info():
+    return pc.grid(
+        grid_item("🎶", '10px', 'right',1),
+        grid_item("song 2", '100%', 'left',3),
+        grid_item("💽", '10px','right',1),
+        grid_item("beetlebum",'100%', 'left',3),
+        grid_item("🧑", '10px','right',1),
+        grid_item("blur", '100%','left',3),
+        grid_item("🎷", '10px','right',1),
+        grid_item("rock", '100%','left',3),
+        template_rows="repeat(4, 1fr)",
+        template_columns="repeat(4, 1fr)",
+        hieght="200px",
+        width="100%",
+        gap=0)
 
 def media_player():
     # https://www.w3schools.com/tags/ref_av_dom.asp
-    return pc.html("<audio controls><source src='horse.ogg' type='audio/ogg'></audio>")
+    return pc.html("<audio id='audio_player'><source src='horse.ogg' type='audio/ogg'></audio>")
+
+def music_controller():
+    return pc.button_group(
+        pc.button("◀◀", bg="#909090", color="#323232", size="sm"),
+        pc.button("▶", bg="#909090", color="#323232", size="sm"),
+        pc.button("■", bg="#909090", color="#323232", size="sm"),
+        pc.button("▶▶", bg="#909090", color="#323232", size="sm"),
+        space="1em")
 
 def music_index():
     return pc.center(
         pc.vstack(
-            pc.html("<script scr='/javascripts/music_page.js'></script>"),
-            pc.hstack(
-                        pc.select(
-                        options,
-                        placeholder="Select by",
-                        on_change=SelectState.set_option,
-                        color_schemes="twitter",
-                    ),
-                pc.input(on_change=InputState.set_text),
-            ),
-            pc.image(src="/images/album_art.png", width="200px", height="200px"),
-            pc.grid(
-                grid_item("title"),
-                grid_item("song 2"),
-                grid_item("album"),
-                grid_item("beetlebum"),
-                grid_item("artist"),
-                grid_item("blur"),
-                grid_item("genre"),
-                grid_item("rock"),
-                template_rows="repeat(4, 1fr)",
-                template_columns="repeat(2, 1fr)",
-                hieght="200px",
-                width="100%",
-                gap=0,
-            ),
+            album_cover(),
+            album_info(),
             media_player(),
-            pc.button_group(
-                pc.button(
-                    "Prev", bg="lightblue", color="black", size="sm"
-                ),
-                pc.button(
-                    "Play", bg="orange", color="white", size="sm"
-                ),
-                pc.button("Next", color_scheme="red", size="sm"),
-                space="1em",
-            ),
-            bg="white",
+            music_controller(),
+            bg="#E3E3E3",
             padding="2em",
             shadow="lg",
             border_radius="lg",
