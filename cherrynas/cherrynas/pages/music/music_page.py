@@ -38,7 +38,7 @@ def music_controller():
         pc.button("▶", bg="#909090", color="#323232", size="sm"),
         pc.button("■", bg="#909090", color="#323232", size="sm"),
         pc.button("▶▶", bg="#909090", color="#323232", size="sm"),
-        pc.button("🧾", bg="#909090", color="#323232", size="sm", on_click=PlayerList.right),
+        pc.button("⫶", bg="#909090", color="#323232", size="sm", on_click=PlayerList.right),
         space="1em")
 
 class PlayerList(State):
@@ -58,11 +58,20 @@ def music_playlist():
                     pc.drawer_content(
                         pc.drawer_header("Playlist"),
                         pc.drawer_body(
-                            "Do you want to confirm example?"
+                            "Song2"
                         ),
                         pc.drawer_footer(
                             pc.button(
-                                "❌", on_click=PlayerList.right
+                                "+", on_click=PlayerList.right
+                            ),
+                            pc.button(
+                                "-", on_click=PlayerList.right
+                            ),
+                            pc.button(
+                                "Clear", on_click=PlayerList.right
+                            ),
+                            pc.button(
+                                "X", on_click=PlayerList.right
                             )
                         ),
                         bg="white",

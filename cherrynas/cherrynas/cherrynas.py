@@ -3,8 +3,8 @@ import pynecone as pc
 from cherrynas.state import State
 
 from cherrynas.pages.index import index
-from cherrynas.pages.music import music_index
-from cherrynas.pages.music import music_scripts
+from cherrynas.pages.music.music_page import music_index
+from cherrynas.pages.music.music_page import music_scripts
 
 app = pc.App(state=State)
 app.add_page(index, title="cherrynas", image="/splash.png")
