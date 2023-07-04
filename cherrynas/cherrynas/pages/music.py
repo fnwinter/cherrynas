@@ -1,5 +1,7 @@
 import pynecone as pc
 
+from cherrynas.state import State
+
 def music_scripts():
     _html = '''<script src='/javascripts/music.js'></script>'''
     return pc.html(_html)
@@ -36,7 +38,39 @@ def music_controller():
         pc.button("▶", bg="#909090", color="#323232", size="sm"),
         pc.button("■", bg="#909090", color="#323232", size="sm"),
         pc.button("▶▶", bg="#909090", color="#323232", size="sm"),
+        pc.button("🧾", bg="#909090", color="#323232", size="sm", on_click=PlayerList.right),
         space="1em")
+
+class PlayerList(State):
+    show_right: bool = False
+    show_top: bool = False
+
+    def top(self):
+        self.show_top = not (self.show_top)
+
+    def right(self):
+        self.show_right = not (self.show_right)
+
+def music_playlist():
+    return pc.box(
+            pc.drawer(
+                pc.drawer_overlay(
+                    pc.drawer_content(
+                        pc.drawer_header("Playlist"),
+                        pc.drawer_body(
+                            "Do you want to confirm example?"
+                        ),
+                        pc.drawer_footer(
+                            pc.button(
+                                "❌", on_click=PlayerList.right
+                            )
+                        ),
+                        bg="white",
+                    )
+                ),
+                is_open=PlayerList.show_right,
+            ),
+        )
 
 def music_index():
     return pc.center(
@@ -45,6 +79,7 @@ def music_index():
             album_info(),
             media_player(),
             music_controller(),
+            music_playlist(),
             bg="#E3E3E3",
             padding="2em",
             shadow="lg",
