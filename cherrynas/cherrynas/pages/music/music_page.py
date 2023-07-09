@@ -1,6 +1,7 @@
 import pynecone as pc
 
 from cherrynas.state import State
+from cherrynas.pages.music.music_tag import parse_audio_tag
 
 def music_scripts():
     _html = '''<script src='/javascripts/music.js'></script>'''
@@ -13,9 +14,12 @@ def album_cover():
     return pc.image(src="/images/album_art.png", width="200px", height="200px", border_radius="lg")
 
 def album_info():
+    song = parse_audio_tag('../../../assets/temp/02_Song 2.mp3')
+    print(song)
+
     return pc.grid(
         grid_item("🎶", '10px', 'right',1),
-        grid_item("song 2", '100%', 'left',3),
+        grid_item(song['title'], '100%', 'left',3),
         grid_item("💽", '10px','right',1),
         grid_item("beetlebum",'100%', 'left',3),
         grid_item("🧑", '10px','right',1),

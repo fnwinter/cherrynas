@@ -1,6 +1,8 @@
 import eyed3
+import os
 
 from eyed3.id3.frames import ImageFrame
+from collections import defaultdict
 
 eyed3.log.setLevel("ERROR")
 
@@ -21,8 +23,12 @@ def write_album_art(images):
         f.write(image.image_data)
 
 def parse_audio_tag(path):
-    audiofile = eyed3.load('../../../assets/temp/02_Song 2.mp3')
-
-    write_album_art(audiofile.tag.images)
-
-    return {'title': audiofile.tag.title, 'album': audiofile.tag.album, 'artist': audiofile.tag.artist, 'genre': audiofile.tag.genre}
+    if os.path.exists(path):
+        audiofile = eyed3.load(path)
+        if audiofile:
+            write_album_art(audiofile.tag.images)
+            return {'title': audiofile.tag.title,
+                    'album': audiofile.tag.album,
+                    'artist': audiofile.tag.artist,
+                    'genre': audiofile.tag.genre}
+    return defaultdict(str)
