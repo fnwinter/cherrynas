@@ -1,19 +1,12 @@
-"""Welcome to Pynecone! This file outlines the steps to create a basic app."""
 import pynecone as pc
 
-from pcconfig import config
+from cherrynas.state import State
 
-docs_url = "https://pynecone.io/docs/getting-started/introduction"
-filename = f"{config.app_name}/{config.app_name}.py"
+from cherrynas.pages.index import index
+from cherrynas.pages.music.music_page import music_index
+from cherrynas.pages.music.music_page import music_scripts
 
-class State(pc.State):
-    """The app state."""
-    print("pass")
-
-def index():
-    return pc.text("hello world")
-
-# Add state and page to the app.
 app = pc.App(state=State)
-app.add_page(index)
+app.add_page(index, title="cherrynas", image="/splash.png")
+app.add_page(music_index, title="cherrynas ❤ music", route="/music", script_tags=[music_scripts()])
 app.compile()
