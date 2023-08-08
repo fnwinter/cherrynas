@@ -7,7 +7,7 @@
  * source ./venv/bin/activate
  * python3 -m pip install -r requirements.txt
 
-# pynecone
+# reflex
  * cd cherrynas
  * pc init
  * pc run
