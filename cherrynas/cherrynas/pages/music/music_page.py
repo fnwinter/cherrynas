@@ -1,23 +1,23 @@
-import pynecone as pc
+import reflex as rx
 
 from cherrynas.state import State
 from cherrynas.pages.music.music_tag import parse_audio_tag
 
 def music_scripts():
     _html = '''<script src='/javascripts/music.js'></script>'''
-    return pc.html(_html)
+    return rx.html(_html)
 
 def grid_item(_text, _width, _align, _span):
-    return pc.grid_item(pc.box(pc.text(_text), width=_width), row_span=1, col_span=_span)
+    return rx.grid_item(rx.box(rx.text(_text), width=_width), row_span=1, col_span=_span)
 
 def album_cover():
-    return pc.image(src="/images/album_art.png", width="200px", height="200px", border_radius="lg")
+    return rx.image(src="/images/album_art.png", width="200px", height="200px", border_radius="lg")
 
 def album_info():
     song = parse_audio_tag('../../../assets/temp/02_Song 2.mp3')
     print(song)
 
-    return pc.grid(
+    return rx.grid(
         grid_item("🎶", '10px', 'right',1),
         grid_item(song['title'], '100%', 'left',3),
         grid_item("💽", '10px','right',1),
@@ -34,15 +34,15 @@ def album_info():
 
 def media_player():
     # https://www.w3schools.com/tags/ref_av_dom.asp
-    return pc.html("<audio id='audio_player'><source src='horse.ogg' type='audio/ogg'></audio>")
+    return rx.html("<audio id='audio_player'><source src='horse.ogg' type='audio/ogg'></audio>")
 
 def music_controller():
-    return pc.button_group(
-        pc.button("◀◀", bg="#909090", color="#323232", size="sm"),
-        pc.button("▶", bg="#909090", color="#323232", size="sm"),
-        pc.button("■", bg="#909090", color="#323232", size="sm"),
-        pc.button("▶▶", bg="#909090", color="#323232", size="sm"),
-        pc.button("⫶", bg="#909090", color="#323232", size="sm", on_click=PlayerList.right),
+    return rx.button_group(
+        rx.button("◀◀", bg="#909090", color="#323232", size="sm"),
+        rx.button("▶", bg="#909090", color="#323232", size="sm"),
+        rx.button("■", bg="#909090", color="#323232", size="sm"),
+        rx.button("▶▶", bg="#909090", color="#323232", size="sm"),
+        rx.button("⫶", bg="#909090", color="#323232", size="sm", on_click=PlayerList.right),
         space="1em")
 
 class PlayerList(State):
@@ -56,25 +56,25 @@ class PlayerList(State):
         self.show_right = not (self.show_right)
 
 def music_playlist():
-    return pc.box(
-            pc.drawer(
-                pc.drawer_overlay(
-                    pc.drawer_content(
-                        pc.drawer_header("Playlist"),
-                        pc.drawer_body(
+    return rx.box(
+            rx.drawer(
+                rx.drawer_overlay(
+                    rx.drawer_content(
+                        rx.drawer_header("Playlist"),
+                        rx.drawer_body(
                             "Song2"
                         ),
-                        pc.drawer_footer(
-                            pc.button(
+                        rx.drawer_footer(
+                            rx.button(
                                 "+", on_click=PlayerList.right
                             ),
-                            pc.button(
+                            rx.button(
                                 "-", on_click=PlayerList.right
                             ),
-                            pc.button(
+                            rx.button(
                                 "Clear", on_click=PlayerList.right
                             ),
-                            pc.button(
+                            rx.button(
                                 "X", on_click=PlayerList.right
                             )
                         ),
@@ -86,8 +86,8 @@ def music_playlist():
         )
 
 def music_index():
-    return pc.center(
-        pc.vstack(
+    return rx.center(
+        rx.vstack(
             album_cover(),
             album_info(),
             media_player(),

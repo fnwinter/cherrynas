@@ -1,5 +1,5 @@
-import refex as rx
+import reflex as rx
 
-class State(pc.State):
+class State(rx.State):
     """The app state."""
     print("pass")
