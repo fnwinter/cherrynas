@@ -5,3 +5,4 @@ cherrynas.egg-info/
 .eggs
 *.db
 .idea/
+.web/
